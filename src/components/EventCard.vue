@@ -2,7 +2,13 @@
   <div class="event-card" :class="statusClass">
     <div class="header">
       <h3 class="title">{{ title }}</h3>
-      <span class="status">{{ status }}</span>
+
+      <!-- STATUS BADGE -->
+      <span class="status">
+        <template v-if="status === 'pending'">Pending</template>
+        <template v-else-if="status === 'confirmed'">✔ Verified</template>
+        <template v-else-if="status === 'rejected'">✖ Rejected</template>
+      </span>
     </div>
 
     <p class="desc">{{ description }}</p>
@@ -17,7 +23,7 @@
       </div>
 
       <div class="meta-item">
-        <strong>Reported by:</strong> {{ reporter }}
+        <strong>Reported by:</strong> {{ reportedBy }}
       </div>
 
       <div class="meta-item category" :class="categoryClass">
@@ -32,18 +38,19 @@ import { computed } from 'vue'
 
 const props = defineProps({
   title: String,
-  status: String,
+  status: String,          // pending | confirmed | rejected
   description: String,
   location: String,
   date: String,
-  reporter: String,
+  reportedBy: String,      // FIXED (was reporter)
   category: String
 })
 
 /* STATUS COLORS */
 const statusClass = computed(() => {
-  if (props.status === 'Pending') return 'pending'
-  if (props.status === 'Confirmed') return 'confirmed'
+  if (props.status === 'pending') return 'pending'
+  if (props.status === 'confirmed') return 'confirmed'
+  if (props.status === 'rejected') return 'rejected'
   return ''
 })
 
@@ -67,19 +74,21 @@ const categoryClass = computed(() => {
 .event-card {
   background: #111;
   border: 1px solid #2A2A2A;
-  border-radius: 10px; /* smaller */
-  padding: 14px; /* smaller */
-  margin-bottom: 14px; /* smaller */
-  transition:
-    border-color 0.25s ease,
-    background 0.25s ease,
-    transform 0.18s ease;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 14px;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.18s ease, opacity 0.4s ease;
 }
 
 .event-card:hover {
   border-color: #2D9CDB;
   background: #141414;
-  transform: translateY(-2px); /* smaller lift */
+  transform: translateY(-2px);
+}
+
+/* FADE OUT FOR REJECTED */
+.event-card.rejected {
+  opacity: 0.5;
 }
 
 /* HEADER */
@@ -90,16 +99,16 @@ const categoryClass = computed(() => {
 }
 
 .title {
-  font-size: 15px; /* smaller */
+  font-size: 15px;
   font-weight: 600;
   color: #fff;
 }
 
 /* STATUS BADGE */
 .status {
-  font-size: 11px; /* smaller */
+  font-size: 11px;
   font-weight: 600;
-  padding: 3px 8px; /* smaller */
+  padding: 3px 8px;
   border-radius: 5px;
   text-transform: uppercase;
 }
@@ -114,12 +123,17 @@ const categoryClass = computed(() => {
   color: #27AE60;
 }
 
+.rejected .status {
+  background: rgba(235, 87, 87, 0.15);
+  color: #EB5757;
+}
+
 /* DESCRIPTION */
 .desc {
-  margin: 8px 0; /* smaller */
+  margin: 8px 0;
   opacity: 0.85;
   line-height: 1.4;
-  font-size: 13px; /* smaller */
+  font-size: 13px;
   color: #ccc;
 }
 
@@ -127,8 +141,8 @@ const categoryClass = computed(() => {
 .meta {
   display: flex;
   flex-direction: column;
-  gap: 6px; /* smaller */
-  font-size: 13px; /* smaller */
+  gap: 6px;
+  font-size: 13px;
   color: #bbb;
 }
 
@@ -141,21 +155,10 @@ const categoryClass = computed(() => {
   font-weight: 600;
 }
 
-/* Infrastructure */
 .cat-infrastructure { color: #2D9CDB; }
-
-/* Security */
 .cat-security { color: #EB5757; }
-
-/* Environment */
 .cat-environment { color: #27AE60; }
-
-/* Traffic */
 .cat-traffic { color: #F2C94C; }
-
-/* Health */
 .cat-health { color: #BB6BD9; }
-
-/* Default */
 .cat-default { color: #999; }
 </style>

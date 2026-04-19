@@ -51,14 +51,14 @@ const route = useRoute()
 
 const mainMenu = [
   { label: 'Dashboard', path: '/dashboard', icon: HomeIcon },
-  { label: 'Events', path: '/events', icon: MapPinIcon },
+  // { label: 'Events', path: '/events', icon: MapPinIcon },  <-- removed
   { label: 'Forwardings', path: '/forwardings', icon: ArrowRightCircleIcon },
   { label: 'Teams', path: '/teams', icon: UsersIcon },
   { label: 'Categories', path: '/categories', icon: FolderIcon }
 ]
 
 const bottomMenu = [
-  { label: 'Logout', path: '/logout', icon: ArrowLeftOnRectangleIcon }
+  { label: 'Logout', path: '/', icon: ArrowLeftOnRectangleIcon }
 ]
 </script>
 

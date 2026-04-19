@@ -30,6 +30,9 @@
           <option>Medium</option>
           <option>High</option>
         </select>
+
+        <label>Reported By</label>
+        <input v-model="form.reportedBy" type="text" placeholder="Enter reporter name" />
       </div>
 
       <div class="actions">
@@ -50,7 +53,8 @@ const form = reactive({
   description: '',
   category: '',
   location: '',
-  priority: ''
+  priority: '',
+  reportedBy: ''
 })
 
 function close() {
@@ -58,7 +62,10 @@ function close() {
 }
 
 function submit() {
-  emit('submit', { ...form })
+  emit('submit', {
+    ...form,
+    date: new Date().toLocaleString() // auto timestamp
+  })
 }
 </script>
 

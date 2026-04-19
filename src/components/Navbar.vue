@@ -1,7 +1,7 @@
 <template>
   <header class="navbar">
 
-    <!-- LEFT SECTION (kept for layout, content hidden on profile) -->
+    <!-- LEFT SECTION -->
     <div class="left">
       <template v-if="route.path !== '/profile'">
         <button class="new-event" @click="$emit('open-new-event')">
@@ -11,15 +11,19 @@
 
         <div class="search-wrapper">
           <MagnifyingGlassIcon class="search-icon" />
-          <input type="text" placeholder="Search..." />
+          <input
+            type="text"
+            placeholder="Search..."
+            v-model="searchQuery"
+            @input="$emit('search', searchQuery)"
+          />
         </div>
       </template>
     </div>
 
-    <!-- CENTER SPACER -->
     <div class="center"></div>
 
-    <!-- RIGHT SECTION (always visible) -->
+    <!-- RIGHT SECTION -->
     <div class="right">
       <div class="notif-wrapper">
         <button class="icon-button" @click="toggleNotifications">
@@ -67,6 +71,7 @@ import { MagnifyingGlassIcon, BellIcon, PlusIcon } from '@heroicons/vue/24/outli
 
 const route = useRoute()
 
+const searchQuery = ref("")
 const showNotifications = ref(false)
 
 const notifications = ref([

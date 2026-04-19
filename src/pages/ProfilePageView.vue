@@ -10,14 +10,18 @@
 
           <!-- HEADER -->
           <div class="header-row">
-            <div class="avatar">U</div>
-
-            <div class="header-info">
-              <h2 class="name">User</h2>
-              <p class="role">Administrator</p>
+            <div class="avatar" :style="{ backgroundImage: profile.photo ? `url(${profile.photo})` : '' }">
+              <span v-if="!profile.photo">U</span>
             </div>
 
-            <button class="edit-btn">Edit Profile</button>
+            <div class="header-info">
+              <h2 class="name">{{ profile.name }}</h2>
+              <p class="role">{{ profile.role }}</p>
+            </div>
+
+            <button class="edit-btn" @click="showEditModal = true">
+              Edit Profile
+            </button>
           </div>
 
           <!-- DETAILS SECTION -->
@@ -26,7 +30,7 @@
               <EnvelopeIcon class="detail-icon" />
               <div>
                 <strong>Email</strong>
-                <p>user@email.com</p>
+                <p>{{ profile.email }}</p>
               </div>
             </div>
 
@@ -34,7 +38,7 @@
               <PhoneIcon class="detail-icon" />
               <div>
                 <strong>Phone</strong>
-                <p>555-0123</p>
+                <p>{{ profile.phone }}</p>
               </div>
             </div>
 
@@ -42,7 +46,7 @@
               <BuildingOfficeIcon class="detail-icon" />
               <div>
                 <strong>Department</strong>
-                <p>Urban Management</p>
+                <p>{{ profile.department }}</p>
               </div>
             </div>
 
@@ -50,7 +54,7 @@
               <MapPinIcon class="detail-icon" />
               <div>
                 <strong>Location</strong>
-                <p>City Hall, Downtown</p>
+                <p>{{ profile.location }}</p>
               </div>
             </div>
 
@@ -58,7 +62,7 @@
               <CalendarIcon class="detail-icon" />
               <div>
                 <strong>Member since</strong>
-                <p>January 15, 2024</p>
+                <p>{{ profile.memberSince }}</p>
               </div>
             </div>
           </div>
@@ -66,12 +70,23 @@
         </div>
       </div>
     </div>
+
+    <!-- EDIT PROFILE MODAL -->
+    <EditProfileModal
+      v-if="showEditModal"
+      :profile="profile"
+      @close="showEditModal = false"
+      @save="updateProfile"
+    />
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
+
 import Sidebar from '@/components/Sidebar.vue'
 import Navbar from '@/components/Navbar.vue'
+import EditProfileModal from '@/components/EditProfileModal.vue'
 
 import {
   EnvelopeIcon,
@@ -80,6 +95,24 @@ import {
   MapPinIcon,
   CalendarIcon
 } from '@heroicons/vue/24/outline'
+
+const showEditModal = ref(false)
+
+const profile = ref({
+  name: "User",
+  role: "Administrator",
+  email: "user@email.com",
+  phone: "555-0123",
+  department: "Urban Management",
+  location: "City Hall, Downtown",
+  memberSince: "January 15, 2024",
+  photo: null
+})
+
+function updateProfile(updated) {
+  profile.value = { ...profile.value, ...updated }
+  showEditModal.value = false
+}
 </script>
 
 <style scoped>
@@ -121,12 +154,15 @@ import {
   width: 90px;
   height: 90px;
   background: #2d9cdb;
+  background-size: cover;
+  background-position: center;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 36px;
   font-weight: 700;
+  overflow: hidden;
 }
 
 .header-info {
@@ -159,8 +195,8 @@ import {
 .details {
   margin-top: 40px;
   display: grid;
-  grid-template-columns: 1fr 1fr; /* TWO PER LINE */
-  gap: 28px 40px; /* vertical | horizontal spacing */
+  grid-template-columns: 1fr 1fr;
+  gap: 28px 40px;
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
