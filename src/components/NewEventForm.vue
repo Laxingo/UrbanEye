@@ -3,37 +3,32 @@
     <div class="modal">
       <h2 class="title">Create New Event</h2>
 
-      <div class="form">
-        <label>Event Title</label>
-        <input v-model="form.title" type="text" placeholder="Enter event title" />
+    <div class="form">
+      <input v-model="form.title" type="text" placeholder="Event Title" />
 
-        <label>Description</label>
-        <textarea v-model="form.description" placeholder="Enter event description"></textarea>
+      <textarea v-model="form.description" placeholder="Description"></textarea>
 
-        <label>Category</label>
-        <select v-model="form.category">
-          <option disabled value="">Select a category</option>
-          <option>Infrastructure</option>
-          <option>Traffic</option>
-          <option>Environment</option>
-          <option>Security</option>
-          <option>Health</option>
-        </select>
+      <select v-model="form.category">
+        <option disabled value="">Category</option>
+        <option>Infrastructure</option>
+        <option>Traffic</option>
+        <option>Environment</option>
+        <option>Security</option>
+        <option>Health</option>
+      </select>
 
-        <label>Location</label>
-        <input v-model="form.location" type="text" placeholder="Enter location" />
+      <input v-model="form.location" type="text" placeholder="Location" />
 
-        <label>Priority</label>
-        <select v-model="form.priority">
-          <option disabled value="">Select a priority</option>
-          <option>Low</option>
-          <option>Medium</option>
-          <option>High</option>
-        </select>
+      <select v-model="form.priority">
+        <option disabled value="">Priority</option>
+        <option>Low</option>
+        <option>Medium</option>
+        <option>High</option>
+      </select>
 
-        <label>Reported By</label>
-        <input v-model="form.reportedBy" type="text" placeholder="Enter reporter name" />
-      </div>
+      <input v-model="form.reportedBy" type="text" placeholder="Reported By" />
+    </div>
+
 
       <div class="actions">
         <button class="cancel" @click="close">Cancel</button>

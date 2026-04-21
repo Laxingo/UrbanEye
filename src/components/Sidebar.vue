@@ -1,57 +1,63 @@
 <template>
   <aside class="sidebar">
-    <!-- Logo Section -->
+
+    <!-- LOGO (sempre visível) -->
     <div class="brand">
       <img src="/src/images/logo.png" alt="UrbanEye logo" class="logo" />
     </div>
 
-    <!-- Main Menu -->
-    <nav class="menu">
-      <RouterLink
-        v-for="item in mainMenu"
-        :key="item.label"
-        :to="item.path"
-        class="menu-item"
-        :class="{ active: route.path === item.path }"
-      >
-        <component :is="item.icon" class="icon" />
-        <span class="label">{{ item.label }}</span>
-      </RouterLink>
-    </nav>
+    <!-- MENU (apenas admins) -->
+    <template v-if="!isUser">
+      <nav class="menu">
+        <RouterLink
+          v-for="item in mainMenu"
+          :key="item.label"
+          :to="item.path"
+          class="menu-item"
+          :class="{ active: route.path === item.path }"
+        >
+          <component :is="item.icon" class="icon" />
+          <span class="label">{{ item.label }}</span>
+        </RouterLink>
+      </nav>
 
-    <!-- Bottom Menu -->
-    <nav class="menu bottom-menu">
-      <RouterLink
-        v-for="item in bottomMenu"
-        :key="item.label"
-        :to="item.path"
-        class="menu-item"
-        :class="{ active: route.path === item.path }"
-      >
-        <component :is="item.icon" class="icon" />
-        <span class="label">{{ item.label }}</span>
-      </RouterLink>
-    </nav>
+      <nav class="menu bottom-menu">
+        <RouterLink
+          v-for="item in bottomMenu"
+          :key="item.label"
+          :to="item.path"
+          class="menu-item"
+          :class="{ active: route.path === item.path }"
+        >
+          <component :is="item.icon" class="icon" />
+          <span class="label">{{ item.label }}</span>
+        </RouterLink>
+      </nav>
+    </template>
+
   </aside>
 </template>
+
 
 <script setup>
 import { useRoute } from 'vue-router'
 
 import {
   HomeIcon,
-  MapPinIcon,
   ArrowRightCircleIcon,
   UsersIcon,
   FolderIcon,
   ArrowLeftOnRectangleIcon
 } from '@heroicons/vue/24/outline'
 
+const props = defineProps({
+  isUser: { type: Boolean, default: false }
+})
+
 const route = useRoute()
 
 const mainMenu = [
   { label: 'Dashboard', path: '/dashboard', icon: HomeIcon },
-  // { label: 'Events', path: '/events', icon: MapPinIcon },  <-- removed
   { label: 'Forwardings', path: '/forwardings', icon: ArrowRightCircleIcon },
   { label: 'Teams', path: '/teams', icon: UsersIcon },
   { label: 'Categories', path: '/categories', icon: FolderIcon }
@@ -61,6 +67,7 @@ const bottomMenu = [
   { label: 'Logout', path: '/', icon: ArrowLeftOnRectangleIcon }
 ]
 </script>
+
 
 <style scoped>
 .sidebar {

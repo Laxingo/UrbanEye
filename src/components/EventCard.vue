@@ -29,6 +29,7 @@
       <div class="meta-item category" :class="categoryClass">
         <strong>Category:</strong> {{ category }}
       </div>
+      <p v-if="distance">📍 {{ distance.toFixed(1) }} km</p>
     </div>
   </div>
 </template>

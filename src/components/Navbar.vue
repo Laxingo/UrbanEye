@@ -1,5 +1,5 @@
 <template>
-  <header class="navbar">
+<header class="navbar" :class="{ full: isUser }">
 
     <!-- LEFT SECTION -->
     <div class="left">
@@ -59,7 +59,25 @@
         </div>
       </div>
 
-      <RouterLink to="/profile" class="user-icon no-underline">U</RouterLink>
+      <RouterLink to="/profile" class="user-icon no-underline">
+        <!-- Foto -->
+        <img
+          v-if="props.avatar && props.avatar.startsWith('data:image')"
+          :src="props.avatar"
+          alt="avatar"
+          class="avatar-img"
+        />
+
+        <!-- Inicial do nome -->
+        <span v-else-if="props.avatar">
+          {{ props.avatar.charAt(0).toUpperCase() }}
+        </span>
+
+        <!-- Fallback -->
+        <span v-else>U</span>
+      </RouterLink>
+
+
     </div>
   </header>
 </template>
@@ -99,6 +117,12 @@ function deleteNotification(index) {
     unreadCount.value = notifications.value.filter(n => n.unread).length
   }
 }
+
+const props = defineProps({
+  isUser: { type: Boolean, default: false },
+  avatar: { type: String, default: "" }, // URL ou inicial
+})
+
 </script>
 
 <style scoped>
@@ -335,4 +359,18 @@ function deleteNotification(index) {
 .no-underline {
   text-decoration: none;
 }
+
+.navbar.full {
+  grid-template-columns: 1fr 1fr 1fr; /* ocupa largura total */
+  margin-left: 0; /* sidebar não existe */
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
 </style>

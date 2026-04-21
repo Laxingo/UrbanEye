@@ -16,7 +16,7 @@
 
         <!-- EVENTS PANEL -->
         <aside class="events-panel">
-          <h2 class="panel-title">List of Events</h2>
+          <h2 class="panel-title">Occurences Near You</h2>
 
           <div class="events-list">
             <EventCard
@@ -27,6 +27,37 @@
               class="event-clickable"
             />
           </div>
+          <!-- Mostrar + occurrences -->
+          <div
+            v-if="!showAllEvents"
+            @click="showAllEvents = true"
+            class="occ-divider"
+          >
+            <span>+ occurrences</span>
+          </div>
+
+<transition name="expand">
+  <div v-if="showAllEvents" class="all-events-wrapper">
+    <div
+      v-for="event in sortedEvents"
+      :key="event.id"
+      class="event-item"
+      @click="openEventDetails(event)"
+    >
+      <EventCard :event="event" />
+    </div>
+
+    <!-- collapse divider -->
+    <div
+      @click="showAllEvents = false"
+      class="occ-divider"
+    >
+      <span>- occurrences</span>
+    </div>
+  </div>
+</transition>
+
+
         </aside>
       </div>
     </div>
@@ -79,12 +110,19 @@ function searchEvents(query) {
   searchTerm.value = query
 }
 
+const showAllEvents = ref(false)
+
+
 const filteredEvents = computed(() => {
-  if (!searchTerm.value.trim()) return events.value
+  let list = sortedByDistance.value
+
+  if (!searchTerm.value.trim()) {
+    return showAllEvents.value ? list : list.slice(0, 5)
+  }
 
   const term = searchTerm.value.toLowerCase()
 
-  return events.value.filter(e =>
+  return list.filter(e =>
     e.title.toLowerCase().includes(term) ||
     e.description.toLowerCase().includes(term) ||
     e.location.toLowerCase().includes(term) ||
@@ -92,6 +130,8 @@ const filteredEvents = computed(() => {
     e.reportedBy.toLowerCase().includes(term)
   )
 })
+
+
 
 /* MODAL STATES */
 const showNewEvent = ref(false)
@@ -103,41 +143,162 @@ const selectedEvent = ref(null)
 const events = ref([
   {
     id: 1,
-    title: 'Pothole on Santa Catarina Street',
+    title: 'Buraco na Rua da Igreja',
     category: 'Infrastructure',
-    location: 'Rua de Santa Catarina, Porto',
-    coords: [41.1487, -8.6070],
-    description: 'Large pothole causing traffic slowdown.',
+    location: 'Rua da Igreja, Vila do Conde',
+    coords: [41.3539, -8.7481],
+    description: 'Buraco grande na via, causando desvio de trânsito.',
     priority: 'High',
-    reportedBy: 'City Resident',
+    reportedBy: 'Residente Local',
     date: '2026-04-10 14:22',
     status: 'pending'
   },
   {
     id: 2,
-    title: 'Traffic Light Malfunction at Glicínias Roundabout',
+    title: 'Semáforo avariado na Av. Júlio Graça',
     category: 'Traffic',
-    location: 'Rotunda do Glicínias, Aveiro',
-    coords: [40.6405, -8.6538],
-    description: 'Traffic lights blinking yellow.',
+    location: 'Avenida Júlio Graça, Vila do Conde',
+    coords: [41.3517, -8.7429],
+    description: 'Semáforo intermitente, piscando amarelo.',
     priority: 'Medium',
-    reportedBy: 'Municipal Agent',
+    reportedBy: 'Agente Municipal',
     date: '2026-04-11 09:10',
     status: 'pending'
   },
   {
     id: 3,
-    title: 'Overflowing Trash Container',
+    title: 'Contentor de lixo a transbordar',
     category: 'Environment',
-    location: 'Avenida da Liberdade, Lisbon',
-    coords: [38.7369, -9.1427],
-    description: 'Trash container full and spilling.',
+    location: 'Rua Dr. António José de Almeida, Vila do Conde',
+    coords: [41.3548, -8.7420],
+    description: 'Contentor cheio e lixo espalhado no chão.',
     priority: 'Low',
-    reportedBy: 'Local Business',
+    reportedBy: 'Comerciante Local',
     date: '2026-04-12 11:45',
     status: 'pending'
-  }
+  },
+  {
+  id: 4,
+  title: 'Queda de árvore na Marginal',
+  category: 'Infrastructure',
+  location: 'Avenida do Brasil, Vila do Conde',
+  coords: [41.3530, -8.7495],
+  description: 'Árvore caída parcialmente a bloquear a ciclovia.',
+  priority: 'Medium',
+  reportedBy: 'Ciclista',
+  date: '2026-04-13 10:15',
+  status: 'pending'
+},
+{
+  id: 5,
+  title: 'Luz pública apagada',
+  category: 'Infrastructure',
+  location: 'Rua Comendador António Fernandes, Vila do Conde',
+  coords: [41.3498, -8.7421],
+  description: 'Candeeiro sem iluminação durante a noite.',
+  priority: 'Low',
+  reportedBy: 'Morador',
+  date: '2026-04-13 21:40',
+  status: 'pending'
+},
+{
+  id: 6,
+  title: 'Acidente ligeiro na rotunda',
+  category: 'Traffic',
+  location: 'Rotunda da Junqueira, Vila do Conde',
+  coords: [41.3537, -8.7470],
+  description: 'Colisão entre dois veículos, sem feridos.',
+  priority: 'High',
+  reportedBy: 'Agente Municipal',
+  date: '2026-04-14 08:20',
+  status: 'pending'
+},
+{
+  id: 7,
+  title: 'Contentor de reciclagem cheio',
+  category: 'Environment',
+  location: 'Rua Dr. Carlos Pinto Ferreira, Vila do Conde',
+  coords: [41.3509, -8.7448],
+  description: 'Contentor azul completamente cheio.',
+  priority: 'Low',
+  reportedBy: 'Residente',
+  date: '2026-04-14 12:05',
+  status: 'pending'
+},
+{
+  id: 8,
+  title: 'Ruído excessivo durante a noite',
+  category: 'Security',
+  location: 'Praça da República, Vila do Conde',
+  coords: [41.3524, -8.7488],
+  description: 'Grupo de pessoas a causar ruído após as 2h.',
+  priority: 'Medium',
+  reportedBy: 'Morador',
+  date: '2026-04-15 02:30',
+  status: 'pending'
+},
+{
+  id: 9,
+  title: 'Fuga de água na via pública',
+  category: 'Infrastructure',
+  location: 'Rua da Costa, Vila do Conde',
+  coords: [41.3551, -8.7412],
+  description: 'Água a sair de uma tampa de saneamento.',
+  priority: 'High',
+  reportedBy: 'Comerciante',
+  date: '2026-04-15 11:10',
+  status: 'pending'
+},
+{
+  id: 10,
+  title: 'Animal perdido',
+  category: 'Security',
+  location: 'Rua da Lapa, Vila do Conde',
+  coords: [41.3560, -8.7465],
+  description: 'Cão encontrado a vaguear sozinho.',
+  priority: 'Low',
+  reportedBy: 'Residente',
+  date: '2026-04-15 17:55',
+  status: 'pending'
+},
+{
+  id: 11,
+  title: 'Sinal de trânsito danificado',
+  category: 'Traffic',
+  location: 'Rua Dr. Leonardo Coimbra, Vila do Conde',
+  coords: [41.3512, -8.7403],
+  description: 'Sinal de STOP inclinado após impacto.',
+  priority: 'Medium',
+  reportedBy: 'Condutor',
+  date: '2026-04-16 09:40',
+  status: 'pending'
+},
+{
+  id: 12,
+  title: 'Lixo acumulado na praia',
+  category: 'Environment',
+  location: 'Praia de Vila do Conde',
+  coords: [41.3535, -8.7602],
+  description: 'Resíduos deixados após evento noturno.',
+  priority: 'High',
+  reportedBy: 'Turista',
+  date: '2026-04-16 07:30',
+  status: 'pending'
+},
+{
+  id: 13,
+  title: 'Pessoa ferida na ciclovia',
+  category: 'Health',
+  location: 'Ciclovia da Marginal, Vila do Conde',
+  coords: [41.3542, -8.7511],
+  description: 'Queda de bicicleta, vítima com ferimentos ligeiros.',
+  priority: 'High',
+  reportedBy: 'Passante',
+  date: '2026-04-17 18:20',
+  status: 'pending'
+}
 ])
+
 
 /* CATEGORY COLORS */
 const categoryColors = {
@@ -169,10 +330,29 @@ function createColoredIcon(color) {
 }
 
 onMounted(() => {
+  getUserLocation()
   map = L.map('map', {
     zoomControl: false,
-    scrollWheelZoom: true
-  }).setView([39.5, -8.0], 7)
+    dragging: true,
+    touchZoom: true,
+    scrollWheelZoom: true,
+    doubleClickZoom: true,
+    boxZoom: false,
+    keyboard: false,
+    minZoom: 13,
+    maxZoom: 16
+  }).setView([41.3533, -8.7452], 14)
+
+  // Limitar movimento a uma área pequena em torno de Vila do Conde
+  const bounds = L.latLngBounds(
+    [41.3450, -8.7600], // sudoeste
+    [41.3650, -8.7300]  // nordeste
+  )
+
+  map.setMaxBounds(bounds)
+  map.on('drag', () => {
+    map.panInsideBounds(bounds, { animate: false })
+  })
 
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; OpenStreetMap contributors'
@@ -182,7 +362,11 @@ onMounted(() => {
   map.addLayer(markerCluster)
 
   events.value.forEach(event => addMarker(event))
+
+  getUserLocation()
 })
+
+
 
 function addMarker(event) {
   if (!event.coords || event.coords.length !== 2) {
@@ -315,7 +499,6 @@ function saveEditedEvent(updated) {
 }
 
 
-
 /* CREATE EVENT */
 function createEvent(data) {
   const newEvent = {
@@ -335,6 +518,81 @@ function createEvent(data) {
   addMarker(newEvent)
   showNewEvent.value = false
 }
+
+const userLocation = ref(null)
+let userMarker = null
+
+function getUserLocation() {
+  if (!navigator.geolocation) return
+
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      userLocation.value = [
+        pos.coords.latitude,
+        pos.coords.longitude
+      ]
+
+      const icon = L.divIcon({
+        className: 'user-pin',
+        html: `<div style="
+          width:16px;
+          height:16px;
+          background:#2d9cdb;
+          border-radius:50%;
+          border:3px solid white;
+        "></div>`,
+        iconSize: [16, 16],
+        iconAnchor: [8, 8]
+      })
+
+      userMarker = L.marker(userLocation.value, { icon })
+      userMarker.addTo(map)
+    },
+    err => console.warn("User denied location")
+  )
+}
+
+
+function distanceInKm(coord1, coord2) {
+  const R = 6371
+  const dLat = (coord2[0] - coord1[0]) * Math.PI / 180
+  const dLon = (coord2[1] - coord1[1]) * Math.PI / 180
+
+  const lat1 = coord1[0] * Math.PI / 180
+  const lat2 = coord2[0] * Math.PI / 180
+
+  const a =
+    Math.sin(dLat/2) ** 2 +
+    Math.sin(dLon/2) ** 2 * Math.cos(lat1) * Math.cos(lat2)
+
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+}
+
+
+const nearbyEvents = computed(() => {
+  if (!userLocation.value) return events.value
+
+  return [...events.value]
+    .map(ev => ({
+      ...ev,
+      distance: distanceInKm(userLocation.value, ev.coords)
+    }))
+    .sort((a, b) => a.distance - b.distance)
+})
+
+const sortedByDistance = computed(() => {
+  if (!userLocation.value) return events.value
+
+  return [...events.value]
+    .map(ev => ({
+      ...ev,
+      distance: distanceInKm(userLocation.value, ev.coords)
+    }))
+    .sort((a, b) => a.distance - b.distance)
+})
+
+
+
 </script>
 
 <style scoped>
@@ -440,4 +698,35 @@ function createEvent(data) {
   scrollbar-width: thin;
   scrollbar-color: #2a2a2a #0d0d0d;
 }
+
+.occ-divider {
+  margin: 18px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  user-select: none;
+}
+
+.occ-divider::before,
+.occ-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #2a2a2a;
+  margin: 0 12px;
+}
+
+.occ-divider span {
+  font-size: 13px;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.occ-divider:hover {
+  opacity: 1;
+}
+
 </style>

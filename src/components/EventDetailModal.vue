@@ -82,9 +82,9 @@
 
       <!-- BOTTOM ACTION BUTTONS -->
       <div class="bottom-actions">
-        <button class="confirm-btn" @click="$emit('confirm', event)">Confirm</button>
-        <button class="reject-btn" @click="$emit('reject', event)">Reject</button>
-        <button class="forward-btn" @click="$emit('forward', event)">Forward</button>
+        <button class="confirm-btn" v-if="event.status === 'pending'" @click="$emit('confirm', event)">Confirm</button>
+        <button class="reject-btn" v-if="event.status === 'pending'" @click="$emit('reject', event)">Reject</button>
+        <button class="forward-btn" v-if="event.status === 'confirmed'" @click="$emit('forward', event)">Forward</button>
       </div>
 
     </div>
