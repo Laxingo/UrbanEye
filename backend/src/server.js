@@ -1,9 +1,16 @@
-require("dotenv").config();
-
-const app = require("./app");
+import "dotenv/config";
+import app from "./app.js";
+import sequelize from "./config/database.js";
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`UrbanEye API running on http://localhost:${PORT}`);
-});
+try {
+  await sequelize.authenticate();
+  console.log("Database connection established successfully.");
+
+  app.listen(PORT, () => {
+    console.log(`UrbanEye API running on http://localhost:${PORT}`);
+  });
+} catch (error) {
+  console.error("Unable to connect to the database:", error.message);
+}
