@@ -6,6 +6,8 @@ import VerifyEmailView from '../pages/VerifyEmailView.vue'
 import EmailSentView from '@/pages/EmailSentView.vue'
 import DashboardView from '@/pages/DashboardView.vue'
 import ProfilePageView from '@/pages/ProfilePageView.vue'
+import ForwardingView from '@/pages/ForwardingView.vue'
+import TeamsView from '@/pages/TeamsView.vue'
 
 // Função simples para verificar sessão
 function isAuthenticated() {
@@ -31,6 +33,18 @@ const routes = [
     path: '/profile',
     name: 'profile',
     component: ProfilePageView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/forwardings',
+    name: 'forwardings',
+    component: ForwardingView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/teams',
+    name: 'teams',
+    component: TeamsView,
     meta: { requiresAuth: true }
   }
 ]

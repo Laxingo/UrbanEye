@@ -1,12 +1,12 @@
 <template>
   <aside class="sidebar">
 
-    <!-- LOGO (sempre visível) -->
+    <!-- LOGO -->
     <div class="brand">
       <img src="/src/images/logo.png" alt="UrbanEye logo" class="logo" />
     </div>
 
-    <!-- MENU (admins veem tudo, users só dashboard) -->
+    <!-- MENU -->
     <nav class="menu">
       <RouterLink
         :to="'/dashboard'"
@@ -44,6 +44,7 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { logoutUser } from '@/auth/auth'
 
@@ -55,12 +56,16 @@ import {
   ArrowLeftOnRectangleIcon
 } from '@heroicons/vue/24/outline'
 
-const props = defineProps({
-  isAdmin: { type: Boolean, default: false }
-})
-
 const route = useRoute()
 const router = useRouter()
+
+// 🔥 Agora a sidebar lê o role diretamente da sessão
+const isAdmin = ref(false)
+
+onMounted(() => {
+  const session = JSON.parse(localStorage.getItem("session"))
+  isAdmin.value = session?.role === "admin"
+})
 
 const adminMenu = [
   { label: 'Forwardings', path: '/forwardings', icon: ArrowRightCircleIcon },

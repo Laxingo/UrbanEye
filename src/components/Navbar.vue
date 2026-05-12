@@ -3,7 +3,7 @@
 
     <!-- LEFT SECTION -->
     <div class="left">
-      <template v-if="route.name !== 'profile'">
+      <template v-if="!isUser">
         <button class="new-event" @click="$emit('open-new-event')">
           <PlusIcon class="icon-btn" />
           New Event
@@ -63,18 +63,13 @@
       </div>
 
       <RouterLink to="/profile" class="user-icon no-underline">
-
-        <!-- Foto externa ou base64 -->
         <img
           v-if="avatar"
           :src="avatar"
           alt="avatar"
           class="avatar-img"
         />
-
-        <!-- Fallback inicial -->
         <span v-else>U</span>
-
       </RouterLink>
     </div>
   </header>
@@ -87,17 +82,19 @@ import { MagnifyingGlassIcon, BellIcon, PlusIcon } from '@heroicons/vue/24/outli
 
 const route = useRoute()
 
+const props = defineProps({
+  isUser: { type: Boolean, default: false }
+})
+
 const searchQuery = ref("")
 const showNotifications = ref(false)
-const avatar = ref("") // 🔥 avatar global
+const avatar = ref("")
 
-// Carregar avatar da sessão
 onMounted(() => {
   const session = JSON.parse(localStorage.getItem("session"))
   avatar.value = session?.photo || "https://i.pravatar.cc/150?img=12"
 })
 
-// Atualizar avatar automaticamente quando o localStorage mudar
 window.addEventListener("storage", () => {
   const session = JSON.parse(localStorage.getItem("session"))
   avatar.value = session?.photo || "https://i.pravatar.cc/150?img=12"
@@ -128,10 +125,6 @@ function deleteNotification(index) {
 function clearAllNotifications() {
   notifications.value = []
 }
-
-const props = defineProps({
-  isUser: { type: Boolean, default: false }
-})
 </script>
 
 <style scoped>
