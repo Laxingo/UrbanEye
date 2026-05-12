@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard">
-    <Sidebar />
+  <Sidebar :isAdmin="currentUser?.role === 'admin'" />
 
     <div class="main">
       <Navbar
@@ -69,10 +69,11 @@
       @submit="createEvent"
     />
 
-    <!-- EVENT DETAILS MODAL -->
     <EventDetailsModal
-      v-if="showEventDetails"
+      v-if="showEventDetails && session"
       :event="selectedEvent"
+      :isAdmin="session.role === 'admin'"
+      :currentUserEmail="session.email"
       @close="showEventDetails = false"
       @edit="openEditEvent"
       @delete="deleteEvent"
@@ -80,6 +81,7 @@
       @reject="rejectEvent"
       @forward="forwardEvent"
     />
+
 
     <!-- EDIT EVENT MODAL -->
     <EditEventModal
@@ -102,6 +104,18 @@ import EventCard from '@/components/EventCard.vue'
 import NewEventForm from '@/components/NewEventForm.vue'
 import EventDetailsModal from '@/components/EventDetailModal.vue'
 import EditEventModal from '@/components/EditEventModal.vue'
+import { getCurrentUser } from "@/auth/auth"
+
+const session = ref(null)
+
+onMounted(() => {
+  const stored = localStorage.getItem("session")
+  if (stored) {
+    session.value = JSON.parse(stored)
+  }
+})
+
+const currentUser = getCurrentUser()
 
 /* SEARCH */
 const searchTerm = ref("")
@@ -331,6 +345,7 @@ function createColoredIcon(color) {
 
 onMounted(() => {
   getUserLocation()
+
   map = L.map('map', {
     zoomControl: false,
     dragging: true,
@@ -339,32 +354,56 @@ onMounted(() => {
     doubleClickZoom: true,
     boxZoom: false,
     keyboard: false,
-    minZoom: 13,
-    maxZoom: 16
+
+    // Movimento suave
+    inertia: true,
+    inertiaDeceleration: 2200,
+    inertiaMaxSpeed: 3000,
+
+    // Zoom suave
+    zoomAnimation: true,
+    zoomAnimationThreshold: 4,
+
+    minZoom: 12,
+    maxZoom: 18
   }).setView([41.3533, -8.7452], 14)
 
-  // Limitar movimento a uma área pequena em torno de Vila do Conde
+  // Área maior e mais natural (Vila do Conde + Árvore + Mindelo)
   const bounds = L.latLngBounds(
-    [41.3450, -8.7600], // sudoeste
-    [41.3650, -8.7300]  // nordeste
+    [41.3300, -8.7900], // sudoeste
+    [41.3900, -8.7000]  // nordeste
   )
 
+  // Limitação suave, elástica
   map.setMaxBounds(bounds)
-  map.on('drag', () => {
-    map.panInsideBounds(bounds, { animate: false })
-  })
+  map.options.maxBoundsViscosity = 0.35
 
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map)
 
-  markerCluster = L.markerClusterGroup()
+  markerCluster = L.markerClusterGroup({
+    animateAddingMarkers: true,
+    spiderfyOnMaxZoom: true,
+    showCoverageOnHover: false
+  })
+
   map.addLayer(markerCluster)
 
   events.value.forEach(event => addMarker(event))
 
   getUserLocation()
 })
+
+
+function normalizeCategory(cat) {
+  return cat
+    .toLowerCase()
+    .normalize("NFD")               // remove acentos
+    .replace(/[\u0300-\u036f]/g, "") // remove marcas de acento
+    .replace(/\s+/g, '-')            // troca espaços por -
+    .replace(/[^a-z0-9\-]/g, '')     // remove caracteres estranhos
+}
 
 
 
@@ -380,14 +419,24 @@ function addMarker(event) {
     icon: createColoredIcon(color)
   })
 
-  marker.bindPopup(`
-    <strong>${event.title}</strong><br>
-    ${event.location}<br>
-    <em>${event.category}</em><br>
-    <small>Priority: ${event.priority}</small><br>
-    <small>Reported by: ${event.reportedBy}</small><br>
-    <small>Date: ${event.date}</small>
-  `)
+
+
+marker.bindPopup(`
+  <div class="ue-popup" style="--tag-color: ${color}">
+    <div class="ue-popup-title">${event.title}</div>
+    <div class="ue-popup-location">${event.location}</div>
+
+    <div class="ue-popup-meta">
+      <span class="ue-tag">${event.category}</span>
+      <span class="ue-priority">Priority: ${event.priority}</span>
+    </div>
+
+    <div class="ue-popup-footer">
+      <span>${event.reportedBy}</span>
+      <span>${event.date}</span>
+    </div>
+  </div>
+`)
 
   markerCluster.addLayer(marker)
   markerRefs.value[event.id] = marker
@@ -417,25 +466,61 @@ function deleteEvent(id) {
   showEventDetails.value = false
 }
 
-function confirmEvent(event) {
-  const index = events.value.findIndex(e => e.id === event.id)
-  if (index !== -1) events.value[index].status = 'confirmed'
+    function confirmEvent(event) {
+      // Atualizar o status
+      event.status = "confirmed"
 
-  showEventDetails.value = false
-}
+      // Atualizar o array de eventos
+      const index = events.value.findIndex(e => e.id === event.id)
+      if (index !== -1) {
+        events.value[index] = { ...event }
+      }
+
+      // Guardar no localStorage
+      localStorage.setItem("events", JSON.stringify(events.value))
+
+      // Fechar e reabrir o modal para forçar re-render
+      showEventDetails.value = false
+      setTimeout(() => {
+        selectedEvent.value = { ...event }
+        showEventDetails.value = true
+      }, 50)
+    }
 
 function rejectEvent(event) {
+  event.status = "rejected"
+
   const index = events.value.findIndex(e => e.id === event.id)
-  if (index !== -1) events.value[index].status = 'rejected'
+  if (index !== -1) {
+    events.value[index] = { ...event }
+  }
+
+  localStorage.setItem("events", JSON.stringify(events.value))
 
   showEventDetails.value = false
-
-  setTimeout(() => deleteEvent(event.id), 3000)
+  setTimeout(() => {
+    selectedEvent.value = { ...event }
+    showEventDetails.value = true
+  }, 50)
 }
 
 function forwardEvent(event) {
-  console.log("Event forwarded:", event)
+  event.status = "forwarded"
+
+  const index = events.value.findIndex(e => e.id === event.id)
+  if (index !== -1) {
+    events.value[index] = { ...event }
+  }
+
+  localStorage.setItem("events", JSON.stringify(events.value))
+
+  showEventDetails.value = false
+  setTimeout(() => {
+    selectedEvent.value = { ...event }
+    showEventDetails.value = true
+  }, 50)
 }
+
 
 /* UPDATE EVENT + UPDATE PIN COLOR */
 function saveEditedEvent(updated) {
@@ -483,13 +568,22 @@ function saveEditedEvent(updated) {
     })
 
     marker.bindPopup(`
-      <strong>${ev.title}</strong><br>
-      ${ev.location}<br>
-      <em>${ev.category}</em><br>
-      <small>Priority: ${ev.priority}</small><br>
-      <small>Reported by: ${ev.reportedBy}</small><br>
-      <small>Date: ${ev.date}</small>
+      <div class="ue-popup">
+        <div class="ue-popup-title">${event.title}</div>
+        <div class="ue-popup-location">${event.location}</div>
+
+        <div class="ue-popup-meta">
+          <span class="ue-tag">${event.category}</span>
+          <span class="ue-priority">Priority: ${event.priority}</span>
+        </div>
+
+        <div class="ue-popup-footer">
+          <span>Reported by: ${event.reportedBy}</span>
+          <span>${event.date}</span>
+        </div>
+      </div>
     `)
+
 
     markerCluster.addLayer(marker)
     markerRefs.value[ev.id] = marker
@@ -590,7 +684,6 @@ const sortedByDistance = computed(() => {
     }))
     .sort((a, b) => a.distance - b.distance)
 })
-
 
 
 </script>
@@ -727,6 +820,88 @@ const sortedByDistance = computed(() => {
 
 .occ-divider:hover {
   opacity: 1;
+}
+
+:global(.leaflet-popup-content-wrapper) {
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+:global(.leaflet-popup-tip) {
+  display: none !important;
+}
+
+:global(.leaflet-popup-content) {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+:global(.ue-popup) {
+  background: #1c1c1c;
+  padding: 16px 18px;
+  border-radius: 12px;
+  color: #f2f2f2;
+  font-family: 'Inter', sans-serif;
+  width: 240px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+  animation: popupFade 0.25s ease-out;
+}
+
+:global(.ue-popup-title) {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+:global(.ue-popup-location) {
+  font-size: 13px;
+  opacity: 0.85;
+  margin-bottom: 12px;
+}
+
+:global(.ue-popup-meta) {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+:global(.ue-priority) {
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+:global(.ue-popup-footer) {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  opacity: 0.65;
+}
+
+:global(.ue-tag) {
+  background: var(--tag-color);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: white;
+  display: inline-block;
+}
+
+
+@keyframes popupFade {
+  from {
+    transform: translateY(6px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 </style>

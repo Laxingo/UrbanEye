@@ -1,9 +1,9 @@
 <template>
-<header class="navbar" :class="{ full: isUser }">
+  <header class="navbar" :class="{ full: isUser }">
 
     <!-- LEFT SECTION -->
     <div class="left">
-      <template v-if="route.path !== '/profile'">
+      <template v-if="route.name !== 'profile'">
         <button class="new-event" @click="$emit('open-new-event')">
           <PlusIcon class="icon-btn" />
           New Event
@@ -34,7 +34,10 @@
         <div v-if="showNotifications" class="notif-popup">
           <div class="notif-header">
             <h3>Notifications</h3>
-            <button class="mark-read" @click="markAllRead">Mark all as read</button>
+            <div class="notif-actions">
+              <button class="mark-read" @click="markAllRead">Mark all as read</button>
+              <button class="clear-all" @click="clearAllNotifications">Clear all</button>
+            </div>
           </div>
 
           <div v-if="notifications.length === 0" class="notif-empty">
@@ -60,30 +63,25 @@
       </div>
 
       <RouterLink to="/profile" class="user-icon no-underline">
-        <!-- Foto -->
+
+        <!-- Foto externa ou base64 -->
         <img
-          v-if="props.avatar && props.avatar.startsWith('data:image')"
-          :src="props.avatar"
+          v-if="avatar"
+          :src="avatar"
           alt="avatar"
           class="avatar-img"
         />
 
-        <!-- Inicial do nome -->
-        <span v-else-if="props.avatar">
-          {{ props.avatar.charAt(0).toUpperCase() }}
-        </span>
-
-        <!-- Fallback -->
+        <!-- Fallback inicial -->
         <span v-else>U</span>
+
       </RouterLink>
-
-
     </div>
   </header>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { MagnifyingGlassIcon, BellIcon, PlusIcon } from '@heroicons/vue/24/outline'
 
@@ -91,6 +89,19 @@ const route = useRoute()
 
 const searchQuery = ref("")
 const showNotifications = ref(false)
+const avatar = ref("") // 🔥 avatar global
+
+// Carregar avatar da sessão
+onMounted(() => {
+  const session = JSON.parse(localStorage.getItem("session"))
+  avatar.value = session?.photo || "https://i.pravatar.cc/150?img=12"
+})
+
+// Atualizar avatar automaticamente quando o localStorage mudar
+window.addEventListener("storage", () => {
+  const session = JSON.parse(localStorage.getItem("session"))
+  avatar.value = session?.photo || "https://i.pravatar.cc/150?img=12"
+})
 
 const notifications = ref([
   { text: "New event reported in Porto", time: "2 min ago", unread: true },
@@ -98,7 +109,9 @@ const notifications = ref([
   { text: "System check completed", time: "1 hour ago", unread: false }
 ])
 
-const unreadCount = ref(notifications.value.filter(n => n.unread).length)
+const unreadCount = computed(() =>
+  notifications.value.filter(n => n.unread).length
+)
 
 function toggleNotifications() {
   showNotifications.value = !showNotifications.value
@@ -106,30 +119,26 @@ function toggleNotifications() {
 
 function markAllRead() {
   notifications.value.forEach(n => n.unread = false)
-  unreadCount.value = 0
 }
 
 function deleteNotification(index) {
-  const wasUnread = notifications.value[index].unread
   notifications.value.splice(index, 1)
+}
 
-  if (wasUnread) {
-    unreadCount.value = notifications.value.filter(n => n.unread).length
-  }
+function clearAllNotifications() {
+  notifications.value = []
 }
 
 const props = defineProps({
-  isUser: { type: Boolean, default: false },
-  avatar: { type: String, default: "" }, // URL ou inicial
+  isUser: { type: Boolean, default: false }
 })
-
 </script>
 
 <style scoped>
 /* NAVBAR GRID LAYOUT */
 .navbar {
   display: grid;
-  grid-template-columns: 1fr auto 1fr; /* left | center | right */
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   background: #0d0d0d;
   color: #fff;
@@ -145,7 +154,7 @@ const props = defineProps({
   gap: 14px;
 }
 
-/* CENTER COLUMN (empty but keeps spacing) */
+/* CENTER COLUMN */
 .center {
   justify-self: center;
 }
@@ -258,69 +267,99 @@ const props = defineProps({
   justify-content: center;
 }
 
-/* POPUP */
+/* POPUP MAIOR E MAIS CONFORTÁVEL */
 .notif-popup {
   position: absolute;
   top: 50px;
   right: 0;
-  width: 240px;
+  width: 260px; /* AUMENTADO */
   background: #111;
   border: 1px solid #2a2a2a;
   border-radius: 10px;
-  padding: 12px;
+  padding: 14px; /* mais espaço */
   box-shadow: 0 6px 16px rgba(0,0,0,0.4);
   animation: fadeSlide 0.25s ease;
   z-index: 1000;
 }
 
+/* HEADER */
 .notif-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.mark-read {
+.notif-header h3 {
+  font-size: 15px;
+  margin: 0;
+}
+
+.notif-actions {
+  display: flex;
+  gap: 8px; /* MAIS ESPAÇO */
+}
+
+/* BOTÕES DE AÇÃO MENOS COMPACTOS */
+.mark-read,
+.clear-all {
   background: none;
   border: none;
   color: #2d9cdb;
-  font-size: 12px;
+  font-size: 12px; /* maior */
   cursor: pointer;
+  padding: 4px 6px; /* mais espaço */
+  border-radius: 4px;
+  transition: background 0.2s ease;
 }
 
+.mark-read:hover,
+.clear-all:hover {
+  background: #1a1a1a;
+}
+
+/* LISTA */
 .notif-list {
-  margin-top: 10px;
+  margin-top: 12px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
+/* ITEM */
 .notif-item {
   background: #1a1a1a;
-  padding: 10px;
+  padding: 10px; /* mais espaço */
   border-radius: 6px;
   font-size: 13px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .notif-item.unread {
   border-left: 3px solid #2d9cdb;
 }
 
-.notif-text {
-  display: flex;
-  flex-direction: column;
+/* TEXTO */
+.notif-text p {
+  font-size: 13px;
+  margin: 0;
 }
 
+.notif-text small {
+  font-size: 10px;
+  opacity: 0.6;
+}
+
+/* DELETE BUTTON */
 .delete-btn {
   background: none;
   border: none;
   color: #777;
   font-size: 12px;
   cursor: pointer;
-  padding: 2px;
+  padding: 3px 5px;
   border-radius: 4px;
 }
 
@@ -329,10 +368,12 @@ const props = defineProps({
   background: #333;
 }
 
+/* EMPTY STATE — MAIS PEQUENO */
 .notif-empty {
-  padding: 16px;
+  padding: 10px;
   text-align: center;
-  opacity: 0.7;
+  opacity: 0.6;
+  font-size: 12px; /* reduzido */
 }
 
 /* ANIMATION */
@@ -361,8 +402,8 @@ const props = defineProps({
 }
 
 .navbar.full {
-  grid-template-columns: 1fr 1fr 1fr; /* ocupa largura total */
-  margin-left: 0; /* sidebar não existe */
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-left: 0;
 }
 
 .avatar-img {
@@ -371,6 +412,5 @@ const props = defineProps({
   border-radius: 50%;
   object-fit: cover;
 }
-
 
 </style>

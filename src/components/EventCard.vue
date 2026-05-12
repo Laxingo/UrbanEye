@@ -29,7 +29,6 @@
       <div class="meta-item category" :class="categoryClass">
         <strong>Category:</strong> {{ category }}
       </div>
-      <p v-if="distance">📍 {{ distance.toFixed(1) }} km</p>
     </div>
   </div>
 </template>
@@ -43,7 +42,7 @@ const props = defineProps({
   description: String,
   location: String,
   date: String,
-  reportedBy: String,      // FIXED (was reporter)
+  reportedBy: String,
   category: String
 })
 

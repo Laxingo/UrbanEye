@@ -6,24 +6,21 @@
       <img src="/src/images/logo.png" alt="UrbanEye logo" class="logo" />
     </div>
 
-    <!-- MENU (apenas admins) -->
-    <template v-if="!isUser">
-      <nav class="menu">
-        <RouterLink
-          v-for="item in mainMenu"
-          :key="item.label"
-          :to="item.path"
-          class="menu-item"
-          :class="{ active: route.path === item.path }"
-        >
-          <component :is="item.icon" class="icon" />
-          <span class="label">{{ item.label }}</span>
-        </RouterLink>
-      </nav>
+    <!-- MENU (admins veem tudo, users só dashboard) -->
+    <nav class="menu">
+      <RouterLink
+        :to="'/dashboard'"
+        class="menu-item"
+        :class="{ active: route.path === '/dashboard' }"
+      >
+        <HomeIcon class="icon" />
+        <span class="label">Dashboard</span>
+      </RouterLink>
 
-      <nav class="menu bottom-menu">
+      <!-- Apenas admins -->
+      <template v-if="isAdmin">
         <RouterLink
-          v-for="item in bottomMenu"
+          v-for="item in adminMenu"
           :key="item.label"
           :to="item.path"
           class="menu-item"
@@ -32,15 +29,23 @@
           <component :is="item.icon" class="icon" />
           <span class="label">{{ item.label }}</span>
         </RouterLink>
-      </nav>
-    </template>
+      </template>
+    </nav>
+
+    <!-- LOGOUT -->
+    <nav class="menu bottom-menu">
+      <div class="menu-item" @click="logout">
+        <ArrowLeftOnRectangleIcon class="icon" />
+        <span class="label">Logout</span>
+      </div>
+    </nav>
 
   </aside>
 </template>
 
-
 <script setup>
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { logoutUser } from '@/auth/auth'
 
 import {
   HomeIcon,
@@ -51,23 +56,23 @@ import {
 } from '@heroicons/vue/24/outline'
 
 const props = defineProps({
-  isUser: { type: Boolean, default: false }
+  isAdmin: { type: Boolean, default: false }
 })
 
 const route = useRoute()
+const router = useRouter()
 
-const mainMenu = [
-  { label: 'Dashboard', path: '/dashboard', icon: HomeIcon },
+const adminMenu = [
   { label: 'Forwardings', path: '/forwardings', icon: ArrowRightCircleIcon },
   { label: 'Teams', path: '/teams', icon: UsersIcon },
   { label: 'Categories', path: '/categories', icon: FolderIcon }
 ]
 
-const bottomMenu = [
-  { label: 'Logout', path: '/', icon: ArrowLeftOnRectangleIcon }
-]
+function logout() {
+  logoutUser()
+  router.push('/')
+}
 </script>
-
 
 <style scoped>
 .sidebar {
@@ -84,13 +89,10 @@ const bottomMenu = [
 .brand {
   display: flex;
   justify-content: center;
-  margin: 0;
-  padding: 0;
 }
 
 .logo {
   width: 120px;
-  height: auto;
   opacity: 0.95;
   transition: transform 0.25s ease;
 }
@@ -124,6 +126,7 @@ const bottomMenu = [
   text-decoration: none;
   font-size: 15px;
   font-weight: 500;
+  cursor: pointer;
   transition:
     background 0.25s ease,
     color 0.25s ease,

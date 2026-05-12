@@ -1,12 +1,15 @@
 <script setup>
+import ToastContainer from "@/components/ToastContainer.vue"
+import LoadingOverlay from "@/components/LoadingOverlay.vue"
 </script>
 
 <template>
   <router-view />
+  <ToastContainer />
+  <LoadingOverlay />
 </template>
 
 <style>
-/* Estilos globais opcionais */
 body {
   margin: 0;
   font-family: Inter, sans-serif;

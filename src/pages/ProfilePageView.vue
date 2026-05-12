@@ -3,14 +3,17 @@
     <Sidebar />
 
     <div class="main">
-      <Navbar />
+      <Navbar :avatar="profile.photo" />
 
       <div class="content">
         <div class="profile-container">
 
           <!-- HEADER -->
           <div class="header-row">
-            <div class="avatar" :style="{ backgroundImage: profile.photo ? `url(${profile.photo})` : '' }">
+            <div
+              class="avatar"
+              :style="{ backgroundImage: profile.photo ? `url(${profile.photo})` : '' }"
+            >
               <span v-if="!profile.photo">U</span>
             </div>
 
@@ -82,7 +85,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 import Sidebar from '@/components/Sidebar.vue'
 import Navbar from '@/components/Navbar.vue'
@@ -97,20 +100,54 @@ import {
 } from '@heroicons/vue/24/outline'
 
 const showEditModal = ref(false)
-
 const profile = ref({
-  name: "User",
-  role: "Administrator",
-  email: "user@email.com",
-  phone: "555-0123",
-  department: "Urban Management",
-  location: "City Hall, Downtown",
-  memberSince: "January 15, 2024",
-  photo: null
+  name: "",
+  role: "",
+  email: "",
+  phone: "",
+  department: "",
+  location: "",
+  memberSince: "",
+  photo: ""
 })
 
+// 🔥 Carregar sessão real do localStorage
+onMounted(() => {
+  const session = JSON.parse(localStorage.getItem("session"))
+
+  if (session) {
+    profile.value = {
+      name: session.name || "User",
+      role: session.role || "User",
+      email: session.email,
+      phone: session.phone || "Not provided",
+      department: session.department || "Not assigned",
+      location: session.location || "Not assigned",
+      memberSince: session.memberSince || "Unknown",
+      photo: session.photo || null
+    }
+  }
+})
+
+// 🔥 Atualizar perfil + localStorage
 function updateProfile(updated) {
   profile.value = { ...profile.value, ...updated }
+
+  // Atualizar sessão no localStorage
+  const session = JSON.parse(localStorage.getItem("session")) || {}
+  const newSession = { ...session, ...updated }
+
+  localStorage.setItem("session", JSON.stringify(newSession))
+
+  // Atualizar lista de utilizadores (se existir)
+  const users = JSON.parse(localStorage.getItem("users")) || []
+  const index = users.findIndex(u => u.email === newSession.email)
+
+  if (index !== -1) {
+    users[index] = { ...users[index], ...updated }
+    localStorage.setItem("users", JSON.stringify(users))
+  }
+
   showEditModal.value = false
 }
 </script>

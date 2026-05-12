@@ -32,6 +32,13 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useToast } from "@/composables/useToast"
+import { useLoading } from "@/composables/useLoading"
+
+const router = useRouter()
+const { show } = useToast()
+const { show: showLoading, hide: hideLoading } = useLoading()
 
 const code = ref(["", "", "", "", "", ""])
 
@@ -42,12 +49,52 @@ function focusNext(index) {
   }
 }
 
-function handleVerify() {
-  console.log("Code entered:", code.value.join(""))
+async function handleVerify() {
+  const entered = code.value.join("")
+
+  if (entered.length !== 6) {
+    show("Enter all 6 digits", "warning")
+    return
+  }
+
+  if (entered !== "123456") {
+    show("Invalid verification code", "error")
+    return
+  }
+
+  const email = localStorage.getItem("pendingVerifyEmail")
+  if (!email) {
+    show("No pending verification", "error")
+    return
+  }
+
+  showLoading("Verifying your account…")
+
+  // Simular tempo de verificação
+  await new Promise(resolve => setTimeout(resolve, 1200))
+
+  const users = JSON.parse(localStorage.getItem("users"))
+  const user = users.find(u => u.email === email)
+
+  if (user) {
+    user.verified = true
+    localStorage.setItem("users", JSON.stringify(users))
+
+    // Criar sessão automaticamente
+    localStorage.setItem("session", JSON.stringify(user))
+  }
+
+  localStorage.removeItem("pendingVerifyEmail")
+
+  hideLoading()
+
+  show("Email verified successfully!", "success")
+
+  router.push("/dashboard")
 }
 
 function resendCode() {
-  console.log("Resend code")
+  show("A new code would be sent (static mode)", "info")
 }
 </script>
 
@@ -66,33 +113,33 @@ function resendCode() {
 /* Header */
 .header {
   text-align: center;
-  margin-bottom: 40px; /* smaller */
+  margin-bottom: 40px;
 }
 
 .title {
-  font-size: 32px; /* smaller */
+  font-size: 32px;
   font-weight: 700;
   margin: 0;
 }
 
 .subtitle {
   margin-top: 6px;
-  font-size: 18px; /* smaller */
+  font-size: 18px;
   opacity: 0.75;
 }
 
 /* Code boxes */
 .code-container {
   display: flex;
-  gap: 12px; /* smaller */
-  margin-bottom: 30px; /* smaller */
+  gap: 12px;
+  margin-bottom: 30px;
 }
 
 .code-box {
-  width: 48px; /* smaller */
-  height: 56px; /* smaller */
+  width: 48px;
+  height: 56px;
   text-align: center;
-  font-size: 24px; /* smaller */
+  font-size: 24px;
   border-radius: 10px;
   border: 1px solid #2a2a2a;
   background: #111;
@@ -106,15 +153,15 @@ function resendCode() {
 
 /* Button */
 .btn-primary {
-  width: 340px; /* smaller */
-  padding: 16px; /* smaller */
+  width: 340px;
+  padding: 16px;
   background: #2D9CDB;
   border: none;
   border-radius: 10px;
   color: white;
   font-weight: 600;
   cursor: pointer;
-  font-size: 18px; /* smaller */
+  font-size: 18px;
   margin-top: 10px;
 }
 
@@ -124,7 +171,7 @@ function resendCode() {
 
 /* Footer */
 .resend {
-  margin-top: 30px; /* smaller */
+  margin-top: 30px;
   font-size: 16px;
   opacity: 0.85;
 }

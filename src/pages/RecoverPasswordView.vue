@@ -31,12 +31,30 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useToast } from "@/composables/useToast"
+import { useLoading } from "@/composables/useLoading"
 
 const email = ref('')
 const router = useRouter()
 
-function handleRecover() {
-  console.log("Recover password for:", email.value)
+const { show } = useToast()
+const { show: showLoading, hide: hideLoading } = useLoading()
+
+async function handleRecover() {
+  if (!email.value) {
+    show("Please enter your email", "warning")
+    return
+  }
+
+  showLoading("Sending reset link…")
+
+  // Simular envio
+  await new Promise(resolve => setTimeout(resolve, 1200))
+
+  hideLoading()
+
+  show("Reset link sent to your email", "info")
+
   router.push('/email-sent')
 }
 </script>
@@ -57,24 +75,24 @@ function handleRecover() {
 /* Header */
 .header {
   text-align: center;
-  margin-bottom: 40px; /* smaller */
+  margin-bottom: 40px;
 }
 
 .title {
-  font-size: 32px; /* smaller */
+  font-size: 32px;
   font-weight: 700;
   margin: 0;
 }
 
 .subtitle {
   margin-top: 6px;
-  font-size: 18px; /* smaller */
+  font-size: 18px;
   opacity: 0.75;
 }
 
 /* Form */
 .form {
-  width: 340px; /* smaller */
+  width: 340px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -84,22 +102,22 @@ function handleRecover() {
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px; /* smaller */
+  margin-bottom: 20px;
 }
 
 label {
-  font-size: 16px; /* smaller */
+  font-size: 16px;
   margin-bottom: 8px;
   opacity: 0.9;
 }
 
 input {
-  padding: 14px; /* smaller */
+  padding: 14px;
   border-radius: 10px;
   border: 1px solid #2a2a2a;
   background: #111;
   color: white;
-  font-size: 16px; /* smaller */
+  font-size: 16px;
 }
 
 input::placeholder {
@@ -114,14 +132,14 @@ input:focus {
 /* Button */
 .btn-primary {
   width: 100%;
-  padding: 16px; /* smaller */
+  padding: 16px;
   background: #2D9CDB;
   border: none;
   border-radius: 10px;
   color: white;
   font-weight: 600;
   cursor: pointer;
-  font-size: 18px; /* smaller */
+  font-size: 18px;
 }
 
 .btn-primary:hover {
@@ -130,7 +148,7 @@ input:focus {
 
 /* Footer */
 .back {
-  margin-top: 30px; /* smaller */
+  margin-top: 30px;
   font-size: 16px;
   opacity: 0.85;
 }

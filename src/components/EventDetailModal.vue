@@ -2,13 +2,19 @@
   <div class="overlay" @click.self="$emit('close')">
     <div class="modal">
 
+
       <!-- TOP BAR WITH PEN + TRASH ICON -->
       <div class="top-bar">
-        <h2 class="title">{{ event.title }}</h2>
+        <h2 class="title">{{ props.event.title }}</h2>
 
         <div class="top-actions">
+
           <!-- EDIT (PEN ICON) -->
-          <button class="icon-btn" @click="$emit('edit', event)">
+          <button
+            class="icon-btn"
+            v-if="canEdit"
+            @click="$emit('edit', props.event)"
+          >
             <svg
               width="18"
               height="18"
@@ -25,7 +31,11 @@
           </button>
 
           <!-- DELETE (TRASH ICON) -->
-          <button class="icon-btn delete" @click="$emit('delete', event.id)">
+          <button
+            class="icon-btn delete"
+            v-if="canDelete"
+            @click="$emit('delete', props.event.id)"
+          >
             <svg
               width="20"
               height="20"
@@ -43,6 +53,7 @@
               <path d="M9 6V4h6v2" />
             </svg>
           </button>
+
         </div>
       </div>
 
@@ -50,41 +61,65 @@
       <div class="info-grid">
         <div class="info-item">
           <strong>Category</strong>
-          <p>{{ event.category }}</p>
+          <p>{{ props.event.category }}</p>
         </div>
 
         <div class="info-item">
           <strong>Location</strong>
-          <p>{{ event.location }}</p>
+          <p>{{ props.event.location }}</p>
         </div>
 
         <div class="info-item">
           <strong>Priority</strong>
-          <p>{{ event.priority }}</p>
+          <p>{{ props.event.priority }}</p>
         </div>
 
         <div class="info-item">
           <strong>Reported By</strong>
-          <p>{{ event.reportedBy }}</p>
+          <p>{{ props.event.reportedBy }}</p>
         </div>
 
         <div class="info-item">
           <strong>Date</strong>
-          <p>{{ event.date }}</p>
+          <p>{{ props.event.date }}</p>
         </div>
       </div>
 
       <!-- DESCRIPTION -->
       <div class="description-box">
         <strong>Description</strong>
-        <p>{{ event.description }}</p>
+        <p>{{ props.event.description }}</p>
       </div>
 
       <!-- BOTTOM ACTION BUTTONS -->
       <div class="bottom-actions">
-        <button class="confirm-btn" v-if="event.status === 'pending'" @click="$emit('confirm', event)">Confirm</button>
-        <button class="reject-btn" v-if="event.status === 'pending'" @click="$emit('reject', event)">Reject</button>
-        <button class="forward-btn" v-if="event.status === 'confirmed'" @click="$emit('forward', event)">Forward</button>
+
+        <!-- ANY USER CAN CONFIRM/REJECT -->
+        <button
+          class="confirm-btn"
+          v-if="props.event.status === 'pending'"
+          @click="$emit('confirm', props.event)"
+        >
+          Confirm
+        </button>
+
+        <button
+          class="reject-btn"
+          v-if="props.event.status === 'pending'"
+          @click="$emit('reject', props.event)"
+        >
+          Reject
+        </button>
+
+        <!-- ONLY ADMINS CAN FORWARD -->
+        <button
+          class="forward-btn"
+          v-if="props.event.status === 'confirmed' && props.isAdmin"
+          @click="$emit('forward', props.event)"
+        >
+          Forward
+        </button>
+
       </div>
 
     </div>
@@ -92,9 +127,28 @@
 </template>
 
 <script setup>
-defineProps({
-  event: Object
+import { computed } from "vue"
+
+const props = defineProps({
+  event: Object,
+  isAdmin: Boolean,
+  currentUserEmail: String
 })
+
+/*
+  PERMISSIONS:
+  - Admin pode tudo
+  - Criador do evento pode editar e apagar
+  - Confirmar/Rejeitar → qualquer utilizador
+*/
+
+const canEdit = computed(() =>
+  props.isAdmin || props.event.reportedBy === props.currentUserEmail
+)
+
+const canDelete = computed(() =>
+  props.isAdmin || props.event.reportedBy === props.currentUserEmail
+)
 </script>
 
 <style scoped>

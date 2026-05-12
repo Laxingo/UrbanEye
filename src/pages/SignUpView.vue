@@ -48,7 +48,7 @@
         />
       </div>
 
-      <button type="submit" class="btn-primary" @click="$router.push('/verify')">Sign Up</button>
+      <button type="submit" class="btn-primary">Sign Up</button>
     </form>
 
     <!-- Footer -->
@@ -61,14 +61,52 @@
 
 <script setup>
 import { ref } from 'vue'
+import { registerUser } from "@/auth/auth"
+import { useRouter } from "vue-router"
+import { useToast } from "@/composables/useToast"
+import { useLoading } from "@/composables/useLoading"
 
 const name = ref('')
 const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 
-function handleSignup() {
-  console.log('Signup:', name.value, email.value, password.value, confirmPassword.value)
+const router = useRouter()
+const { show } = useToast()
+const { show: showLoading, hide: hideLoading } = useLoading()
+
+async function handleSignup() {
+  if (password.value !== confirmPassword.value) {
+    show("Passwords do not match", "error")
+    return
+  }
+
+  showLoading("Creating your account…")
+
+  // Simular tempo de processamento
+  await new Promise(resolve => setTimeout(resolve, 1200))
+
+  const result = registerUser({
+    name: name.value,
+    email: email.value,
+    password: password.value,
+    photo: "",
+    verified: false
+  })
+
+  hideLoading()
+
+  if (!result.success) {
+    show(result.message, "error")
+    return
+  }
+
+  // Save email for verification step
+  localStorage.setItem("pendingVerifyEmail", email.value)
+
+  show("Account created! Verify your email.", "info")
+
+  router.push("/verify")
 }
 </script>
 
@@ -88,24 +126,24 @@ function handleSignup() {
 /* Header */
 .header {
   text-align: center;
-  margin-bottom: 40px; /* smaller */
+  margin-bottom: 40px;
 }
 
 .title {
-  font-size: 32px; /* smaller */
+  font-size: 32px;
   font-weight: 700;
   margin: 0;
 }
 
 .subtitle {
   margin-top: 6px;
-  font-size: 18px; /* smaller */
+  font-size: 18px;
   opacity: 0.75;
 }
 
 /* Form */
 .form {
-  width: 340px; /* smaller */
+  width: 340px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -115,22 +153,22 @@ function handleSignup() {
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px; /* smaller */
+  margin-bottom: 20px;
 }
 
 label {
-  font-size: 16px; /* smaller */
+  font-size: 16px;
   margin-bottom: 8px;
   opacity: 0.9;
 }
 
 input {
-  padding: 14px; /* smaller */
+  padding: 14px;
   border-radius: 10px;
   border: 1px solid #2a2a2a;
   background: #111;
   color: white;
-  font-size: 16px; /* smaller */
+  font-size: 16px;
 }
 
 input::placeholder {
@@ -145,14 +183,14 @@ input:focus {
 /* Button */
 .btn-primary {
   width: 100%;
-  padding: 16px; /* smaller */
+  padding: 16px;
   background: #2D9CDB;
   border: none;
   border-radius: 10px;
   color: white;
   font-weight: 600;
   cursor: pointer;
-  font-size: 18px; /* smaller */
+  font-size: 18px;
 }
 
 .btn-primary:hover {
@@ -161,7 +199,7 @@ input:focus {
 
 /* Footer */
 .signin {
-  margin-top: 30px; /* smaller */
+  margin-top: 30px;
   font-size: 16px;
   opacity: 0.85;
 }
