@@ -26,6 +26,7 @@
           placeholder="Enter your password"
           required
         />
+        
       </div>
 
       <div class="forgot">
