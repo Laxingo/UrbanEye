@@ -3,6 +3,8 @@
 
     <!-- LEFT SECTION -->
     <div class="left">
+
+      <!-- NEW EVENT (only non-user pages) -->
       <template v-if="!isUser">
         <button class="new-event" @click="$emit('open-new-event')">
           <PlusIcon class="icon-btn" />
@@ -19,6 +21,23 @@
           />
         </div>
       </template>
+
+      <!-- CREATE TEAM (only admins + only on /teams) -->
+      <template v-if="isUser && isAdmin && route.path === '/teams'">
+        <button class="new-event" @click="$emit('open-create-team')">
+          <PlusIcon class="icon-btn" />
+          Create Team
+        </button>
+      </template>
+
+      <!-- CREATE CATEGORY (only admins + only on /categories) -->
+      <template v-if="isUser && isAdmin && route.path === '/categories'">
+        <button class="new-event" @click="$emit('open-create-category')">
+          <PlusIcon class="icon-btn" />
+          New Category
+        </button>
+      </template>
+
     </div>
 
     <div class="center"></div>
@@ -78,7 +97,11 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { MagnifyingGlassIcon, BellIcon, PlusIcon } from '@heroicons/vue/24/outline'
+import {
+  MagnifyingGlassIcon,
+  BellIcon,
+  PlusIcon
+} from '@heroicons/vue/24/outline'
 
 const route = useRoute()
 
@@ -89,10 +112,12 @@ const props = defineProps({
 const searchQuery = ref("")
 const showNotifications = ref(false)
 const avatar = ref("")
+const isAdmin = ref(false)
 
 onMounted(() => {
   const session = JSON.parse(localStorage.getItem("session"))
   avatar.value = session?.photo || "https://i.pravatar.cc/150?img=12"
+  isAdmin.value = session?.role === "admin"
 })
 
 window.addEventListener("storage", () => {
@@ -260,16 +285,16 @@ function clearAllNotifications() {
   justify-content: center;
 }
 
-/* POPUP MAIOR E MAIS CONFORTÁVEL */
+/* POPUP */
 .notif-popup {
   position: absolute;
   top: 50px;
   right: 0;
-  width: 260px; /* AUMENTADO */
+  width: 260px;
   background: #111;
   border: 1px solid #2a2a2a;
   border-radius: 10px;
-  padding: 14px; /* mais espaço */
+  padding: 14px;
   box-shadow: 0 6px 16px rgba(0,0,0,0.4);
   animation: fadeSlide 0.25s ease;
   z-index: 1000;
@@ -289,18 +314,17 @@ function clearAllNotifications() {
 
 .notif-actions {
   display: flex;
-  gap: 8px; /* MAIS ESPAÇO */
+  gap: 8px;
 }
 
-/* BOTÕES DE AÇÃO MENOS COMPACTOS */
 .mark-read,
 .clear-all {
   background: none;
   border: none;
   color: #2d9cdb;
-  font-size: 12px; /* maior */
+  font-size: 12px;
   cursor: pointer;
-  padding: 4px 6px; /* mais espaço */
+  padding: 4px 6px;
   border-radius: 4px;
   transition: background 0.2s ease;
 }
@@ -310,7 +334,7 @@ function clearAllNotifications() {
   background: #1a1a1a;
 }
 
-/* LISTA */
+/* LIST */
 .notif-list {
   margin-top: 12px;
   display: flex;
@@ -318,10 +342,9 @@ function clearAllNotifications() {
   gap: 10px;
 }
 
-/* ITEM */
 .notif-item {
   background: #1a1a1a;
-  padding: 10px; /* mais espaço */
+  padding: 10px;
   border-radius: 6px;
   font-size: 13px;
   display: flex;
@@ -334,7 +357,6 @@ function clearAllNotifications() {
   border-left: 3px solid #2d9cdb;
 }
 
-/* TEXTO */
 .notif-text p {
   font-size: 13px;
   margin: 0;
@@ -345,7 +367,6 @@ function clearAllNotifications() {
   opacity: 0.6;
 }
 
-/* DELETE BUTTON */
 .delete-btn {
   background: none;
   border: none;
@@ -361,15 +382,13 @@ function clearAllNotifications() {
   background: #333;
 }
 
-/* EMPTY STATE — MAIS PEQUENO */
 .notif-empty {
   padding: 10px;
   text-align: center;
   opacity: 0.6;
-  font-size: 12px; /* reduzido */
+  font-size: 12px;
 }
 
-/* ANIMATION */
 @keyframes fadeSlide {
   from { opacity: 0; transform: translateY(-6px); }
   to { opacity: 1; transform: translateY(0); }
@@ -405,5 +424,4 @@ function clearAllNotifications() {
   border-radius: 50%;
   object-fit: cover;
 }
-
 </style>

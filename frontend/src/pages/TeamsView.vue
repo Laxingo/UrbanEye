@@ -3,63 +3,71 @@
     <Sidebar />
 
     <div class="main">
-      <Navbar :avatar="session.photo" :isUser="true" />
+      <Navbar
+        :avatar="session.photo"
+        :isUser="true"
+        @open-create-team="showCreateModal = true"
+      />
 
       <div class="content">
         <div class="container">
 
-          <!-- HEADER -->
           <div class="header-row">
             <h2 class="title">Teams</h2>
           </div>
 
-          <!-- LIST -->
-          <div class="list">
-            <div
-              class="team-card"
-              v-for="team in teams"
-              :key="team.id"
-            >
-              <div class="left">
-                <div class="icon-box">
-                  <UsersIcon class="icon" />
-                </div>
-
-                <div>
-                  <h3 class="t-title">{{ team.name }}</h3>
-                  <p class="t-desc">{{ team.description }}</p>
-                </div>
+          <div class="grid">
+            <div class="team-card" v-for="team in teams" :key="team.id">
+              <div class="icon-box" :style="{ background: team.color + '22' }">
+                <UsersIcon class="icon" :style="{ color: team.color }" />
               </div>
 
-              <div class="right">
-                <p class="count">{{ team.members }} members</p>
+              <h3 class="t-title">{{ team.name }}</h3>
+              <p class="t-category">{{ team.category }}</p>
 
-                <button class="view-btn" @click="openModal(team)">
-                  View
-                </button>
+              <div class="info">
+                <p class="line"><UsersIcon class="inline-icon" /> {{ team.members }} members</p>
+                <p class="line"><EnvelopeIcon class="inline-icon" /> {{ team.email }}</p>
+                <p class="line"><PhoneIcon class="inline-icon" /> {{ team.phone }}</p>
               </div>
+
+              <button class="view-btn" @click="openModal(team)">View</button>
             </div>
-
-            <p v-if="teams.length === 0" class="empty">
-              No teams registered.
-            </p>
           </div>
 
         </div>
       </div>
     </div>
 
-    <!-- MODAL -->
+    <!-- CREATE TEAM -->
+    <CreateTeamModal
+      v-if="showCreateModal"
+      @close="showCreateModal = false"
+    />
+
+    <!-- EDIT TEAM -->
+    <EditTeamModal
+      v-if="showEditModal"
+      :teamData="selectedTeam"
+      @close="showEditModal = false"
+    />
+
+    <!-- VIEW TEAM -->
     <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
       <div class="modal">
         <h2 class="modal-title">{{ selectedTeam.name }}</h2>
-
-        <p class="modal-desc">{{ selectedTeam.description }}</p>
+        <p class="modal-desc">{{ selectedTeam.category }}</p>
 
         <div class="modal-info">
-          <p><strong>ID:</strong> {{ selectedTeam.id }}</p>
           <p><strong>Members:</strong> {{ selectedTeam.members }}</p>
+          <p><strong>Email:</strong> {{ selectedTeam.email }}</p>
+          <p><strong>Phone:</strong> {{ selectedTeam.phone }}</p>
           <p><strong>Handles:</strong> {{ selectedTeam.handles.join(', ') }}</p>
+        </div>
+
+        <div class="actions">
+          <button class="edit-btn" @click="openEditModal">Edit</button>
+          <button class="delete-btn" @click="deleteTeam">Delete</button>
         </div>
 
         <button class="close-btn" @click="closeModal">Close</button>
@@ -74,13 +82,19 @@ import { ref, onMounted } from "vue"
 
 import Sidebar from "@/components/Sidebar.vue"
 import Navbar from "@/components/Navbar.vue"
+import CreateTeamModal from "@/components/CreateTeamModal.vue"
+import EditTeamModal from "@/components/EditTeamModal.vue"
 
-import { UsersIcon } from "@heroicons/vue/24/outline"
+import { UsersIcon, EnvelopeIcon, PhoneIcon } from "@heroicons/vue/24/outline"
 
 const session = ref({})
 const teams = ref([])
+const categories = ref([])
 
 const showModal = ref(false)
+const showCreateModal = ref(false)
+const showEditModal = ref(false)
+
 const selectedTeam = ref(null)
 
 function openModal(team) {
@@ -92,53 +106,38 @@ function closeModal() {
   showModal.value = false
 }
 
+function openEditModal() {
+  showModal.value = false
+  showEditModal.value = true
+}
+
+function deleteTeam() {
+  const stored = JSON.parse(localStorage.getItem("teams")) || []
+  const updated = stored.filter(t => t.id !== selectedTeam.value.id)
+
+  localStorage.setItem("teams", JSON.stringify(updated))
+  window.dispatchEvent(new Event("teams-updated"))
+
+  showModal.value = false
+}
+
+function loadTeams() {
+  const storedTeams = JSON.parse(localStorage.getItem("teams")) || []
+  teams.value = [...storedTeams]
+}
+
+function loadCategories() {
+  categories.value = JSON.parse(localStorage.getItem("categories")) || []
+}
+
 onMounted(() => {
   const s = JSON.parse(localStorage.getItem("session"))
   session.value = s || {}
 
-  // 🔥 TEAMS LINKED TO REAL EVENT CATEGORIES
-  teams.value = [
-    {
-      id: 1,
-      name: "Municipal Works",
-      description:
-        "Responsible for infrastructure issues such as potholes, fallen trees, broken streetlights, and water leaks.",
-      members: 12,
-      handles: ["Infrastructure", "Road Damage", "Lighting"]
-    },
-    {
-      id: 2,
-      name: "Municipal Police",
-      description:
-        "Handles traffic incidents, malfunctioning traffic lights, minor accidents, and damaged road signs.",
-      members: 18,
-      handles: ["Traffic", "Accidents", "Road Safety"]
-    },
-    {
-      id: 3,
-      name: "Urban Sanitation",
-      description:
-        "Manages overflowing trash containers, waste accumulation, and environmental cleanliness.",
-      members: 10,
-      handles: ["Environment", "Waste", "Recycling"]
-    },
-    {
-      id: 4,
-      name: "Public Safety",
-      description:
-        "Responds to noise complaints, nighttime disturbances, lost animals, and general security issues.",
-      members: 14,
-      handles: ["Security", "Noise", "Disturbances"]
-    },
-    {
-      id: 5,
-      name: "Medical Emergency",
-      description:
-        "Responds to injuries, health-related incidents, and urgent medical situations in public areas.",
-      members: 9,
-      handles: ["Health", "Injuries", "Medical Alerts"]
-    }
-  ]
+  loadCategories()
+  loadTeams()
+
+  window.addEventListener("teams-updated", loadTeams)
 })
 </script>
 
@@ -159,13 +158,13 @@ onMounted(() => {
 .content {
   display: flex;
   justify-content: center;
-  padding-top: 60px;
+  padding-top: 40px;
   overflow-y: auto;
 }
 
 .container {
   width: 100%;
-  max-width: 900px;
+  max-width: 1100px;
   padding: 0 20px;
 }
 
@@ -177,37 +176,32 @@ onMounted(() => {
 }
 
 .title {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
 }
 
-/* LIST */
-.list {
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
+/* GRID */
+.grid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 20px;
 }
 
+/* CARD */
 .team-card {
   background: #111;
   border-radius: 14px;
-  padding: 20px;
+  padding: 18px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.left {
-  display: flex;
-  align-items: center;
-  gap: 18px;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid #1a1a1a;
 }
 
 .icon-box {
-  width: 50px;
-  height: 50px;
-  background: #2d9cdb33;
+  width: 48px;
+  height: 48px;
   border-radius: 12px;
   display: flex;
   justify-content: center;
@@ -215,45 +209,50 @@ onMounted(() => {
 }
 
 .icon {
-  width: 28px;
-  height: 28px;
-  color: #2d9cdb;
+  width: 26px;
+  height: 26px;
 }
 
 .t-title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
 }
 
-.t-desc {
-  opacity: 0.7;
-  margin-top: 4px;
-}
-
-.right {
-  text-align: right;
-}
-
-.count {
+.t-category {
   opacity: 0.6;
   font-size: 14px;
+}
+
+.info {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inline-icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.line {
+  opacity: 0.8;
+  font-size: 13px;
 }
 
 .view-btn {
   margin-top: 8px;
   background: #2d9cdb;
   border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
+  padding: 6px 12px;
+  border-radius: 6px;
   color: #fff;
   cursor: pointer;
   font-weight: 600;
-}
-
-.empty {
-  text-align: center;
-  opacity: 0.6;
-  margin-top: 40px;
+  font-size: 13px;
+  align-self: flex-start;
 }
 
 /* MODAL */
@@ -273,41 +272,70 @@ onMounted(() => {
 
 .modal {
   background: #111;
-  padding: 30px;
-  width: 420px;
-  border-radius: 14px;
+  padding: 26px;
+  width: 380px;
+  border-radius: 12px;
   animation: slideUp 0.25s ease;
   border: 1px solid #2a2a2a;
 }
 
 .modal-title {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .modal-desc {
   opacity: 0.8;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .modal-info p {
-  margin: 6px 0;
+  margin: 4px 0;
   opacity: 0.9;
 }
 
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.edit-btn {
+  flex: 1;
+  background: #f2c94c;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.delete-btn {
+  flex: 1;
+  background: #eb5757;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 .close-btn {
-  margin-top: 20px;
+  margin-top: 18px;
   width: 100%;
   background: #2d9cdb;
   border: none;
-  padding: 10px;
-  border-radius: 8px;
+  padding: 9px;
+  border-radius: 6px;
   color: #fff;
   cursor: pointer;
   font-weight: 600;
 }
 
+/* ANIMATIONS */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -316,28 +344,5 @@ onMounted(() => {
 @keyframes slideUp {
   from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
-}
-
-/* CUSTOM SCROLLBAR */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0d0d0d;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #3a3a3a;
-}
-
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #2a2a2a #0d0d0d;
 }
 </style>

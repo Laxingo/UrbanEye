@@ -8,6 +8,7 @@ import DashboardView from '@/pages/DashboardView.vue'
 import ProfilePageView from '@/pages/ProfilePageView.vue'
 import ForwardingView from '@/pages/ForwardingView.vue'
 import TeamsView from '@/pages/TeamsView.vue'
+import CategoriesView from '@/pages/CategoriesView.vue'
 
 // Função simples para verificar sessão
 function isAuthenticated() {
@@ -45,6 +46,12 @@ const routes = [
     path: '/teams',
     name: 'teams',
     component: TeamsView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/categories',
+    name: 'categories',
+    component: CategoriesView,
     meta: { requiresAuth: true }
   }
 ]

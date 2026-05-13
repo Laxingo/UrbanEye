@@ -79,9 +79,8 @@
       @delete="deleteEvent"
       @confirm="confirmEvent"
       @reject="rejectEvent"
-      @forward="forwardEvent"
+      @forward="openForwardingModal"
     />
-
 
     <!-- EDIT EVENT MODAL -->
     <EditEventModal
@@ -90,6 +89,14 @@
       @close="showEditEvent = false"
       @save="saveEditedEvent"
     />
+
+    <!-- 🔥 NOVA MODAL DE FORWARDING -->
+    <CreateForwardingModal
+      v-if="showForwardModal"
+      :event="forwardEventData"
+      @close="showForwardModal = false"
+    />
+
   </div>
 </template>
 
@@ -104,6 +111,7 @@ import EventCard from '@/components/EventCard.vue'
 import NewEventForm from '@/components/NewEventForm.vue'
 import EventDetailsModal from '@/components/EventDetailModal.vue'
 import EditEventModal from '@/components/EditEventModal.vue'
+import CreateForwardingModal from "@/components/CreateForwardingModal.vue"
 import { getCurrentUser } from "@/auth/auth"
 
 const session = ref(null)
@@ -685,7 +693,13 @@ const sortedByDistance = computed(() => {
     .sort((a, b) => a.distance - b.distance)
 })
 
+const showForwardModal = ref(false)
+const forwardEventData = ref(null)
 
+function openForwardingModal(event) {
+  forwardEventData.value = event
+  showForwardModal.value = true
+}
 </script>
 
 <style scoped>

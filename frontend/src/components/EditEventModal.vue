@@ -47,6 +47,12 @@
 
       <div class="actions">
         <button class="cancel" @click="$emit('close')">Cancel</button>
+
+        <!-- 🔥 NOVO BOTÃO FORWARD -->
+        <button class="save" @click="emit('forward', local)">
+          Forward
+        </button>
+
         <button class="save" :disabled="!isValid" @click="save">Save</button>
       </div>
     </div>
@@ -60,7 +66,8 @@ const props = defineProps({
   event: Object
 })
 
-const emit = defineEmits(['close', 'save'])
+/* 🔥 AGORA O MODAL EMITE O EVENTO FORWARD */
+const emit = defineEmits(['close', 'save', 'forward'])
 
 /* LOCAL COPY */
 const local = reactive({ ...props.event })
@@ -104,8 +111,6 @@ function save() {
     coords: local.coords
   })
 }
-
-
 </script>
 
 <style scoped>

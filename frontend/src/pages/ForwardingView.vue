@@ -3,14 +3,18 @@
     <Sidebar />
 
     <div class="main">
-      <Navbar :avatar="session.photo" :isUser="true" />
+      <Navbar
+        :avatar="session.photo"
+        :isUser="true"
+        @open-create-forwarding="showCreateModal = true"
+      />
 
       <div class="content">
         <div class="container">
 
           <!-- HEADER -->
           <div class="header-row">
-            <h2 class="title">Forwarding</h2>
+            <h2 class="title">Forwardings</h2>
           </div>
 
           <!-- LIST -->
@@ -26,22 +30,30 @@
                 </div>
 
                 <div>
-                  <h3 class="f-title">{{ item.name }}</h3>
+                  <h3 class="f-title">{{ item.eventTitle }}</h3>
+                  <p class="f-desc">
+                    Forwarded to <strong>{{ item.team }}</strong>
+                  </p>
                   <p class="f-desc">{{ item.description }}</p>
                 </div>
               </div>
 
               <div class="right">
-                <p class="date">{{ item.createdAt }}</p>
+                <p class="date">{{ item.forwardedAt }}</p>
 
                 <button class="view-btn" @click="openModal(item)">
                   View
+                </button>
+
+                <!-- DELETE BUTTON -->
+                <button class="delete-btn" @click="deleteForwarding(item.id)">
+                  Delete
                 </button>
               </div>
             </div>
 
             <p v-if="forwardings.length === 0" class="empty">
-              No forwarding rules created yet.
+              No forwardings created yet.
             </p>
           </div>
 
@@ -49,22 +61,34 @@
       </div>
     </div>
 
-    <!-- MODAL -->
+    <!-- VIEW MODAL -->
     <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
       <div class="modal">
-        <h2 class="modal-title">{{ selectedForwarding.name }}</h2>
+        <h2 class="modal-title">{{ selectedForwarding.eventTitle }}</h2>
 
-        <p class="modal-desc">{{ selectedForwarding.description }}</p>
+        <p class="modal-desc">
+          <strong>Team:</strong> {{ selectedForwarding.team }}
+        </p>
+
+        <p class="modal-desc">
+          <strong>Description:</strong> {{ selectedForwarding.description }}
+        </p>
 
         <div class="modal-info">
           <p><strong>ID:</strong> {{ selectedForwarding.id }}</p>
-          <p><strong>Created at:</strong> {{ selectedForwarding.createdAt }}</p>
+          <p><strong>Event ID:</strong> {{ selectedForwarding.eventId }}</p>
+          <p><strong>Forwarded at:</strong> {{ selectedForwarding.forwardedAt }}</p>
         </div>
 
         <button class="close-btn" @click="closeModal">Close</button>
       </div>
     </div>
 
+    <!-- CREATE FORWARDING MODAL -->
+    <CreateForwardingModal
+      v-if="showCreateModal"
+      @close="showCreateModal = false"
+    />
   </div>
 </template>
 
@@ -73,6 +97,7 @@ import { ref, onMounted } from "vue"
 
 import Sidebar from "@/components/Sidebar.vue"
 import Navbar from "@/components/Navbar.vue"
+import CreateForwardingModal from "@/components/CreateForwardingModal.vue"
 
 import { ArrowPathIcon } from "@heroicons/vue/24/outline"
 
@@ -81,6 +106,8 @@ const session = ref({})
 
 const showModal = ref(false)
 const selectedForwarding = ref(null)
+
+const showCreateModal = ref(false)
 
 function openModal(item) {
   selectedForwarding.value = item
@@ -91,48 +118,27 @@ function closeModal() {
   showModal.value = false
 }
 
+function loadForwardings() {
+  forwardings.value = JSON.parse(localStorage.getItem("forwardings")) || []
+}
+
+/* DELETE FORWARDING */
+function deleteForwarding(id) {
+  const stored = JSON.parse(localStorage.getItem("forwardings")) || []
+  const updated = stored.filter(f => f.id !== id)
+
+  localStorage.setItem("forwardings", JSON.stringify(updated))
+  forwardings.value = updated
+}
+
 onMounted(() => {
   const s = JSON.parse(localStorage.getItem("session"))
   session.value = s || {}
 
-  // 🔥 FORWARDINGS BASED ON REAL APP EVENTS (ENGLISH VERSION)
-  forwardings.value = [
-    {
-      id: 1,
-      name: "Infrastructure → Municipal Works",
-      description:
-        "Events such as potholes, fallen trees, broken streetlights, and water leaks are automatically forwarded to the Municipal Works team.",
-      createdAt: "2026-04-10"
-    },
-    {
-      id: 2,
-      name: "Traffic → Municipal Police",
-      description:
-        "Traffic-related incidents, malfunctioning traffic lights, minor accidents, and damaged signs are forwarded directly to the Municipal Police.",
-      createdAt: "2026-04-11"
-    },
-    {
-      id: 3,
-      name: "Environment → Urban Sanitation",
-      description:
-        "Full containers, overflowing trash, and environmental issues are forwarded to the Urban Sanitation team.",
-      createdAt: "2026-04-12"
-    },
-    {
-      id: 4,
-      name: "Security → Public Safety",
-      description:
-        "Noise complaints, nighttime disturbances, and lost animals are forwarded to the Public Safety team.",
-      createdAt: "2026-04-15"
-    },
-    {
-      id: 5,
-      name: "Health → Medical Emergency",
-      description:
-        "Events involving injured individuals or public health concerns are automatically forwarded to the Medical Emergency team.",
-      createdAt: "2026-04-17"
-    }
-  ]
+  loadForwardings()
+
+  // Atualiza automaticamente quando um forwarding é criado
+  window.addEventListener("forwardings-updated", loadForwardings)
 })
 </script>
 
@@ -244,6 +250,23 @@ onMounted(() => {
   font-weight: 600;
 }
 
+/* DELETE BUTTON */
+.delete-btn {
+  margin-top: 8px;
+  background: #eb5757;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.delete-btn:hover {
+  background: #ff6b6b;
+}
+
 .empty {
   text-align: center;
   opacity: 0.6;
@@ -310,28 +333,5 @@ onMounted(() => {
 @keyframes slideUp {
   from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
-}
-
-/* CUSTOM SCROLLBAR */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0d0d0d;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #3a3a3a;
-}
-
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #2a2a2a #0d0d0d;
 }
 </style>
