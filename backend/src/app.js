@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import usersRoutes from "./routes/users.routes.js";
 
 const app = express();
 
@@ -18,5 +19,7 @@ app.get("/api/health", (req, res) => {
     message: "UrbanEye API is running",
   });
 });
+
+app.use("/users", usersRoutes);
 
 export default app;
