@@ -20,6 +20,6 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-app.use("/users", usersRoutes);
+app.use("/api/users", usersRoutes);
 
 export default app;
