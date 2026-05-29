@@ -1,158 +1,200 @@
-// controllers/events.controller.js
-import { Op } from "sequelize";
 import Event from "../models/event.model.js";
+import User from "../models/user.model.js";
+import Category from "../models/category.model.js";
 
-/**
- * GET /events
- * Supports: page, limit, estado, id_categoria, id_utilizador, bbox (minLat,minLng,maxLat,maxLng)
- */
-export async function getEvents(req, res) {
+export const getEvents = async (req, res) => {
   try {
-    const {
-      page = 1,
-      limit = 20,
-      estado,
-      id_categoria,
-      id_utilizador,
-      bbox,
-    } = req.query;
-
-    const pageNum = Math.max(parseInt(page, 10) || 1, 1);
-    const pageLimit = Math.max(parseInt(limit, 10) || 20, 1);
-    const offset = (pageNum - 1) * pageLimit;
-
-    const where = {};
-    if (estado) where.estado = estado;
-    if (id_categoria) where.id_categoria = id_categoria;
-    if (id_utilizador) where.id_utilizador = id_utilizador;
-
-    if (bbox) {
-      const parts = bbox.split(",").map((p) => parseFloat(p));
-      if (parts.length === 4 && parts.every((n) => !Number.isNaN(n))) {
-        const [minLat, minLng, maxLat, maxLng] = parts;
-        where.latitude = { [Op.between]: [minLat, maxLat] };
-        where.longitude = { [Op.between]: [minLng, maxLng] };
-      }
-    }
-
-    const { rows: data, count: total } = await Event.findAndCountAll({
-      where,
-      limit: pageLimit,
-      offset,
-      order: [["data_registo", "DESC"]],
+    const events = await Event.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ["id_utilizador", "nome", "email", "tipo_utilizador"],
+        },
+        {
+          model: Category,
+          attributes: ["id_categoria", "nome_categoria", "descricao_categoria"],
+        },
+      ],
     });
 
-    return res.json({
-      meta: { total, page: pageNum, limit: pageLimit },
-      data,
+    return res.status(200).json({
+      success: true,
+      events,
     });
   } catch (error) {
-    console.error("getEvents error:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    return res.status(500).json({
+      success: false,
+      message: "Error fetching events.",
+      error: error.message,
+    });
   }
-}
+};
 
-/**
- * GET /events/:id
- */
-export async function getEventById(req, res) {
+export const getEventById = async (req, res) => {
   try {
     const { id } = req.params;
-    const event = await Event.findByPk(id);
 
-    if (!event) return res.status(404).json({ error: "Event not found" });
+    const event = await Event.findByPk(id, {
+      include: [
+        {
+          model: User,
+          attributes: ["id_utilizador", "nome", "email", "tipo_utilizador"],
+        },
+        {
+          model: Category,
+          attributes: ["id_categoria", "nome_categoria", "descricao_categoria"],
+        },
+      ],
+    });
 
-    return res.json(event);
-  } catch (error) {
-    console.error("getEventById error:", error);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-}
-
-/**
- * POST /events
- * Body: { descricao, id_categoria, latitude, longitude, descricao_local?, id_utilizador }
- */
-export async function createEvent(req, res) {
-  try {
-    const {
-      descricao,
-      id_categoria,
-      latitude,
-      longitude,
-      descricao_local = null,
-      id_utilizador,
-    } = req.body;
-
-    if (
-      !descricao ||
-      id_categoria == null ||
-      latitude == null ||
-      longitude == null ||
-      id_utilizador == null
-    ) {
-      return res.status(400).json({
-        error:
-          "Missing required fields: descricao, id_categoria, latitude, longitude, id_utilizador",
+    if (!event) {
+      return res.status(404).json({
+        success: false,
+        message: "Event not found.",
       });
     }
 
-    const newEvent = await Event.create({
+    return res.status(200).json({
+      success: true,
+      event,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error fetching event.",
+      error: error.message,
+    });
+  }
+};
+
+export const createEvent = async (req, res) => {
+  try {
+    const {
       descricao,
-      id_categoria,
       latitude,
       longitude,
       descricao_local,
       id_utilizador,
+      id_categoria,
+    } = req.body;
+
+    if (!descricao || !latitude || !longitude || !id_utilizador || !id_categoria) {
+      return res.status(400).json({
+        success: false,
+        message: "Description, latitude, longitude, user and category are required.",
+      });
+    }
+
+    const user = await User.findByPk(id_utilizador);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found.",
+      });
+    }
+
+    const category = await Category.findByPk(id_categoria);
+
+    if (!category) {
+      return res.status(404).json({
+        success: false,
+        message: "Category not found.",
+      });
+    }
+
+    const event = await Event.create({
+      descricao,
+      latitude,
+      longitude,
+      descricao_local: descricao_local || null,
+      id_utilizador,
+      id_categoria,
     });
 
-    return res.status(201).json(newEvent);
+    return res.status(201).json({
+      success: true,
+      message: "Event created successfully.",
+      event,
+    });
   } catch (error) {
-    console.error("createEvent error:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    return res.status(500).json({
+      success: false,
+      message: "Error creating event.",
+      error: error.message,
+    });
   }
-}
+};
 
-/**
- * PATCH /events/:id
- * Allowed updates: descricao, estado, id_categoria, descricao_local
- */
-export async function updateEvent(req, res) {
+export const updateEvent = async (req, res) => {
   try {
     const { id } = req.params;
-    const { descricao, estado, id_categoria, descricao_local } = req.body;
 
     const event = await Event.findByPk(id);
-    if (!event) return res.status(404).json({ error: "Event not found" });
 
-    const updates = {};
-    if (descricao !== undefined) updates.descricao = descricao;
-    if (estado !== undefined) updates.estado = estado;
-    if (id_categoria !== undefined) updates.id_categoria = id_categoria;
-    if (descricao_local !== undefined) updates.descricao_local = descricao_local;
+    if (!event) {
+      return res.status(404).json({
+        success: false,
+        message: "Event not found.",
+      });
+    }
 
-    await event.update(updates);
+    const {
+      descricao,
+      estado,
+      latitude,
+      longitude,
+      descricao_local,
+      id_categoria,
+    } = req.body;
 
-    return res.json(event);
+    if (descricao !== undefined) event.descricao = descricao;
+    if (estado !== undefined) event.estado = estado;
+    if (latitude !== undefined) event.latitude = latitude;
+    if (longitude !== undefined) event.longitude = longitude;
+    if (descricao_local !== undefined) event.descricao_local = descricao_local;
+    if (id_categoria !== undefined) event.id_categoria = id_categoria;
+
+    await event.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Event updated successfully.",
+      event,
+    });
   } catch (error) {
-    console.error("updateEvent error:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    return res.status(500).json({
+      success: false,
+      message: "Error updating event.",
+      error: error.message,
+    });
   }
-}
+};
 
-/**
- * DELETE /events/:id
- */
-export async function deleteEvent(req, res) {
+export const deleteEvent = async (req, res) => {
   try {
     const { id } = req.params;
+
     const event = await Event.findByPk(id);
-    if (!event) return res.status(404).json({ error: "Event not found" });
+
+    if (!event) {
+      return res.status(404).json({
+        success: false,
+        message: "Event not found.",
+      });
+    }
 
     await event.destroy();
-    return res.status(204).send();
+
+    return res.status(200).json({
+      success: true,
+      message: "Event deleted successfully.",
+    });
   } catch (error) {
-    console.error("deleteEvent error:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    return res.status(500).json({
+      success: false,
+      message: "Error deleting event.",
+      error: error.message,
+    });
   }
-}
+};

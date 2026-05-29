@@ -10,7 +10,7 @@ import Team from "../models/team.model.js";
 export async function createForwarding(req, res) {
   try {
     const { id } = req.params; // event ID
-    const { teamId, status = "pendente", notes = null } = req.body;
+    const { teamId, status = "pendente" } = req.body;
 
     if (!teamId) {
       return res.status(400).json({ error: "Missing required field: teamId" });
@@ -27,11 +27,10 @@ export async function createForwarding(req, res) {
     }
 
     const forwarding = await Forwarding.create({
-      id_evento: event.id_evento,
-      id_equipa: team.id_equipa,
-      estado_encaminhamento: status,
-      observacoes: notes || null,
-    });
+  id_evento: event.id_evento,
+  id_equipa: team.id_equipa,
+  estado_encaminhamento: status,
+});
 
     return res.status(201).json(forwarding);
   } catch (error) {
@@ -47,15 +46,13 @@ export async function createForwarding(req, res) {
 export async function updateForwarding(req, res) {
   try {
     const { id } = req.params;
-    const { status, notes } = req.body;
-
+    const { status } = req.body;
     const forwarding = await Forwarding.findByPk(id);
     if (!forwarding) {
       return res.status(404).json({ error: "Forwarding not found" });
     }
 
     if (status !== undefined) forwarding.estado_encaminhamento = status;
-    if (notes !== undefined) forwarding.observacoes = notes;
 
     await forwarding.save();
 

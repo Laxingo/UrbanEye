@@ -8,8 +8,8 @@ try {
   await db.sequelize.authenticate();
   console.log("Database connection established successfully.");
 
-  await db.sequelize.sync();
-  console.log("Database synchronized successfully.");
+//  await db.sequelize.sync();
+//  console.log("Database synchronized successfully.");
 
   app.listen(PORT, () => {
     console.log(`UrbanEye API running on http://localhost:${PORT}`);
