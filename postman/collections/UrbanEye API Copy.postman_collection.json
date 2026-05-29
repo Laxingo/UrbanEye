@@ -1,0 +1,445 @@
+{
+  "info": {
+    "_postman_id": "a0a35a02-296c-49fa-bb31-671e9c9ffc79",
+    "name": "UrbanEye API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "id": "b1f7d12c-0391-4254-b085-1ad81a2ce220",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "3cf2d389-9fa5-436a-9221-e1a211d0391a"
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Create user",
+          "id": "b2357c6f-ae74-43eb-8fb9-2953d9f70033",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Gonçalo\",\r\n  \"email\": \"goncalo{{$randomInt}}@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"cidadao\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "if (response.token) {\r",
+                  "  pm.collectionVariables.set(\"token\", response.token);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {},
+                "id": "c32c25c9-b278-4767-8718-45880fd1d9d8"
+              }
+            }
+          ],
+          "id": "e4a3e51d-8858-4010-bd69-3fa95d235192",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"goncalo2@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "63a29c0f-ed48-4ca1-a849-9ec73085f8d7"
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Get categories",
+          "id": "1751b9cb-9bb2-4940-8ac8-babded8c862a",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create category",
+          "id": "8ced830e-ea79-452a-bbe5-87bfd58f9517",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome_categoria\": \"Iluminação Pública\",\r\n  \"descricao_categoria\": \"Problemas relacionados com iluminação urbana.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update category",
+          "id": "31d3a8a6-7f30-4589-a96c-77ef975b657a",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome_categoria\": \"Iluminação Urbana\",\r\n  \"descricao_categoria\": \"Problemas relacionados com postes, lâmpadas e iluminação pública.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/categories/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "categories",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Category",
+          "id": "dee4bdb4-eefa-428e-b7a1-b20bfc785bcf",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"goncalo2@gmail.com\",\r\n  \"password\": \"123456\"\r\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/categories/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "categories",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "272e48b9-dac8-4cdd-a426-f5c0cc6f6870"
+    },
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "Get events",
+          "id": "93be449c-5311-4576-b94e-6ad0a72453d8",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "events"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get event by id",
+          "id": "a3efba14-0a16-46d8-b493-76509925952d",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "events",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create event",
+          "id": "d183a5f6-d121-4e47-a5ae-524fe854b6ee",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada da escola.\",\r\n  \"latitude\": 41.36682123,\r\n  \"longitude\": -8.73912345,\r\n  \"descricao_local\": \"Entrada principal da ESMAD\",\r\n  \"id_utilizador\": 1,\r\n  \"id_categoria\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/events",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "events"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update event",
+          "id": "0023ca26-f5e1-4acf-aa7f-f4aeb7f200c4",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"estado\": \"ativo\",\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada principal da escola.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/events/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "events",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete event",
+          "id": "8c0f4d35-0bf2-4a7f-acd9-5f0eeb3dd5b4",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "events",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "15facf97-27c2-4825-a86c-929f76e69b16"
+    },
+    {
+      "name": "Forwardings",
+      "item": [
+        {
+          "name": "Create forwarding",
+          "id": "b189e22f-487a-422a-9211-d5e38670e37b",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"teamId\": 1,\r\n  \"status\": \"pendente\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/events/1/forwardings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "events",
+                "1",
+                "forwardings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update forwarding",
+          "id": "5cc01852-fa53-4809-9f56-e53d6ba82e5a",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"em_analise\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/forwardings/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "forwardings",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete forwarding",
+          "id": "87fbbdd8-e91d-4169-bf9a-20addd383854",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/forwardings/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "forwardings",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "8ddc15ed-ce78-492b-9d84-c5af8a0f6691"
+    },
+    {
+      "name": "Confirmations",
+      "item": [],
+      "id": "f4a51032-721c-4fd8-9415-42c179880005"
+    },
+    {
+      "name": "Teams",
+      "item": [],
+      "id": "5727e613-2b4c-4cde-b5a6-e86d962f15c8"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "id": "373e0b11-7bbf-4ce2-9f41-0975e13b3634",
+      "key": "baseUrl",
+      "value": ""
+    },
+    {
+      "id": "0330b40d-7cad-4584-964d-1a21cd08ae4c",
+      "key": "token",
+      "value": ""
+    }
+  ]
+}
