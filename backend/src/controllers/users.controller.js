@@ -117,3 +117,149 @@ export const loginUser = async (req, res) => {
     });
   }
 };
+
+export const getUsers = async (req, res) => {
+  try {
+    const users = await User.findAll({
+      attributes: [
+        "id_utilizador",
+        "nome",
+        "email",
+        "tipo_utilizador",
+        "fotografia",
+      ],
+      order: [["id_utilizador", "ASC"]],
+    });
+
+    return res.status(200).json({
+      success: true,
+      users,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error fetching users.",
+      error: error.message,
+    });
+  }
+};
+
+export const getUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findByPk(id, {
+      attributes: [
+        "id_utilizador",
+        "nome",
+        "email",
+        "tipo_utilizador",
+        "fotografia",
+      ],
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found.",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error fetching user.",
+      error: error.message,
+    });
+  }
+};
+
+export const updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { nome, email, password, tipo_utilizador, fotografia } = req.body;
+
+    const user = await User.findByPk(id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found.",
+      });
+    }
+
+    if (email && email !== user.email) {
+      const existingUser = await User.findOne({
+        where: { email },
+      });
+
+      if (existingUser) {
+        return res.status(409).json({
+          success: false,
+          message: "Email already in use.",
+        });
+      }
+    }
+
+    if (nome !== undefined) user.nome = nome;
+    if (email !== undefined) user.email = email;
+    if (tipo_utilizador !== undefined) user.tipo_utilizador = tipo_utilizador;
+    if (fotografia !== undefined) user.fotografia = fotografia;
+
+    if (password !== undefined && password !== "") {
+      user.password = await bcrypt.hash(password, 10);
+    }
+
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "User updated successfully.",
+      user: {
+        id_utilizador: user.id_utilizador,
+        nome: user.nome,
+        email: user.email,
+        tipo_utilizador: user.tipo_utilizador,
+        fotografia: user.fotografia,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error updating user.",
+      error: error.message,
+    });
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findByPk(id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found.",
+      });
+    }
+
+    await user.destroy();
+
+    return res.status(200).json({
+      success: true,
+      message: "User deleted successfully.",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error deleting user.",
+      error: error.message,
+    });
+  }
+};
