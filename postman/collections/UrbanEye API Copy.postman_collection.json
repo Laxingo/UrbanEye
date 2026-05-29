@@ -57,7 +57,230 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "id": "b19ae6c2-eb82-4fb4-85c4-658f36f134cc",
+              "name": "Success - 201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Gonçalo\",\r\n  \"email\": \"goncalo{{$randomInt}}@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"cidadao\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "177"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"b1-s4yXgyXEU5Dxeamj6UtZzc69dEA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 29 May 2026 22:49:22 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-05-29T22:49:25.006Z",
+              "body": "{\n    \"success\": true,\n    \"message\": \"User created successfully.\",\n    \"user\": {\n        \"id_utilizador\": 8,\n        \"nome\": \"Gonçalo\",\n        \"email\": \"goncalo113@gmail.com\",\n        \"tipo_utilizador\": \"cidadao\",\n        \"fotografia\": null\n    }\n}"
+            },
+            {
+              "id": "d36c9acd-aca6-43f3-9125-9599cc758fe5",
+              "name": "Error - 400 Missing required fields",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"\",\r\n  \"email\": \"goncalo{{$randomInt}}@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"cidadao\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "68"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"44-Lcfiv3rbnLDB/6cDPeq/4yXSC+k\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 29 May 2026 22:49:56 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-05-29T22:49:59.970Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Name, email and password are required.\"\n}"
+            },
+            {
+              "id": "f88c2af1-f022-400d-b563-ec5043ae5398",
+              "name": "Error - 409 Email already in use",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Gonçalo\",\r\n  \"email\": \"goncalo557@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"cidadao\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "51"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"33-b9ztzddyLI0YuGlYxmcgdiaf1zo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 29 May 2026 22:50:47 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-05-29T22:50:49.957Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Email already in use.\"\n}"
+            }
+          ]
         },
         {
           "name": "Login user",
@@ -103,7 +326,1035 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "id": "36656850-481d-4849-b53c-7493d10f47ef",
+              "name": "Success - 200 Login successful",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"goncalo2@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "login"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "402"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"192-vc3JxFaXdIm8XE+khGtUMSBLyWU\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 29 May 2026 22:51:51 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-05-29T22:51:57.558Z",
+              "body": "{\n    \"success\": true,\n    \"message\": \"Login successful.\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJnb25jYWxvMkBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJtb2RlcmFkb3IiLCJpYXQiOjE3ODAwOTUxMTEsImV4cCI6MTc4MDY5OTkxMX0.OToTmXa14lRlwO-19AC_ie323x_7mChcZ9jTE0wrp-s\",\n    \"user\": {\n        \"id_utilizador\": 3,\n        \"nome\": \"Gonçalo Chaves\",\n        \"email\": \"goncalo2@gmail.com\",\n        \"tipo_utilizador\": \"moderador\",\n        \"fotografia\": null\n    }\n}"
+            },
+            {
+              "id": "50941696-f561-4f9f-abc6-1ba38d3b9b70",
+              "name": "Error - 400 Missing email or password",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"goncalo2@gmail.com\",\r\n  \"password\": \"\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "login"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "62"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3e-1EZNoUu/otmvX8CenloMZsav6oE\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 29 May 2026 22:52:15 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-05-29T22:52:18.902Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Email and password are required.\"\n}"
+            },
+            {
+              "id": "04779b63-bc4f-4585-b00a-c915ad0b96ce",
+              "name": "Error - 401 Invalid credentials",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"goncalo2@gmail.com\",\r\n  \"password\": \"12345\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "login"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "50"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"32-8CDs0izjtoxRLFKIO/azKlX23k4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 29 May 2026 22:52:35 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-05-29T22:52:36.876Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid credentials.\"\n}"
+            },
+            {
+              "id": "60a2585d-e8be-4eab-9990-7f784bf59475",
+              "name": "Error: 500 Server Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"goncalo2@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "login"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "responseTime": "2026-05-29T22:56:02.511Z",
+              "body": "{\r\n  \"success\": false,\r\n  \"message\": \"Error fetching users.\",\r\n  \"error\": \"Internal server error\"\r\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get All Users",
+          "id": "bdb7ca69-5bb2-4052-b18d-e2d0fa421722",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0ea531f8-3e10-4526-9051-b9e6e772b16a",
+              "name": "Success - 200 Users list",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "711"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2c7-1rjKFW1blk7kJDP4ob3R7EITwTs\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 29 May 2026 23:04:21 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-05-29T23:04:23.834Z",
+              "body": "{\n    \"success\": true,\n    \"users\": [\n        {\n            \"id_utilizador\": 3,\n            \"nome\": \"Gonçalo\",\n            \"email\": \"goncalo41@gmail.com\",\n            \"tipo_utilizador\": \"moderador\",\n            \"fotografia\": null\n        },\n        {\n            \"id_utilizador\": 4,\n            \"nome\": \"samuel\",\n            \"email\": \"samuel@gmail.com\",\n            \"tipo_utilizador\": \"cidadao\",\n            \"fotografia\": null\n        },\n        {\n            \"id_utilizador\": 5,\n            \"nome\": \"Gonçalo\",\n            \"email\": \"goncalo959@gmail.com\",\n            \"tipo_utilizador\": \"cidadao\",\n            \"fotografia\": null\n        },\n        {\n            \"id_utilizador\": 6,\n            \"nome\": \"Gonçalo\",\n            \"email\": \"goncalo467@gmail.com\",\n            \"tipo_utilizador\": \"cidadao\",\n            \"fotografia\": null\n        },\n        {\n            \"id_utilizador\": 8,\n            \"nome\": \"Gonçalo\",\n            \"email\": \"goncalo113@gmail.com\",\n            \"tipo_utilizador\": \"cidadao\",\n            \"fotografia\": null\n        },\n        {\n            \"id_utilizador\": 9,\n            \"nome\": \"Gonçalo\",\n            \"email\": \"goncalo557@gmail.com\",\n            \"tipo_utilizador\": \"cidadao\",\n            \"fotografia\": null\n        }\n    ]\n}"
+            },
+            {
+              "id": "30cee16c-6308-40bb-930a-2fefa3490806",
+              "name": "Error - 500 Server error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "responseTime": "2026-05-29T23:07:41.545Z",
+              "body": "{\r\n  \"success\": false,\r\n  \"message\": \"Error fetching users.\",\r\n  \"error\": \"Internal server error\"\r\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get User by ID",
+          "id": "b5c222e9-61db-4506-8edb-e59c81ac1e50",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "3"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ea90845b-bb08-4570-b47b-af417c504973",
+              "name": "Success - 200 User found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "3"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "139"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"8b-/C4zr4k+lu4/slxLGCB16+dAg2s\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 29 May 2026 23:08:18 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-05-29T23:08:20.056Z",
+              "body": "{\n    \"success\": true,\n    \"user\": {\n        \"id_utilizador\": 3,\n        \"nome\": \"Gonçalo\",\n        \"email\": \"goncalo41@gmail.com\",\n        \"tipo_utilizador\": \"moderador\",\n        \"fotografia\": null\n    }\n}"
+            },
+            {
+              "id": "aa1351c2-a24d-4939-829c-c95d24a7b0b7",
+              "name": "Error - 404 User not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/30",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "30"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "45"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2d-2DMP64ec18/E7TLauE4fkuXK5DM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 29 May 2026 23:08:52 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-05-29T23:08:54.825Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"User not found.\"\n}"
+            },
+            {
+              "id": "7ef986fa-12bf-4d01-95c4-439503088b8d",
+              "name": "Error - 500 Server error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "3"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "responseTime": "2026-05-29T23:09:24.741Z",
+              "body": "{\r\n  \"success\": false,\r\n  \"message\": \"Error fetching users.\",\r\n  \"error\": \"Internal server error\"\r\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update user",
+          "id": "fa037439-a8df-41ac-a4b6-1029f418cf5e",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Gonçalo\",\r\n  \"email\": \"goncalo41@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"moderador\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "3"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8b754dc9-9907-448f-a2e9-f9a8d2926def",
+              "name": "Success - 200 User updated",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Gonçalo\",\r\n  \"email\": \"goncalo41@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"moderador\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "3"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "178"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"b2-mi02m0ldzr4wP/eVtJ61vtuordY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 29 May 2026 23:09:51 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-05-29T23:09:53.105Z",
+              "body": "{\n    \"success\": true,\n    \"message\": \"User updated successfully.\",\n    \"user\": {\n        \"id_utilizador\": 3,\n        \"nome\": \"Gonçalo\",\n        \"email\": \"goncalo41@gmail.com\",\n        \"tipo_utilizador\": \"moderador\",\n        \"fotografia\": null\n    }\n}"
+            },
+            {
+              "id": "20545ea0-825e-4682-8f0f-c046256fed78",
+              "name": "Error - 404 User not found",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Gonçalo\",\r\n  \"email\": \"goncalo41@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"moderador\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/30",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "30"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "45"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2d-2DMP64ec18/E7TLauE4fkuXK5DM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 29 May 2026 23:10:06 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-05-29T23:10:08.003Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"User not found.\"\n}"
+            },
+            {
+              "id": "3b25b79b-6fd2-4e2c-95e8-e6a0b5de281b",
+              "name": "Error - 409 Email already in use",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Gonçalo\",\r\n  \"email\": \"goncalo959@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"moderador\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "3"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "51"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"33-b9ztzddyLI0YuGlYxmcgdiaf1zo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 29 May 2026 23:11:01 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-05-29T23:11:03.482Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Email already in use.\"\n}"
+            },
+            {
+              "id": "b1042fec-cee4-4aaa-86a5-e08c01a1cb59",
+              "name": "Error - 500 Server error",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Gonçalo\",\r\n  \"email\": \"goncalo41@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"moderador\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "3"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "responseTime": "2026-05-29T23:11:31.140Z",
+              "body": "{\r\n  \"success\": false,\r\n  \"message\": \"Error fetching users.\",\r\n  \"error\": \"Internal server error\"\r\n}"
+            }
+          ]
+        },
+        {
+          "name": "New Request",
+          "id": "deb89699-1690-4d8e-81b4-83898fbdc8bd",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "5"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "08ec26d8-1132-4f51-a988-016806736dd0",
+              "name": "Success - 200 User deleted",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/5",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "5"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-PVsg6T02LPeMN7BbMkZMB6NmHfU\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 29 May 2026 23:12:38 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-05-29T23:12:40.265Z",
+              "body": "{\n    \"success\": true,\n    \"message\": \"User deleted successfully.\"\n}"
+            },
+            {
+              "id": "857b6a47-6877-4705-a054-087dcfb34a02",
+              "name": "Error - 404 User not found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/5",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "5"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "45"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2d-2DMP64ec18/E7TLauE4fkuXK5DM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 29 May 2026 23:12:50 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-05-29T23:12:52.415Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"User not found.\"\n}"
+            },
+            {
+              "id": "f4833a12-c324-4040-8bb5-1114fe2e6a4b",
+              "name": "Error - 500 Server error",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/5",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "5"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "responseTime": "2026-05-29T23:13:09.351Z",
+              "body": "{\r\n  \"success\": false,\r\n  \"message\": \"Error fetching users.\",\r\n  \"error\": \"Internal server error\"\r\n}"
+            }
+          ]
         }
       ],
       "id": "63a29c0f-ed48-4ca1-a849-9ec73085f8d7"
@@ -432,12 +1683,12 @@
   },
   "variable": [
     {
-      "id": "373e0b11-7bbf-4ce2-9f41-0975e13b3634",
+      "id": "bb42662f-606b-4755-b260-66f28f1dd995",
       "key": "baseUrl",
       "value": ""
     },
     {
-      "id": "0330b40d-7cad-4584-964d-1a21cd08ae4c",
+      "id": "8b925e04-d8e3-4542-9f9a-33cc5b8e0cf9",
       "key": "token",
       "value": ""
     }
