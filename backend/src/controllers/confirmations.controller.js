@@ -1,6 +1,6 @@
 // controllers/confirmations.controller.js
-import Confirmation from "../models/Confirmation.js";
-import Event from "../models/Event.js";
+import Confirmation from "../models/confirmation.model.js";
+import Event from "../models/event.model.js";
 
 /**
  * POST /events/:id/confirmations
