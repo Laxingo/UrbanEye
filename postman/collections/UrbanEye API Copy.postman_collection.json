@@ -1655,88 +1655,6 @@
       "id": "15facf97-27c2-4825-a86c-929f76e69b16"
     },
     {
-      "name": "Forwardings",
-      "item": [
-        {
-          "name": "Create forwarding",
-          "id": "b189e22f-487a-422a-9211-d5e38670e37b",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"teamId\": 1,\r\n  \"status\": \"pendente\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/events/1/forwardings",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "events",
-                "1",
-                "forwardings"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update forwarding",
-          "id": "5cc01852-fa53-4809-9f56-e53d6ba82e5a",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"status\": \"em_analise\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/forwardings/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "forwardings",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Delete forwarding",
-          "id": "87fbbdd8-e91d-4169-bf9a-20addd383854",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/forwardings/1",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "forwardings",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        }
-      ],
-      "id": "8ddc15ed-ce78-492b-9d84-c5af8a0f6691"
-    },
-    {
       "name": "Confirmations",
       "item": [
         {
@@ -1919,6 +1837,88 @@
         }
       ],
       "id": "5727e613-2b4c-4cde-b5a6-e86d962f15c8"
+    },
+    {
+      "name": "Forwardings",
+      "item": [
+        {
+          "name": "Create forwarding",
+          "id": "b189e22f-487a-422a-9211-d5e38670e37b",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"teamId\": 1,\r\n  \"status\": \"pendente\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/events/1/forwardings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "events",
+                "1",
+                "forwardings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update forwarding",
+          "id": "5cc01852-fa53-4809-9f56-e53d6ba82e5a",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"em_analise\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/forwardings/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "forwardings",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete forwarding",
+          "id": "87fbbdd8-e91d-4169-bf9a-20addd383854",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/forwardings/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "forwardings",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "8ddc15ed-ce78-492b-9d84-c5af8a0f6691"
     }
   ],
   "auth": {

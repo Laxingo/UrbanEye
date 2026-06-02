@@ -1,84 +1,147 @@
-// controllers/forwardings.controller.js
-import Forwarding from "../models/forwarding.model.js";
 import Event from "../models/event.model.js";
 import Team from "../models/team.model.js";
+import Forwarding from "../models/forwarding.model.js";
 
-/**
- * POST /events/:id/forwardings
- * Body: { teamId, status?, notes? }
- */
-export async function createForwarding(req, res) {
+export const createForwarding = async (req, res) => {
   try {
-    const { id } = req.params; // event ID
+    const { id } = req.params;
     const { teamId, status = "pendente" } = req.body;
 
+    const id_evento = Number(id);
+
     if (!teamId) {
-      return res.status(400).json({ error: "Missing required field: teamId" });
+      return res.status(400).json({
+        success: false,
+        message: "Team ID is required.",
+      });
     }
 
-    const event = await Event.findByPk(id);
+    if (!["pendente", "em_analise", "resolvido"].includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid forwarding status.",
+      });
+    }
+
+    const event = await Event.findByPk(id_evento);
+
     if (!event) {
-      return res.status(404).json({ error: "Event not found" });
+      return res.status(404).json({
+        success: false,
+        message: "Event not found.",
+      });
     }
 
     const team = await Team.findByPk(teamId);
+
     if (!team) {
-      return res.status(404).json({ error: "Team not found" });
+      return res.status(404).json({
+        success: false,
+        message: "Team not found.",
+      });
     }
 
     const forwarding = await Forwarding.create({
-  id_evento: event.id_evento,
-  id_equipa: team.id_equipa,
-  estado_encaminhamento: status,
-});
+      id_evento,
+      id_equipa: teamId,
+      estado_encaminhamento: status,
+    });
 
-    return res.status(201).json(forwarding);
+    event.estado = "encaminhado";
+    await event.save();
+
+    return res.status(201).json({
+      success: true,
+      message: "Event forwarded successfully.",
+      forwarding,
+    });
   } catch (error) {
-    console.error("createForwarding error:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    return res.status(500).json({
+      success: false,
+      message: "Error creating forwarding.",
+      error: error.message,
+    });
   }
-}
+};
 
-/**
- * PATCH /forwardings/:id
- * Body: { status?, notes? }
- */
-export async function updateForwarding(req, res) {
+export const updateForwarding = async (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
-    const forwarding = await Forwarding.findByPk(id);
-    if (!forwarding) {
-      return res.status(404).json({ error: "Forwarding not found" });
+
+    if (!status) {
+      return res.status(400).json({
+        success: false,
+        message: "Forwarding status is required.",
+      });
     }
 
-    if (status !== undefined) forwarding.estado_encaminhamento = status;
+    if (!["pendente", "em_analise", "resolvido"].includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid forwarding status.",
+      });
+    }
 
+    const forwarding = await Forwarding.findByPk(id);
+
+    if (!forwarding) {
+      return res.status(404).json({
+        success: false,
+        message: "Forwarding not found.",
+      });
+    }
+
+    forwarding.estado_encaminhamento = status;
     await forwarding.save();
 
-    return res.status(200).json(forwarding);
-  } catch (error) {
-    console.error("updateForwarding error:", error);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-}
+    if (status === "resolvido") {
+      const event = await Event.findByPk(forwarding.id_evento);
 
-/**
- * DELETE /forwardings/:id
- */
-export async function deleteForwarding(req, res) {
+      if (event) {
+        event.estado = "resolvido";
+        await event.save();
+      }
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Forwarding updated successfully.",
+      forwarding,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error updating forwarding.",
+      error: error.message,
+    });
+  }
+};
+
+export const deleteForwarding = async (req, res) => {
   try {
     const { id } = req.params;
 
     const forwarding = await Forwarding.findByPk(id);
+
     if (!forwarding) {
-      return res.status(404).json({ error: "Forwarding not found" });
+      return res.status(404).json({
+        success: false,
+        message: "Forwarding not found.",
+      });
     }
 
     await forwarding.destroy();
-    return res.status(204).send();
+
+    return res.status(200).json({
+      success: true,
+      message: "Forwarding deleted successfully.",
+    });
   } catch (error) {
-    console.error("deleteForwarding error:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    return res.status(500).json({
+      success: false,
+      message: "Error deleting forwarding.",
+      error: error.message,
+    });
   }
-}
+};

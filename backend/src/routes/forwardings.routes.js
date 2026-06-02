@@ -1,20 +1,37 @@
-// routes/forwardings.routes.js
 import express from "express";
+
 import {
   createForwarding,
   updateForwarding,
   deleteForwarding,
 } from "../controllers/forwardings.controller.js";
 
+import {
+  authenticate,
+  authorizeRoles,
+} from "../middlewares/auth.middleware.js";
+
 const router = express.Router();
 
-// POST /events/:id/forwardings
-router.post("/events/:id/forwardings", createForwarding);
+router.post(
+  "/events/:id/forwardings",
+  authenticate,
+  authorizeRoles("moderador", "gestor_municipal"),
+  createForwarding
+);
 
-// PATCH /forwardings/:id
-router.patch("/forwardings/:id", updateForwarding);
+router.patch(
+  "/forwardings/:id",
+  authenticate,
+  authorizeRoles("gestor_municipal", "tecnico"),
+  updateForwarding
+);
 
-// DELETE /forwardings/:id
-router.delete("/forwardings/:id", deleteForwarding);
+router.delete(
+  "/forwardings/:id",
+  authenticate,
+  authorizeRoles("gestor_municipal"),
+  deleteForwarding
+);
 
 export default router;
