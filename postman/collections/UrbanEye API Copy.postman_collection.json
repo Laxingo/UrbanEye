@@ -1728,7 +1728,49 @@
     },
     {
       "name": "Confirmations",
-      "item": [],
+      "item": [
+        {
+          "name": "Confrim event",
+          "id": "76a2538a-62f6-4e30-9bd9-bc60bedd360c",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"tipo_confirmacao\": \"confirmacao\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/events/2/confirmations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "events",
+                "2",
+                "confirmations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reject Event",
+          "id": "b0fd7add-1086-43e4-b246-396a256544c8",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ],
       "id": "f4a51032-721c-4fd8-9415-42c179880005"
     },
     {
@@ -1749,12 +1791,12 @@
   },
   "variable": [
     {
-      "id": "f0c3fef9-f1d2-43c9-8389-a5ccf0fc9d59",
+      "id": "7094ad74-c950-4156-9393-5e16748e1c60",
       "key": "baseUrl",
       "value": ""
     },
     {
-      "id": "f229da8a-0caf-4588-8e4e-237fba0594c0",
+      "id": "0e9b0c5f-872c-409b-8d63-a5c99a23c479",
       "key": "token",
       "value": ""
     }

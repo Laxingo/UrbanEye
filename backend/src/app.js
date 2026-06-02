@@ -5,6 +5,7 @@ import usersRoutes from "./routes/users.routes.js";
 import categoriesRoutes from "./routes/categories.routes.js";
 import eventsRoutes from "./routes/events.routes.js";
 import forwardingsRoutes from "./routes/forwardings.routes.js";
+import confirmationsRoutes from "./routes/confirmations.routes.js";
 
 const app = express();
 
@@ -28,5 +29,6 @@ app.use("/api/users", usersRoutes);
 app.use("/api/categories", categoriesRoutes);
 app.use("/api/events", eventsRoutes);
 app.use("/api", forwardingsRoutes);
+app.use("/api", confirmationsRoutes);
 
 export default app;

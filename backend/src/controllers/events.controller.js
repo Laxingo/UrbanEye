@@ -81,7 +81,7 @@ export const createEvent = async (req, res) => {
 
     if (!descricao || !latitude || !longitude || !id_categoria) {
       return res.status(400).json({
-        success: false,
+        success: false, 
         message: "Description, latitude, longitude and category are required.",
       });
     }
