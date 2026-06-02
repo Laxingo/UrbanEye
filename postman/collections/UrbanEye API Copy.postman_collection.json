@@ -1450,11 +1450,21 @@
           "name": "Create category",
           "id": "8ced830e-ea79-452a-bbe5-87bfd58f9517",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJnb25jYWxvNDY3QGdtYWlsLmNvbSIsInRpcG9fdXRpbGl6YWRvciI6ImNpZGFkYW8iLCJpYXQiOjE3ODAzOTg3MTIsImV4cCI6MTc4MTAwMzUxMn0.8WKRnFbXpOu0AlsvQqnikY3QmfRCaszjFfMlU39peHw",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"nome_categoria\": \"Iluminação Pública\",\r\n  \"descricao_categoria\": \"Problemas relacionados com iluminação urbana.\"\r\n}",
+              "raw": "{\r\n  \"nome_categoria\": \"Iluminaçãoa Pública\",\r\n  \"descricao_categoria\": \"Problemas relacionados com iluminação urbana.\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1489,13 +1499,13 @@
               }
             },
             "url": {
-              "raw": "{{baseUrl}}/categories/1",
+              "raw": "{{baseUrl}}/categories/66",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "categories",
-                "1"
+                "66"
               ]
             }
           },
@@ -1733,6 +1743,16 @@
           "name": "Confrim event",
           "id": "76a2538a-62f6-4e30-9bd9-bc60bedd360c",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImVtYWlsIjoiZ29uY2FsbzU4MEBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJjaWRhZGFvIiwiaWF0IjoxNzgwMzk5ODc0LCJleHAiOjE3ODEwMDQ2NzR9.8vwf3mgFuHCy22RgXGfQ0B2rTopzg71DOF5pjur1VDk",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [],
             "body": {
@@ -1762,10 +1782,37 @@
           "name": "Reject Event",
           "id": "b0fd7add-1086-43e4-b246-396a256544c8",
           "request": {
-            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoiZ29uY2Fsbzg5M0BnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJjaWRhZGFvIiwiaWF0IjoxNzgwNDA2Nzg2LCJleHAiOjE3ODEwMTE1ODZ9.8faq575UkeQYWMbpxDCSB1cnwFqYNm_MuaQYHSAHcoI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
             "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"tipo_confirmacao\": \"rejeicao\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
-              "raw": ""
+              "raw": "{{baseUrl}}/events/2/confirmations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "events",
+                "2",
+                "confirmations"
+              ]
             }
           },
           "response": []
@@ -1775,7 +1822,102 @@
     },
     {
       "name": "Teams",
-      "item": [],
+      "item": [
+        {
+          "name": "Create Team",
+          "id": "aa5678f4-8ad6-40f5-af6f-ec4131585832",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDA3OTY0LCJleHAiOjE3ODEwMTI3NjR9.TcPozDh_YYpGLQMJISx5VFQ-3xqQunoqnKKOW-DyFOw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome_equipa\": \"Equipa de Iluminação\",\r\n  \"id_entidade\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/teams",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Teams",
+          "id": "5c30cacd-e3d4-4ff3-b602-16d75b7ae1b8",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDA3OTY0LCJleHAiOjE3ODEwMTI3NjR9.TcPozDh_YYpGLQMJISx5VFQ-3xqQunoqnKKOW-DyFOw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/teams",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Team",
+          "id": "90d33304-6528-42af-a09d-3a166109b77f",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDA3OTY0LCJleHAiOjE3ODEwMTI3NjR9.TcPozDh_YYpGLQMJISx5VFQ-3xqQunoqnKKOW-DyFOw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/teams/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
       "id": "5727e613-2b4c-4cde-b5a6-e86d962f15c8"
     }
   ],
@@ -1791,12 +1933,12 @@
   },
   "variable": [
     {
-      "id": "7094ad74-c950-4156-9393-5e16748e1c60",
+      "id": "604d3d34-4764-4478-b5f3-143015f676f1",
       "key": "baseUrl",
       "value": ""
     },
     {
-      "id": "0e9b0c5f-872c-409b-8d63-a5c99a23c479",
+      "id": "a06afa31-ae51-4ad9-8317-c23c7d21c596",
       "key": "token",
       "value": ""
     }

@@ -1,23 +1,37 @@
-// routes/teams.routes.js
 import express from "express";
+
 import {
   getTeams,
   createTeam,
   deleteTeam,
-  getTeamCategories,
-  addCategoryToTeam,
-  removeCategoryFromTeam,
 } from "../controllers/teams.controller.js";
+
+import {
+  authenticate,
+  authorizeRoles,
+} from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-router.get("/", getTeams);
-router.post("/", createTeam);
-router.delete("/:id", deleteTeam);
+router.get(
+  "/",
+  authenticate,
+  authorizeRoles("moderador", "gestor_municipal", "tecnico"),
+  getTeams
+);
 
-// categorias da equipa
-router.get("/:id/categories", getTeamCategories);
-router.post("/:id/categories", addCategoryToTeam);
-router.delete("/:id/categories/:categoryId", removeCategoryFromTeam);
+router.post(
+  "/",
+  authenticate,
+  authorizeRoles("gestor_municipal"),
+  createTeam
+);
+
+router.delete(
+  "/:id",
+  authenticate,
+  authorizeRoles("gestor_municipal"),
+  deleteTeam
+);
 
 export default router;
