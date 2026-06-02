@@ -26,10 +26,11 @@ const User = sequelize.define(
       allowNull: false,
     },
 
-    tipo_utilizador: {
-      type: DataTypes.ENUM("cidadao", "moderador", "gestor_municipal", "tecnico"),
-      allowNull: false,
-    },
+tipo_utilizador: {
+  type: DataTypes.ENUM("cidadao", "moderador", "gestor_municipal", "tecnico"),
+  allowNull: false,
+  defaultValue: "cidadao",
+},
 
     fotografia: {
       type: DataTypes.STRING(255),
@@ -43,3 +44,7 @@ const User = sequelize.define(
 );
 
 export default User;
+
+
+
+

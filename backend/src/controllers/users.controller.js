@@ -30,7 +30,7 @@ export const createUser = async (req, res) => {
       nome,
       email,
       password: hashedPassword,
-      tipo_utilizador: tipo_utilizador || "cidadao",
+      tipo_utilizador: "cidadao",
       fotografia: fotografia || null,
     });
 

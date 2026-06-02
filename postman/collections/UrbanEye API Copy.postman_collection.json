@@ -1378,7 +1378,73 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "id": "05a78a7c-4be1-4144-b4a1-1a0be33215a5",
+              "name": "sucsess - 201 categories found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/categories",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "153"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"99-wwMO0Ah7lGR4B8smf5RfzYAPDwg\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 10:13:13 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T10:13:17.019Z",
+              "body": "[\n    {\n        \"id_categoria\": 1,\n        \"nome_categoria\": \"Iluminação Pública\",\n        \"descricao_categoria\": \"Problemas relacionados com postes, lâmpadas e iluminação urbana.\"\n    }\n]"
+            }
+          ]
         },
         {
           "name": "Create category",
@@ -1683,12 +1749,12 @@
   },
   "variable": [
     {
-      "id": "bb42662f-606b-4755-b260-66f28f1dd995",
+      "id": "2cbef90b-d19d-411b-9ff2-83645f0532d5",
       "key": "baseUrl",
       "value": ""
     },
     {
-      "id": "8b925e04-d8e3-4542-9f9a-33cc5b8e0cf9",
+      "id": "481bd8c3-d872-446e-9c35-8161a1723614",
       "key": "token",
       "value": ""
     }
