@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
+import Event from "../models/event.model.js";
 
 export const authenticate = async (req, res, next) => {
   try {
@@ -84,4 +85,43 @@ export const authorizeOwnerOrAdmin = (req, res, next) => {
   }
 
   next();
+};
+
+export const authorizeEventOwnerOrStaff = async (req, res, next) => {
+  try {
+    const eventId = Number(req.params.id);
+
+    const event = await Event.findByPk(eventId);
+
+    if (!event) {
+      return res.status(404).json({
+        success: false,
+        message: "Event not found.",
+      });
+    }
+
+    const isOwner =
+      Number(event.id_utilizador) === Number(req.user.id_utilizador);
+
+    const isStaff = ["moderador", "gestor_municipal"].includes(
+      req.user.tipo_utilizador
+    );
+
+    if (!isOwner && !isStaff) {
+      return res.status(403).json({
+        success: false,
+        message: "You do not have permission to modify this event.",
+      });
+    }
+
+    req.event = event;
+
+    next();
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error checking event permissions.",
+      error: error.message,
+    });
+  }
 };

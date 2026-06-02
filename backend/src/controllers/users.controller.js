@@ -4,7 +4,7 @@ import User from "../models/user.model.js";
 
 export const createUser = async (req, res) => {
   try {
-    const { nome, email, password, tipo_utilizador, fotografia } = req.body;
+    const { nome, email, password, fotografia } = req.body;
 
     if (!nome || !email || !password) {
       return res.status(400).json({
@@ -181,7 +181,7 @@ export const getUserById = async (req, res) => {
 export const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const { nome, email, password, tipo_utilizador, fotografia } = req.body;
+    const { nome, email, password, fotografia } = req.body;
 
     const user = await User.findByPk(id);
 

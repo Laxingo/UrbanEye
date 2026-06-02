@@ -74,14 +74,15 @@ export const createEvent = async (req, res) => {
       latitude,
       longitude,
       descricao_local,
-      id_utilizador,
       id_categoria,
     } = req.body;
 
-    if (!descricao || !latitude || !longitude || !id_utilizador || !id_categoria) {
+    const id_utilizador = req.user.id_utilizador;
+
+    if (!descricao || !latitude || !longitude || !id_categoria) {
       return res.status(400).json({
         success: false,
-        message: "Description, latitude, longitude, user and category are required.",
+        message: "Description, latitude, longitude and category are required.",
       });
     }
 
@@ -139,14 +140,15 @@ export const updateEvent = async (req, res) => {
       });
     }
 
-    const {
-      descricao,
-      estado,
-      latitude,
-      longitude,
-      descricao_local,
-      id_categoria,
-    } = req.body;
+   const {
+  descricao,
+  latitude,
+  longitude,
+  descricao_local,
+  id_categoria,
+} = req.body;
+
+const id_utilizador = req.user.id_utilizador;
 
     if (descricao !== undefined) event.descricao = descricao;
     if (estado !== undefined) event.estado = estado;
