@@ -24,7 +24,97 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "id": "7c2d007e-77f8-47be-a324-f51015e3a685",
+              "name": "200 - API is running",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "52"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"34-hDRfUAjGLZ1vrNDtUQkzm0JmM94\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:08:44 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:08:47.181Z",
+              "body": "{\n    \"success\": true,\n    \"message\": \"UrbanEye API is running\"\n}"
+            },
+            {
+              "id": "d79fefeb-d063-4acb-86a5-fc0fff9003d2",
+              "name": "500 - Server error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:12:04.602Z",
+              "body": null
+            }
+          ]
         }
       ],
       "id": "3cf2d389-9fa5-436a-9221-e1a211d0391a"
@@ -40,7 +130,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"nome\": \"Gonçalo\",\r\n  \"email\": \"goncalo{{$randomInt}}@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"cidadao\"\r\n}",
+              "raw": "{\r\n  \"nome\": \"Gonçalo\",\r\n  \"email\": \"goncalo{{$randomInt}}@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"gestor_municipal\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -60,7 +150,7 @@
           "response": [
             {
               "id": "b19ae6c2-eb82-4fb4-85c4-658f36f134cc",
-              "name": "Success - 201 Created",
+              "name": "201 - User created successfully",
               "originalRequest": {
                 "method": "POST",
                 "header": [],
@@ -134,7 +224,7 @@
             },
             {
               "id": "d36c9acd-aca6-43f3-9125-9599cc758fe5",
-              "name": "Error - 400 Missing required fields",
+              "name": "400 - Missing required fields",
               "originalRequest": {
                 "method": "POST",
                 "header": [],
@@ -208,7 +298,7 @@
             },
             {
               "id": "f88c2af1-f022-400d-b563-ec5043ae5398",
-              "name": "Error - 409 Email already in use",
+              "name": "409 - Email already in use",
               "originalRequest": {
                 "method": "POST",
                 "header": [],
@@ -279,6 +369,39 @@
               "cookie": [],
               "responseTime": "2026-05-29T22:50:49.957Z",
               "body": "{\n    \"success\": false,\n    \"message\": \"Email already in use.\"\n}"
+            },
+            {
+              "id": "93352ab3-eeb8-4461-837e-026dbb06e497",
+              "name": "500 - Server error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Gonçalo\",\r\n  \"email\": \"goncalo{{$randomInt}}@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"cidadao\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:18:46.092Z",
+              "body": null
             }
           ]
         },
@@ -288,6 +411,7 @@
             {
               "listen": "test",
               "script": {
+                "id": "c32c25c9-b278-4767-8718-45880fd1d9d8",
                 "exec": [
                   "const response = pm.response.json();\r",
                   "\r",
@@ -297,18 +421,39 @@
                 ],
                 "type": "text/javascript",
                 "packages": {},
-                "requests": {},
-                "id": "c32c25c9-b278-4767-8718-45880fd1d9d8"
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "4dffc6f4-2b9c-4112-ba4a-1e5cba7cb597",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
           "id": "e4a3e51d-8858-4010-bd69-3fa95d235192",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoiZ29uY2Fsbzg5M0BnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJjaWRhZGFvIiwiaWF0IjoxNzgwMzk2OTQ4LCJleHAiOjE3ODEwMDE3NDh9.8JdN9rXYLLgfVPCfhZGbOL7x2Eb-fIEF_WYAcnbNw5Y",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"email\": \"goncalo2@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+              "raw": "{\r\n  \"email\": \"goncalo467@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -329,7 +474,7 @@
           "response": [
             {
               "id": "36656850-481d-4849-b53c-7493d10f47ef",
-              "name": "Success - 200 Login successful",
+              "name": "200 - Login successful",
               "originalRequest": {
                 "method": "POST",
                 "header": [],
@@ -404,7 +549,7 @@
             },
             {
               "id": "50941696-f561-4f9f-abc6-1ba38d3b9b70",
-              "name": "Error - 400 Missing email or password",
+              "name": "400 - Missing email or password",
               "originalRequest": {
                 "method": "POST",
                 "header": [],
@@ -479,7 +624,7 @@
             },
             {
               "id": "04779b63-bc4f-4585-b00a-c915ad0b96ce",
-              "name": "Error - 401 Invalid credentials",
+              "name": "401 - Invalid credentials",
               "originalRequest": {
                 "method": "POST",
                 "header": [],
@@ -554,7 +699,7 @@
             },
             {
               "id": "60a2585d-e8be-4eab-9990-7f784bf59475",
-              "name": "Error: 500 Server Error",
+              "name": "500 - Server error",
               "originalRequest": {
                 "method": "POST",
                 "header": [],
@@ -592,6 +737,16 @@
           "name": "Get All Users",
           "id": "bdb7ca69-5bb2-4052-b18d-e2d0fa421722",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDEwMDU1LCJleHAiOjE3ODEwMTQ4NTV9.xgNvVZDxHz6X_dVDrv796YCCeFr9LK-vB9i4raHoSXk",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [],
             "url": {
@@ -607,7 +762,7 @@
           "response": [
             {
               "id": "0ea531f8-3e10-4526-9051-b9e6e772b16a",
-              "name": "Success - 200 Users list",
+              "name": "200 - Users list",
               "originalRequest": {
                 "method": "GET",
                 "header": [],
@@ -671,8 +826,138 @@
               "body": "{\n    \"success\": true,\n    \"users\": [\n        {\n            \"id_utilizador\": 3,\n            \"nome\": \"Gonçalo\",\n            \"email\": \"goncalo41@gmail.com\",\n            \"tipo_utilizador\": \"moderador\",\n            \"fotografia\": null\n        },\n        {\n            \"id_utilizador\": 4,\n            \"nome\": \"samuel\",\n            \"email\": \"samuel@gmail.com\",\n            \"tipo_utilizador\": \"cidadao\",\n            \"fotografia\": null\n        },\n        {\n            \"id_utilizador\": 5,\n            \"nome\": \"Gonçalo\",\n            \"email\": \"goncalo959@gmail.com\",\n            \"tipo_utilizador\": \"cidadao\",\n            \"fotografia\": null\n        },\n        {\n            \"id_utilizador\": 6,\n            \"nome\": \"Gonçalo\",\n            \"email\": \"goncalo467@gmail.com\",\n            \"tipo_utilizador\": \"cidadao\",\n            \"fotografia\": null\n        },\n        {\n            \"id_utilizador\": 8,\n            \"nome\": \"Gonçalo\",\n            \"email\": \"goncalo113@gmail.com\",\n            \"tipo_utilizador\": \"cidadao\",\n            \"fotografia\": null\n        },\n        {\n            \"id_utilizador\": 9,\n            \"nome\": \"Gonçalo\",\n            \"email\": \"goncalo557@gmail.com\",\n            \"tipo_utilizador\": \"cidadao\",\n            \"fotografia\": null\n        }\n    ]\n}"
             },
             {
+              "id": "54678b59-5998-4967-8321-6738b9fe50f5",
+              "name": "401 - Invalid or expired token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-J1JurpJaJ2iET3UTTfEcU3gjszc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:15:01 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:15:08.055Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid or expired token.\"\n}"
+            },
+            {
+              "id": "75835969-d652-4be0-b24f-8ea50bc50c42",
+              "name": "401 - No token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "63"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f-Kq5tk9lMkaqhY3Bdz58pDYzI+jc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:15:28 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:15:44.477Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Authentication token is required.\"\n}"
+            },
+            {
               "id": "30cee16c-6308-40bb-930a-2fefa3490806",
-              "name": "Error - 500 Server error",
+              "name": "500 - Server error",
               "originalRequest": {
                 "method": "GET",
                 "header": [],
@@ -700,6 +985,16 @@
           "name": "Get User by ID",
           "id": "b5c222e9-61db-4506-8edb-e59c81ac1e50",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJnb25jYWxvNDY3QGdtYWlsLmNvbSIsInRpcG9fdXRpbGl6YWRvciI6ImNpZGFkYW8iLCJpYXQiOjE3ODA0MTAwOTksImV4cCI6MTc4MTAxNDg5OX0.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJnb25jYWxvNDY3QGdtYWlsLmNvbSIsInRpcG9fdXRpbGl6YWRvciI6ImNpZGFkYW8iLCJpYXQiOjE3ODA0MTAwOTksImV4cCI6MTc4MTAxNDg5OX0.RcNZYdkV5FA5cPXcLGVG7hUyhol6q30PN9usY2b7sQg",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [],
             "body": {
@@ -712,20 +1007,20 @@
               }
             },
             "url": {
-              "raw": "{{baseUrl}}/users/3",
+              "raw": "{{baseUrl}}/users/6",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "users",
-                "3"
+                "6"
               ]
             }
           },
           "response": [
             {
               "id": "ea90845b-bb08-4570-b47b-af417c504973",
-              "name": "Success - 200 User found",
+              "name": "200 - User found",
               "originalRequest": {
                 "method": "GET",
                 "header": [],
@@ -790,8 +1085,158 @@
               "body": "{\n    \"success\": true,\n    \"user\": {\n        \"id_utilizador\": 3,\n        \"nome\": \"Gonçalo\",\n        \"email\": \"goncalo41@gmail.com\",\n        \"tipo_utilizador\": \"moderador\",\n        \"fotografia\": null\n    }\n}"
             },
             {
+              "id": "4eb35d08-4f3b-4797-883a-7cfe171a4923",
+              "name": "401 - No token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/11",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "11"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "63"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f-Kq5tk9lMkaqhY3Bdz58pDYzI+jc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:16:08 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:16:10.221Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Authentication token is required.\"\n}"
+            },
+            {
+              "id": "c8ba9688-4898-476b-a1ef-aab4c50edffb",
+              "name": "401 - Invalid or expired token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/11",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "11"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-J1JurpJaJ2iET3UTTfEcU3gjszc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:16:41 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:16:50.019Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid or expired token.\"\n}"
+            },
+            {
               "id": "aa1351c2-a24d-4939-829c-c95d24a7b0b7",
-              "name": "Error - 404 User not found",
+              "name": "404 - User not found",
               "originalRequest": {
                 "method": "GET",
                 "header": [],
@@ -866,7 +1311,7 @@
             },
             {
               "id": "7ef986fa-12bf-4d01-95c4-439503088b8d",
-              "name": "Error - 500 Server error",
+              "name": "500 - Server error",
               "originalRequest": {
                 "method": "GET",
                 "header": [],
@@ -895,6 +1340,16 @@
           "name": "Update user",
           "id": "fa037439-a8df-41ac-a4b6-1029f418cf5e",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJnb25jYWxvNDY3QGdtYWlsLmNvbSIsInRpcG9fdXRpbGl6YWRvciI6ImNpZGFkYW8iLCJpYXQiOjE3ODA0MTAwOTksImV4cCI6MTc4MTAxNDg5OX0.RcNZYdkV5FA5cPXcLGVG7hUyhol6q3N9usY2b7sQg",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "PATCH",
             "header": [],
             "body": {
@@ -920,7 +1375,7 @@
           "response": [
             {
               "id": "8b754dc9-9907-448f-a2e9-f9a8d2926def",
-              "name": "Success - 200 User updated",
+              "name": "200 - User updated successfully",
               "originalRequest": {
                 "method": "PATCH",
                 "header": [],
@@ -994,8 +1449,233 @@
               "body": "{\n    \"success\": true,\n    \"message\": \"User updated successfully.\",\n    \"user\": {\n        \"id_utilizador\": 3,\n        \"nome\": \"Gonçalo\",\n        \"email\": \"goncalo41@gmail.com\",\n        \"tipo_utilizador\": \"moderador\",\n        \"fotografia\": null\n    }\n}"
             },
             {
+              "id": "cdf5d8a5-2f1f-4c4f-91c2-65e001a1d11f",
+              "name": "401 - No token",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Gonçalo\",\r\n  \"email\": \"goncalo41@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"moderador\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "3"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "63"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f-Kq5tk9lMkaqhY3Bdz58pDYzI+jc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:23:41 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:23:44.312Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Authentication token is required.\"\n}"
+            },
+            {
+              "id": "d2961a7a-b403-4c42-b502-f464bab30a47",
+              "name": "401 - Invalid or expired token",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Gonçalo\",\r\n  \"email\": \"goncalo41@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"moderador\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "3"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-J1JurpJaJ2iET3UTTfEcU3gjszc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:24:42 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:24:49.738Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid or expired token.\"\n}"
+            },
+            {
+              "id": "bd1d258c-3b79-4304-b70b-392292af2925",
+              "name": "403 - Not owner or manager",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Gonçalo\",\r\n  \"email\": \"goncalo41@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"moderador\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "3"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "67"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"43-f13cUjfvzYV76x0qGKUqvwNRSyY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:24:20 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:24:28.973Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"You can only access your own account.\"\n}"
+            },
+            {
               "id": "20545ea0-825e-4682-8f0f-c046256fed78",
-              "name": "Error - 404 User not found",
+              "name": "404 - User not found",
               "originalRequest": {
                 "method": "PATCH",
                 "header": [],
@@ -1070,7 +1750,7 @@
             },
             {
               "id": "3b25b79b-6fd2-4e2c-95e8-e6a0b5de281b",
-              "name": "Error - 409 Email already in use",
+              "name": "409 - Email already in use",
               "originalRequest": {
                 "method": "PATCH",
                 "header": [],
@@ -1145,7 +1825,7 @@
             },
             {
               "id": "b1042fec-cee4-4aaa-86a5-e08c01a1cb59",
-              "name": "Error - 500 Server error",
+              "name": "500 - Server error",
               "originalRequest": {
                 "method": "PATCH",
                 "header": [],
@@ -1180,9 +1860,19 @@
           ]
         },
         {
-          "name": "New Request",
+          "name": "Delete User",
           "id": "deb89699-1690-4d8e-81b4-83898fbdc8bd",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "DELETE",
             "header": [],
             "url": {
@@ -1199,7 +1889,7 @@
           "response": [
             {
               "id": "08ec26d8-1132-4f51-a988-016806736dd0",
-              "name": "Success - 200 User deleted",
+              "name": "200 - User deleted successfully",
               "originalRequest": {
                 "method": "DELETE",
                 "header": [],
@@ -1264,8 +1954,206 @@
               "body": "{\n    \"success\": true,\n    \"message\": \"User deleted successfully.\"\n}"
             },
             {
+              "id": "7f3b10b6-5f4e-4b7c-a717-23bb3a8e9c3d",
+              "name": "401 - No token",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/5",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "5"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "63"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f-Kq5tk9lMkaqhY3Bdz58pDYzI+jc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:28:02 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:28:03.784Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Authentication token is required.\"\n}"
+            },
+            {
+              "id": "6dfd18bd-26fb-4197-adc1-9915473088a8",
+              "name": "401 - Invalid or expired token",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/5",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "5"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-J1JurpJaJ2iET3UTTfEcU3gjszc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:26:32 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:26:34.642Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid or expired token.\"\n}"
+            },
+            {
+              "id": "2553503b-93cb-4185-a3b5-a87cbfc7adf2",
+              "name": "403 - Not owner or manager",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/5",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "5"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "67"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"43-f13cUjfvzYV76x0qGKUqvwNRSyY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:27:03 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:27:09.304Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"You can only access your own account.\"\n}"
+            },
+            {
               "id": "857b6a47-6877-4705-a054-087dcfb34a02",
-              "name": "Error - 404 User not found",
+              "name": "404 - User not found",
               "originalRequest": {
                 "method": "DELETE",
                 "header": [],
@@ -1331,7 +2219,7 @@
             },
             {
               "id": "f4833a12-c324-4040-8bb5-1114fe2e6a4b",
-              "name": "Error - 500 Server error",
+              "name": "500 - Server error",
               "originalRequest": {
                 "method": "DELETE",
                 "header": [],
@@ -1366,6 +2254,16 @@
           "name": "Get categories",
           "id": "1751b9cb-9bb2-4940-8ac8-babded8c862a",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [],
             "url": {
@@ -1381,7 +2279,7 @@
           "response": [
             {
               "id": "05a78a7c-4be1-4144-b4a1-1a0be33215a5",
-              "name": "sucsess - 201 categories found",
+              "name": "200 - Categories list",
               "originalRequest": {
                 "method": "GET",
                 "header": [],
@@ -1443,6 +2341,30 @@
               "cookie": [],
               "responseTime": "2026-06-02T10:13:17.019Z",
               "body": "[\n    {\n        \"id_categoria\": 1,\n        \"nome_categoria\": \"Iluminação Pública\",\n        \"descricao_categoria\": \"Problemas relacionados com postes, lâmpadas e iluminação urbana.\"\n    }\n]"
+            },
+            {
+              "id": "d0481c44-9e89-4f2c-bd43-95d4c9ce60e2",
+              "name": "500 - Server error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/categories",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:29:09.110Z",
+              "body": null
             }
           ]
         },
@@ -1455,7 +2377,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJnb25jYWxvNDY3QGdtYWlsLmNvbSIsInRpcG9fdXRpbGl6YWRvciI6ImNpZGFkYW8iLCJpYXQiOjE3ODAzOTg3MTIsImV4cCI6MTc4MTAwMzUxMn0.8WKRnFbXpOu0AlsvQqnikY3QmfRCaszjFfMlU39peHw",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -1481,7 +2403,489 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "id": "f5ca2dea-22ae-4fa6-872c-fb8066a0afb8",
+              "name": "201 - Category created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_categoria\": \"Iluminaçãoa Pública\",\r\n  \"descricao_categoria\": \"Problemas relacionados com iluminação urbana.\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "132"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"84-47p1T+4Do1vHVWVy1fj9Skm2kFs\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:36:26 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:36:29.900Z",
+              "body": "{\n    \"id_categoria\": 3,\n    \"nome_categoria\": \"Iluminaçãoa Pública\",\n    \"descricao_categoria\": \"Problemas relacionados com iluminação urbana.\"\n}"
+            },
+            {
+              "id": "902df6a5-5ff7-4d10-9d98-f639049a9b53",
+              "name": "400 - Missing required fields",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_categoria\": \"Iluminaçãoa Pública\",\r\n  \r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'none'"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/html; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1248"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:37:15 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:37:20.752Z",
+              "body": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <title>Error</title>\n    </head>\n    <body>\n        <pre>SyntaxError: Expected double-quoted property name in JSON at position 51 (line 4 column 1)\n            <br> &nbsp; &nbsp;at JSON.parse (&lt;anonymous&gt;)\n            <br> &nbsp; &nbsp;at parse (C:\\Users\\gonca\\OneDrive\\Ambiente de Trabalho\\UrbanEye\\backend\\node_modules\\body-parser\\lib\\types\\json.js:72:19)\n            <br> &nbsp; &nbsp;at C:\\Users\\gonca\\OneDrive\\Ambiente de Trabalho\\UrbanEye\\backend\\node_modules\\body-parser\\lib\\read.js:162:18\n            <br> &nbsp; &nbsp;at AsyncResource.runInAsyncScope (node:async_hooks:214:14)\n            <br> &nbsp; &nbsp;at invokeCallback (C:\\Users\\gonca\\OneDrive\\Ambiente de Trabalho\\UrbanEye\\backend\\node_modules\\raw-body\\index.js:238:16)\n            <br> &nbsp; &nbsp;at done (C:\\Users\\gonca\\OneDrive\\Ambiente de Trabalho\\UrbanEye\\backend\\node_modules\\raw-body\\index.js:227:7)\n            <br> &nbsp; &nbsp;at IncomingMessage.onEnd (C:\\Users\\gonca\\OneDrive\\Ambiente de Trabalho\\UrbanEye\\backend\\node_modules\\raw-body\\index.js:287:7)\n            <br> &nbsp; &nbsp;at IncomingMessage.emit (node:events:518:28)\n            <br> &nbsp; &nbsp;at endReadableNT (node:internal/streams/readable:1698:12)\n            <br> &nbsp; &nbsp;at process.processTicksAndRejections (node:internal/process/task_queues:90:21)\n        </pre>\n    </body>\n</html>"
+            },
+            {
+              "id": "65459e89-1952-4cbd-8832-177e77b67c05",
+              "name": "401 - Invalid or expired token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_categoria\": \"Iluminaçãoa Pública\",\r\n  \"descricao_categoria\": \"Problemas relacionados com iluminação urbana.\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-J1JurpJaJ2iET3UTTfEcU3gjszc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:30:26 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:30:35.137Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid or expired token.\"\n}"
+            },
+            {
+              "id": "99cc3a2a-3d5f-44ae-9b8c-9a3269cdfe49",
+              "name": "401 - No token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_categoria\": \"Iluminaçãoa Pública\",\r\n  \"descricao_categoria\": \"Problemas relacionados com iluminação urbana.\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "63"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f-Kq5tk9lMkaqhY3Bdz58pDYzI+jc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:30:54 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:30:55.265Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Authentication token is required.\"\n}"
+            },
+            {
+              "id": "224794a2-7636-47e6-8abe-9a5ca06f06c1",
+              "name": "403 - No permission",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_categoria\": \"Iluminaçãoa Pública\",\r\n  \"descricao_categoria\": \"Problemas relacionados com iluminação urbana.\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "80"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"50-lH+/285jMfDvUm1u6rkLicRWRhc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:30:01 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:30:09.809Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"You do not have permission to perform this action.\"\n}"
+            },
+            {
+              "id": "e214f046-9248-4684-a80b-090f8f73ccd4",
+              "name": "409 - Category already exists",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_categoria\": \"Iluminaçãoa Pública\",\r\n  \"descricao_categoria\": \"Problemas relacionados com iluminação urbana.\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "32"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"20-l1HlvmkheugwV3V08srZVjCybMs\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:50:15 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:50:30.121Z",
+              "body": "{\n    \"error\": \"Categoria já existe\"\n}"
+            },
+            {
+              "id": "7bdc8552-f263-4862-8a5b-823e00847740",
+              "name": "500 - Server error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_categoria\": \"Iluminaçãoa Pública\",\r\n  \"descricao_categoria\": \"Problemas relacionados com iluminação urbana.\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:31:11.217Z",
+              "body": null
+            }
+          ]
         },
         {
           "name": "Update category",
@@ -1509,12 +2913,432 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "id": "d9b86dbe-48bb-4574-b5f7-7f3ceeb76c91",
+              "name": "200 - Category updated successfully",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_categoria\": \"Iluminação Urbana\",\r\n  \"descricao_categoria\": \"Problemas relacionados com postes, lâmpadas e iluminação pública.\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "151"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"97-CBdUlsAUhVJHX1b63Fd2ZL8SrhU\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:40:14 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:40:41.617Z",
+              "body": "{\n    \"id_categoria\": 1,\n    \"nome_categoria\": \"Iluminação Urbana\",\n    \"descricao_categoria\": \"Problemas relacionados com postes, lâmpadas e iluminação pública.\"\n}"
+            },
+            {
+              "id": "0266ffa5-ae0d-4e6d-b63a-1959859dea48",
+              "name": "401 - No token",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_categoria\": \"Iluminação Urbana\",\r\n  \"descricao_categoria\": \"Problemas relacionados com postes, lâmpadas e iluminação pública.\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories/66",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "66"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "63"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f-Kq5tk9lMkaqhY3Bdz58pDYzI+jc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:38:44 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:38:51.301Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Authentication token is required.\"\n}"
+            },
+            {
+              "id": "b4b08e78-0bad-4d40-9455-f2cd840fd052",
+              "name": "401 - Invalid or expired token",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_categoria\": \"Iluminação Urbana\",\r\n  \"descricao_categoria\": \"Problemas relacionados com postes, lâmpadas e iluminação pública.\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories/66",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "66"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-J1JurpJaJ2iET3UTTfEcU3gjszc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:38:27 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:38:29.059Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid or expired token.\"\n}"
+            },
+            {
+              "id": "45bf8fee-e996-4e0f-ac8a-c5f06de360e0",
+              "name": "403 - No permission",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_categoria\": \"Iluminação Urbana\",\r\n  \"descricao_categoria\": \"Problemas relacionados com postes, lâmpadas e iluminação pública.\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories/66",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "66"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "80"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"50-lH+/285jMfDvUm1u6rkLicRWRhc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:37:57 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:38:05.043Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"You do not have permission to perform this action.\"\n}"
+            },
+            {
+              "id": "26c0fc13-fe45-45ed-b067-d49bc0231615",
+              "name": "404 - Category not found",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_categoria\": \"Iluminação Urbana\",\r\n  \"descricao_categoria\": \"Problemas relacionados com postes, lâmpadas e iluminação pública.\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories/67",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "67"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "37"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"25-MH6MLuw9H5N2lN4MrxLaPmCnTM8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:39:29 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:39:35.391Z",
+              "body": "{\n    \"error\": \"Categoria não encontrada\"\n}"
+            },
+            {
+              "id": "6e1caf51-2ef5-4d6b-8404-6a7efa1b7b4c",
+              "name": "500 - Server error",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_categoria\": \"Iluminação Urbana\",\r\n  \"descricao_categoria\": \"Problemas relacionados com postes, lâmpadas e iluminação pública.\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories/66",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "66"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:48:44.759Z",
+              "body": null
+            }
+          ]
         },
         {
           "name": "Delete Category",
           "id": "dee4bdb4-eefa-428e-b7a1-b20bfc785bcf",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwMzk4ODE2LCJleHAiOjE3ODEwMDM2MTZ9.HozjtyQ7kyUJmv86_INrhQqgfemdeWBytVbejeRWmr4",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "DELETE",
             "header": [],
             "body": {
@@ -1522,17 +3346,455 @@
               "raw": "{\r\n  \"email\": \"goncalo2@gmail.com\",\r\n  \"password\": \"123456\"\r\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/categories/1",
+              "raw": "{{baseUrl}}/categories/2",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "categories",
-                "1"
+                "2"
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "id": "d47ed9ec-d075-406f-89be-064d8e8e7064",
+              "name": "200 - Category updated successfully",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories/4",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "4"
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:50:57 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:50:59.271Z",
+              "body": null
+            },
+            {
+              "id": "16efe46c-2a56-4420-84fb-61837ea42629",
+              "name": "404 - Category not found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "3"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "37"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"25-MH6MLuw9H5N2lN4MrxLaPmCnTM8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:46:57 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:47:03.979Z",
+              "body": "{\n    \"error\": \"Categoria não encontrada\"\n}"
+            },
+            {
+              "id": "e4895391-57f4-41bb-91bb-10cc8c4a37cf",
+              "name": "401 - No token",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "3"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "63"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f-Kq5tk9lMkaqhY3Bdz58pDYzI+jc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:47:34 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:47:40.326Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Authentication token is required.\"\n}"
+            },
+            {
+              "id": "badf2b09-8dd9-42eb-bfd2-2a9eaa2a9493",
+              "name": "401 - Invalid or expired token",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "3"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-J1JurpJaJ2iET3UTTfEcU3gjszc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:47:16 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:47:23.770Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid or expired token.\"\n}"
+            },
+            {
+              "id": "802802dc-5e3d-4129-9731-0bd7422283eb",
+              "name": "403 - No permission",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "3"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "80"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"50-lH+/285jMfDvUm1u6rkLicRWRhc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:48:05 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:48:07.735Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"You do not have permission to perform this action.\"\n}"
+            },
+            {
+              "id": "c2cc9a32-017d-4369-a3f2-cd3420182bcf",
+              "name": "404 - Category not found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories/33",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "33"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "37"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"25-MH6MLuw9H5N2lN4MrxLaPmCnTM8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 02 Jun 2026 14:49:17 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:49:19.415Z",
+              "body": "{\n    \"error\": \"Categoria não encontrada\"\n}"
+            },
+            {
+              "id": "6c367de4-8856-4dbc-8abe-276839aa0bc7",
+              "name": "500 - Server error",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"goncalo2@gmail.com\",\r\n  \"password\": \"123456\"\r\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/categories/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "2"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "responseTime": "2026-06-02T14:48:27.365Z",
+              "body": null
+            }
+          ]
         }
       ],
       "id": "272e48b9-dac8-4cdd-a426-f5c0cc6f6870"
@@ -1581,11 +3843,21 @@
           "name": "Create event",
           "id": "d183a5f6-d121-4e47-a5ae-524fe854b6ee",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImVtYWlsIjoiZ29uY2FsbzU4MEBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJjaWRhZGFvIiwiaWF0IjoxNzgwMzk5ODc0LCJleHAiOjE3ODEwMDQ2NzR9.8vwf3mgFuHCy22RgXGfQ0B2rTopzg71DOF5pjur1VDk",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada da escola.\",\r\n  \"latitude\": 41.36682123,\r\n  \"longitude\": -8.73912345,\r\n  \"descricao_local\": \"Entrada principal da ESMAD\",\r\n  \"id_utilizador\": 1,\r\n  \"id_categoria\": 1\r\n}",
+              "raw": "{\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada da escola.\",\r\n  \"latitude\": 41.36682123,\r\n  \"longitude\": -8.73912345,\r\n  \"descricao_local\": \"Entrada principal da ESMAD\",\r\n  \"id_categoria\": 1\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1857,13 +4129,13 @@
               }
             },
             "url": {
-              "raw": "{{baseUrl}}/events/1/forwardings",
+              "raw": "{{baseUrl}}/events/2/forwardings",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "events",
-                "1",
+                "2",
                 "forwardings"
               ]
             }
@@ -1878,7 +4150,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"status\": \"em_analise\"\r\n}",
+              "raw": "{\r\n  \"status\": \"resolvido\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1902,6 +4174,16 @@
           "name": "Delete forwarding",
           "id": "87fbbdd8-e91d-4169-bf9a-20addd383854",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDA3OTY0LCJleHAiOjE3ODEwMTI3NjR9.TcPozDh_YYpGLQMJISx5VFQ-3xqQunoqnKKOW-DyFOw",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "DELETE",
             "header": [],
             "url": {
@@ -1933,12 +4215,12 @@
   },
   "variable": [
     {
-      "id": "604d3d34-4764-4478-b5f3-143015f676f1",
+      "id": "76e28721-98a8-4e1a-b397-01cc04a4cd9f",
       "key": "baseUrl",
       "value": ""
     },
     {
-      "id": "a06afa31-ae51-4ad9-8317-c23c7d21c596",
+      "id": "c6457380-af1e-476b-bd37-0ca573e099e2",
       "key": "token",
       "value": ""
     }
