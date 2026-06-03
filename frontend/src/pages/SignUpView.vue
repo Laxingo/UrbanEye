@@ -82,16 +82,13 @@ async function handleSignup() {
   }
 
   showLoading("Creating your account…")
-
-  // Simular tempo de processamento
   await new Promise(resolve => setTimeout(resolve, 1200))
 
-  const result = registerUser({
-    name: name.value,
+  const result = await registerUser({
+    nome: name.value,
     email: email.value,
     password: password.value,
-    photo: "",
-    verified: false
+    fotografia: ""
   })
 
   hideLoading()
@@ -101,14 +98,11 @@ async function handleSignup() {
     return
   }
 
-  // Save email for verification step
-  localStorage.setItem("pendingVerifyEmail", email.value)
-
-  show("Account created! Verify your email.", "info")
-
-  router.push("/verify")
+  show("Account created successfully!", "success")
+  router.push("/") // login
 }
 </script>
+
 
 <style scoped>
 /* Fullscreen layout */

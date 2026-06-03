@@ -112,9 +112,20 @@ import NewEventForm from '@/components/NewEventForm.vue'
 import EventDetailsModal from '@/components/EventDetailModal.vue'
 import EditEventModal from '@/components/EditEventModal.vue'
 import CreateForwardingModal from "@/components/CreateForwardingModal.vue"
-import { getCurrentUser } from "@/auth/auth"
+
 
 const session = ref(null)
+
+onMounted(() => {
+  const stored = localStorage.getItem("session")
+  if (stored) {
+    session.value = JSON.parse(stored)
+  } else {
+    // Sem sessão → voltar ao login
+    router.push("/")
+  }
+})
+
 
 onMounted(() => {
   const stored = localStorage.getItem("session")
@@ -123,7 +134,8 @@ onMounted(() => {
   }
 })
 
-const currentUser = getCurrentUser()
+const currentUser = computed(() => session.value)
+
 
 /* SEARCH */
 const searchTerm = ref("")

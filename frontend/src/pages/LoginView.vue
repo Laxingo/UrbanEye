@@ -46,10 +46,10 @@
 
 <script setup>
 import { ref } from 'vue'
-import { loginUser } from "@/auth/auth"
 import { useRouter } from "vue-router"
 import { useToast } from "@/composables/useToast"
 import { useLoading } from "@/composables/useLoading"
+import { loginUser } from "@/auth/auth"
 
 const email = ref('')
 const password = ref('')
@@ -58,15 +58,12 @@ const router = useRouter()
 const { show } = useToast()
 const { show: showLoading, hide: hideLoading } = useLoading()
 
-// Avatar base da internet
-const defaultAvatar = "https://i.pravatar.cc/150?img=12"
-
 async function handleLogin() {
   showLoading("Checking your credentials…")
 
   await new Promise(resolve => setTimeout(resolve, 1200))
 
-  const result = loginUser(email.value, password.value)
+  const result = await loginUser(email.value, password.value)
 
   hideLoading()
 
@@ -75,18 +72,14 @@ async function handleLogin() {
     return
   }
 
-  if (!result.user.verified) {
-    show("Please verify your email first", "warning")
-    return
-  }
-
-  // 🔥 Construir sessão corretamente (fix do role)
+  // Construir sessão real
   const session = {
-    name: result.user.name,
+    id: result.user.id_utilizador,
+    nome: result.user.nome,
     email: result.user.email,
-    role: result.user.role,              // <── FIX CRÍTICO
-    verified: result.user.verified,
-    photo: result.user.photo || defaultAvatar
+    role: result.user.tipo_utilizador,
+    photo: result.user.fotografia,
+    token: result.token
   }
 
   localStorage.setItem("session", JSON.stringify(session))
@@ -96,6 +89,7 @@ async function handleLogin() {
   router.push("/dashboard")
 }
 </script>
+
 
 
 <style scoped>

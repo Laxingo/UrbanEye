@@ -1,49 +1,33 @@
-// --- BASIC AUTH SYSTEM (localStorage only) ---
+import axios from "axios"
 
-export function getUsers() {
-  return JSON.parse(localStorage.getItem("users")) || []
-}
+const api = axios.create({
+  baseURL: "http://localhost:3000/api"
+})
 
-export function saveUsers(users) {
-  localStorage.setItem("users", JSON.stringify(users))
-}
-
-export function registerUser(user) {
-  const users = getUsers()
-
-  // prevent duplicate email
-  if (users.some(u => u.email === user.email)) {
-    return { success: false, message: "Email already registered" }
+export async function registerUser(data) {
+  try {
+    const res = await api.post("/users", data)
+    return res.data
+  } catch (err) {
+    return err.response?.data || {
+      success: false,
+      message: "Server error"
+    }
   }
-
-  // force role = user
-  user.role = "user"
-
-  users.push(user)
-  saveUsers(users)
-
-  return { success: true }
 }
 
-export function loginUser(email, password) {
-  const users = getUsers()
-  const user = users.find(u => u.email === email && u.password === password)
-
-  if (!user) {
-    return { success: false, message: "Invalid email or password" }
+export async function loginUser(email, password) {
+  try {
+    const res = await api.post("/users/login", { email, password })
+    return res.data
+  } catch (err) {
+    return err.response?.data || {
+      success: false,
+      message: "Server error"
+    }
   }
-
-  // Save session
-  localStorage.setItem("session", JSON.stringify(user))
-
-  return { success: true, user }
-}
-
-export function getCurrentUser() {
-  return JSON.parse(localStorage.getItem("session"))
 }
 
 export function logoutUser() {
-  localStorage.setItem("session", JSON.stringify(null))
+  localStorage.removeItem("session")
 }
-
