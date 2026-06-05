@@ -7,34 +7,63 @@
         <label>Name</label>
         <input v-model="category.name" type="text" />
 
-        <label>Color</label>
-        <input v-model="category.color" type="color" />
-
-        <label>Events Count</label>
-        <input v-model.number="category.events" type="number" />
+        <label>Description</label>
+        <textarea v-model="category.description"></textarea>
       </div>
 
-      <button class="save-btn" @click="saveCategory">Save</button>
-      <button class="close-btn" @click="$emit('close')">Cancel</button>
+      <p v-if="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </p>
+
+      <button class="save-btn" @click="saveCategory" :disabled="loading">
+        {{ loading ? "Saving..." : "Save" }}
+      </button>
+
+      <button class="close-btn" @click="$emit('close')" :disabled="loading">
+        Cancel
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue"
+import api from "@/services/api.js"
 
-const emit = defineEmits(["close"])
-const category = ref({ name: "", color: "#2D9CDB", events: 0 })
+const emit = defineEmits(["close", "category-created"])
 
-function saveCategory() {
-  const stored = JSON.parse(localStorage.getItem("categories")) || []
-  stored.push({
-    id: Date.now(),
-    ...category.value
-  })
-  localStorage.setItem("categories", JSON.stringify(stored))
-  window.dispatchEvent(new Event("categories-updated"))
-  emit("close")
+const category = ref({
+  name: "",
+  description: ""
+})
+
+const loading = ref(false)
+const errorMessage = ref("")
+
+async function saveCategory() {
+  errorMessage.value = ""
+
+  if (!category.value.name.trim()) {
+    errorMessage.value = "Category name is required."
+    return
+  }
+
+  loading.value = true
+
+  try {
+    await api.post("/categories", {
+      nome_categoria: category.value.name,
+      descricao_categoria: category.value.description || null
+    })
+
+    emit("category-created")
+  } catch (error) {
+    console.error("Error creating category:", error)
+    errorMessage.value =
+      error.response?.data?.message || "Error creating category."
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 
@@ -69,12 +98,18 @@ function saveCategory() {
   margin-bottom: 16px;
 }
 
-input {
+input,
+textarea {
   background: #222;
   border: 1px solid #333;
   padding: 8px;
   border-radius: 6px;
   color: #fff;
+}
+
+textarea {
+  min-height: 80px;
+  resize: vertical;
 }
 
 .save-btn {
@@ -85,6 +120,13 @@ input {
   border: none;
   color: #fff;
   margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.save-btn:disabled,
+.close-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .close-btn {
@@ -94,5 +136,12 @@ input {
   border-radius: 6px;
   border: none;
   color: #fff;
+  cursor: pointer;
+}
+
+.error-message {
+  color: #eb5757;
+  font-size: 14px;
+  margin-bottom: 12px;
 }
 </style>

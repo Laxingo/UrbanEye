@@ -7,51 +7,75 @@
         <label>Name</label>
         <input v-model="category.name" type="text" />
 
-        <label>Color</label>
-        <input v-model="category.color" type="color" />
-
-        <label>Events Count</label>
-        <input v-model.number="category.events" type="number" />
+        <label>Description</label>
+        <textarea v-model="category.description"></textarea>
       </div>
 
-      <button class="save-btn" @click="updateCategory">Save Changes</button>
-      <button class="close-btn" @click="$emit('close')">Cancel</button>
+      <p v-if="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </p>
+
+      <button class="save-btn" @click="updateCategory" :disabled="loading">
+        {{ loading ? "Saving..." : "Save Changes" }}
+      </button>
+
+      <button class="close-btn" @click="$emit('close')" :disabled="loading">
+        Cancel
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue"
+import api from "@/services/api.js"
 
 const props = defineProps({
-  categoryData: Object
+  categoryData: {
+    type: Object,
+    required: true
+  }
 })
 
-const emit = defineEmits(["close"])
+const emit = defineEmits(["close", "category-updated"])
 
 const category = ref({
   id: null,
   name: "",
-  color: "#2D9CDB",
-  events: 0
+  description: ""
 })
+
+const loading = ref(false)
+const errorMessage = ref("")
 
 onMounted(() => {
   category.value = { ...props.categoryData }
 })
 
-function updateCategory() {
-  const stored = JSON.parse(localStorage.getItem("categories")) || []
+async function updateCategory() {
+  errorMessage.value = ""
 
-  const updated = stored.map(c =>
-    c.id === category.value.id ? { ...category.value } : c
-  )
+  if (!category.value.name.trim()) {
+    errorMessage.value = "Category name is required."
+    return
+  }
 
-  localStorage.setItem("categories", JSON.stringify(updated))
+  loading.value = true
 
-  window.dispatchEvent(new Event("categories-updated"))
+  try {
+    await api.patch(`/categories/${category.value.id}`, {
+      nome_categoria: category.value.name,
+      descricao_categoria: category.value.description || null
+    })
 
-  emit("close")
+    emit("category-updated")
+  } catch (error) {
+    console.error("Error updating category:", error)
+    errorMessage.value =
+      error.response?.data?.message || "Error updating category."
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 
@@ -87,12 +111,18 @@ function updateCategory() {
   margin-bottom: 16px;
 }
 
-input {
+input,
+textarea {
   background: #222;
   border: 1px solid #333;
   padding: 8px;
   border-radius: 6px;
   color: #fff;
+}
+
+textarea {
+  min-height: 80px;
+  resize: vertical;
 }
 
 .save-btn {
@@ -107,6 +137,12 @@ input {
   font-weight: 600;
 }
 
+.save-btn:disabled,
+.close-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .close-btn {
   width: 100%;
   background: #444;
@@ -116,6 +152,12 @@ input {
   color: #fff;
   cursor: pointer;
   font-weight: 600;
+}
+
+.error-message {
+  color: #eb5757;
+  font-size: 14px;
+  margin-bottom: 12px;
 }
 
 @keyframes slideUp {

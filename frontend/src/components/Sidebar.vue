@@ -17,19 +17,17 @@
         <span class="label">Dashboard</span>
       </RouterLink>
 
-      <!-- Apenas admins -->
-      <template v-if="isAdmin">
-        <RouterLink
-          v-for="item in adminMenu"
-          :key="item.label"
-          :to="item.path"
-          class="menu-item"
-          :class="{ active: route.path === item.path }"
-        >
-          <component :is="item.icon" class="icon" />
-          <span class="label">{{ item.label }}</span>
-        </RouterLink>
-      </template>
+      <template v-for="item in menuItems" :key="item.label">
+  <RouterLink
+    v-if="canSee(item)"
+    :to="item.path"
+    class="menu-item"
+    :class="{ active: route.path === item.path }"
+  >
+    <component :is="item.icon" class="icon" />
+    <span class="label">{{ item.label }}</span>
+  </RouterLink>
+</template>
     </nav>
 
     <!-- LOGOUT -->
@@ -59,19 +57,37 @@ import {
 const route = useRoute()
 const router = useRouter()
 
-// 🔥 Agora a sidebar lê o role diretamente da sessão
-const isAdmin = ref(false)
+const role = ref(null)
 
 onMounted(() => {
   const session = JSON.parse(localStorage.getItem("session"))
-  isAdmin.value = session?.role === "gestor_municipal"
+  role.value = session?.role || null
 })
 
-const adminMenu = [
-  { label: 'Forwardings', path: '/forwardings', icon: ArrowRightCircleIcon },
-  { label: 'Teams', path: '/teams', icon: UsersIcon },
-  { label: 'Categories', path: '/categories', icon: FolderIcon }
+const menuItems = [
+  {
+    label: "Forwardings",
+    path: "/forwardings",
+    icon: ArrowRightCircleIcon,
+    roles: ["moderador", "gestor_municipal", "tecnico"]
+  },
+  {
+    label: "Teams",
+    path: "/teams",
+    icon: UsersIcon,
+    roles: ["moderador", "gestor_municipal", "tecnico"]
+  },
+  {
+    label: "Categories",
+    path: "/categories",
+    icon: FolderIcon,
+    roles: ["gestor_municipal"]
+  }
 ]
+
+function canSee(item) {
+  return item.roles.includes(role.value)
+}
 
 function handleLogout() {
   logoutAuth()

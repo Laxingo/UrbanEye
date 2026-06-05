@@ -4,7 +4,7 @@
 
     <div class="main">
       <Navbar
-        :avatar="session.photo"
+        :avatar="session.avatar"
         :isUser="true"
         @open-create-category="showCreateModal = true"
       />
@@ -15,7 +15,15 @@
             <h2 class="title">Categories</h2>
           </div>
 
-          <div class="grid">
+          <div v-if="loading" class="empty-state">
+            Loading categories...
+          </div>
+
+          <div v-else-if="categories.length === 0" class="empty-state">
+            No categories found.
+          </div>
+
+          <div v-else class="grid">
             <div
               class="category-card"
               v-for="cat in categories"
@@ -44,26 +52,33 @@
               </div>
             </div>
           </div>
+
+          <p v-if="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </p>
         </div>
       </div>
     </div>
 
-    <!-- MODALS -->
     <CreateCategoryModal
       v-if="showCreateModal"
       @close="showCreateModal = false"
+      @category-created="handleCategoryCreated"
     />
 
     <EditCategoryModal
       v-if="showEditModal"
       :categoryData="selectedCategory"
       @close="showEditModal = false"
+      @category-updated="handleCategoryUpdated"
     />
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue"
+
+import api from "@/services/api.js"
 
 import Sidebar from "@/components/Sidebar.vue"
 import Navbar from "@/components/Navbar.vue"
@@ -83,12 +98,13 @@ import {
 
 const session = ref({})
 const categories = ref([])
+const loading = ref(false)
+const errorMessage = ref("")
 
 const showCreateModal = ref(false)
 const showEditModal = ref(false)
 const selectedCategory = ref(null)
 
-/* ICON MAP */
 const iconMap = {
   BuildingOfficeIcon,
   ShieldCheckIcon,
@@ -98,86 +114,89 @@ const iconMap = {
   FireIcon
 }
 
-/* BASE CATEGORIES */
-const baseCategories = [
-  {
-    id: 1,
-    name: "Infrastructure",
-    color: "#2D9CDB",
-    events: 0,
-    icon: "BuildingOfficeIcon"
-  },
-  {
-    id: 2,
-    name: "Security",
-    color: "#EB5757",
-    events: 0,
-    icon: "ShieldCheckIcon"
-  },
-  {
-    id: 3,
-    name: "Health",
-    color: "#27AE60",
-    events: 0,
-    icon: "HeartIcon"
-  },
-  {
-    id: 4,
-    name: "Environment",
-    color: "#6FCF97",
-    events: 0,
-    icon: "GlobeAltIcon"
-  },
-  {
-    id: 5,
-    name: "Traffic",
-    color: "#F2C94C",
-    events: 0,
-    icon: "TruckIcon"
-  },
-  {
-    id: 6,
-    name: "Fire & Rescue",
-    color: "#F2994A",
-    events: 0,
-    icon: "FireIcon"
-  }
+const categoryVisuals = [
+  { color: "#2D9CDB", icon: "BuildingOfficeIcon" },
+  { color: "#EB5757", icon: "ShieldCheckIcon" },
+  { color: "#27AE60", icon: "HeartIcon" },
+  { color: "#6FCF97", icon: "GlobeAltIcon" },
+  { color: "#F2C94C", icon: "TruckIcon" },
+  { color: "#F2994A", icon: "FireIcon" }
 ]
 
-function loadCategories() {
-  const stored = JSON.parse(localStorage.getItem("categories")) || []
+function mapCategoryFromApi(category, index) {
+  const visual = categoryVisuals[index % categoryVisuals.length]
 
-  // Filtrar categorias criadas pelo utilizador (id > 6)
-  const userCategories = stored.filter(c => c.id > 6)
-
-  // Merge final
-  categories.value = [...baseCategories, ...userCategories]
+  return {
+    id: category.id_categoria,
+    name: category.nome_categoria,
+    description: category.descricao_categoria,
+    color: visual.color,
+    icon: visual.icon,
+    events: category.events || 0
+  }
 }
 
-function openEditModal(cat) {
-  selectedCategory.value = cat
+async function loadCategories() {
+  loading.value = true
+  errorMessage.value = ""
+
+  try {
+    const response = await api.get("/categories")
+
+    const data = Array.isArray(response.data)
+      ? response.data
+      : response.data.categories || []
+
+    categories.value = data.map(mapCategoryFromApi)
+  } catch (error) {
+    console.error("Error loading categories:", error)
+    errorMessage.value =
+      error.response?.data?.message || "Error loading categories."
+  } finally {
+    loading.value = false
+  }
+}
+
+function openEditModal(category) {
+  selectedCategory.value = category
   showEditModal.value = true
 }
 
-function deleteCategory(id) {
-  const stored = JSON.parse(localStorage.getItem("categories")) || []
-  const updated = stored.filter(c => c.id !== id)
-  localStorage.setItem("categories", JSON.stringify(updated))
-  window.dispatchEvent(new Event("categories-updated"))
+async function deleteCategory(id) {
+  const confirmed = confirm("Are you sure you want to delete this category?")
+
+  if (!confirmed) return
+
+  try {
+    await api.delete(`/categories/${id}`)
+    await loadCategories()
+  } catch (error) {
+    console.error("Error deleting category:", error)
+    errorMessage.value =
+      error.response?.data?.message || "Error deleting category."
+  }
+}
+
+async function handleCategoryCreated() {
+  showCreateModal.value = false
+  await loadCategories()
+}
+
+async function handleCategoryUpdated() {
+  showEditModal.value = false
+  selectedCategory.value = null
+  await loadCategories()
 }
 
 onMounted(() => {
-  const s = JSON.parse(localStorage.getItem("session"))
-  session.value = s || {}
+  const storedSession = JSON.parse(localStorage.getItem("session"))
+  session.value = storedSession || {}
 
   loadCategories()
-  window.addEventListener("categories-updated", loadCategories)
 })
 </script>
 
 <style scoped>
-/* Mantive exatamente o teu estilo premium/dark */
-
 .categories-page {
   display: flex;
   height: 100vh;
@@ -248,68 +267,55 @@ onMounted(() => {
 
 .info {
   flex: 1;
-  margin-left: 14px;
+  margin-left: 16px;
 }
 
 .c-title {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 600;
 }
 
 .c-events {
-  opacity: 0.7;
   font-size: 13px;
+  color: #aaa;
+  margin-top: 4px;
 }
 
 .actions {
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 .edit-btn,
 .delete-btn {
-  background: #1a1a1a;
+  background: transparent;
   border: none;
-  padding: 6px;
-  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.25s ease;
+  color: #aaa;
+  transition: color 0.2s ease;
 }
 
 .edit-btn:hover {
-  background: #2d9cdb;
+  color: #2d9cdb;
 }
 
 .delete-btn:hover {
-  background: #eb5757;
+  color: #eb5757;
 }
 
 .action-icon {
-  width: 18px;
-  height: 18px;
-  color: #fff;
+  width: 20px;
+  height: 20px;
 }
 
-/* CUSTOM SCROLLBAR */
-::-webkit-scrollbar {
-  width: 8px;
+.empty-state {
+  margin-top: 30px;
+  color: #aaa;
+  font-size: 15px;
 }
 
-::-webkit-scrollbar-track {
-  background: #0d0d0d;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #3a3a3a;
-}
-
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #2a2a2a #0d0d0d;
+.error-message {
+  margin-top: 20px;
+  color: #eb5757;
 }
 </style>
