@@ -5654,7 +5654,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDA3OTY0LCJleHAiOjE3ODEwMTI3NjR9.TcPozDh_YYpGLQMJISx5VFQ-3xqQunoqnKKOW-DyFOw",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDEwMDU1LCJleHAiOjE3ODEwMTQ4NTV9.xgNvVZDxHz6X_dVDrv796YCCeFr9LK-vB9i4raHoSXk",
                   "type": "string"
                 }
               ]
@@ -5943,7 +5943,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDA3OTY0LCJleHAiOjE3ODEwMTI3NjR9.TcPozDh_YYpGLQMJISx5VFQ-3xqQunoqnKKOW-DyFOw",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDEwMDU1LCJleHAiOjE3ODEwMTQ4NTV9.xgNvVZDxHz6X_dVDrv796YCCeFr9LK-vB9i4raHoSXk",
                   "type": "string"
                 }
               ]
@@ -5952,7 +5952,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"nome_equipa\": \"Equipa de Iluminação\",\r\n  \"id_entidade\": 1\r\n}",
+              "raw": "{\r\n  \"nome_equipa\": \"Equipa de Iluminação\",\r\n  \"id_entidade\": 111\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -6786,11 +6786,21 @@
           "name": "Create forwarding",
           "id": "b189e22f-487a-422a-9211-d5e38670e37b",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDEwMDU1LCJleHAiOjE3ODEwMTQ4NTV9.xgNvVZDxHz6X_dVDrv796YCCeFr9LK-vB9i4raHoSXk",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"teamId\": 1,\r\n  \"status\": \"pendente\"\r\n}",
+              "raw": "{\r\n  \"teamId\": 3,\r\n  \"status\": \"pendente\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -6798,13 +6808,13 @@
               }
             },
             "url": {
-              "raw": "{{baseUrl}}/events/2/forwardings",
+              "raw": "{{baseUrl}}/events/200/forwardings",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "events",
-                "2",
+                "200",
                 "forwardings"
               ]
             }
@@ -7424,6 +7434,16 @@
           "name": "Update forwarding",
           "id": "5cc01852-fa53-4809-9f56-e53d6ba82e5a",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDEwMDU1LCJleHAiOjE3ODEwMTQ4NTV9.xgNvVZDxHz6X_dVDrv796YCCeFr9LK-vB9i4raHoSXk",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "PATCH",
             "header": [],
             "body": {
@@ -7436,13 +7456,13 @@
               }
             },
             "url": {
-              "raw": "{{baseUrl}}/forwardings/1",
+              "raw": "{{baseUrl}}/forwardings/2",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "forwardings",
-                "1"
+                "2"
               ]
             }
           },
@@ -7983,7 +8003,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDA3OTY0LCJleHAiOjE3ODEwMTI3NjR9.TcPozDh_YYpGLQMJISx5VFQ-3xqQunoqnKKOW-DyFOw",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDEwMDU1LCJleHAiOjE3ODEwMTQ4NTV9.xgNvVZDxHz6X_dVDrv796YCCeFr9LK-vB9i4raHoSXk",
                   "type": "string"
                 }
               ]
@@ -7991,13 +8011,13 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/forwardings/1",
+              "raw": "{{baseUrl}}/forwardings/2",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "forwardings",
-                "1"
+                "2"
               ]
             }
           },
