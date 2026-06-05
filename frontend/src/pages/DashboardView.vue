@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard">
-  <Sidebar :isAdmin="currentUser?.role === 'admin'" />
+  <Sidebar :isAdmin="currentUser?.role === 'gestor_municipal'" />
 
     <div class="main">
       <Navbar
@@ -72,7 +72,7 @@
     <EventDetailsModal
       v-if="showEventDetails && session"
       :event="selectedEvent"
-      :isAdmin="session.role === 'admin'"
+      :isAdmin="session.role === 'gestor_municipal'"
       :currentUserEmail="session.email"
       @close="showEventDetails = false"
       @edit="openEditEvent"

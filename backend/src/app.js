@@ -6,7 +6,7 @@ import categoriesRoutes from "./routes/categories.routes.js";
 import eventsRoutes from "./routes/events.routes.js";
 import forwardingsRoutes from "./routes/forwardings.routes.js";
 import confirmationsRoutes from "./routes/confirmations.routes.js";
-import teamsRoutes from "./routes/team.routes.js";
+import teamsRoutes from "./routes/teams.routes.js";
 
 const app = express();
 

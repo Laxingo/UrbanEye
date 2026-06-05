@@ -64,7 +64,7 @@ const isAdmin = ref(false)
 
 onMounted(() => {
   const session = JSON.parse(localStorage.getItem("session"))
-  isAdmin.value = session?.role === "admin"
+  isAdmin.value = session?.role === "gestor_municipal"
 })
 
 const adminMenu = [

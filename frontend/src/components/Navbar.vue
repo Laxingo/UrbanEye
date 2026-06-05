@@ -117,7 +117,7 @@ const isAdmin = ref(false)
 onMounted(() => {
   const session = JSON.parse(localStorage.getItem("session"))
   avatar.value = session?.photo || "https://i.pravatar.cc/150?img=12"
-  isAdmin.value = session?.role === "admin"
+  isAdmin.value = session?.role === "gestor_municipal"
 })
 
 window.addEventListener("storage", () => {
