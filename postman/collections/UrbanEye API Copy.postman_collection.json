@@ -89,30 +89,6 @@
               "cookie": [],
               "responseTime": "2026-06-02T14:08:47.181Z",
               "body": "{\n    \"success\": true,\n    \"message\": \"UrbanEye API is running\"\n}"
-            },
-            {
-              "id": "d79fefeb-d063-4acb-86a5-fc0fff9003d2",
-              "name": "500 - Server error",
-              "originalRequest": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrl}}/health",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "health"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [],
-              "cookie": [],
-              "responseTime": "2026-06-02T14:12:04.602Z",
-              "body": null
             }
           ]
         }
@@ -130,7 +106,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"nome\": \"Gonçalo\",\r\n  \"email\": \"goncalo{{$randomInt}}@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"gestor_municipal\"\r\n}",
+              "raw": "{\r\n  \"nome\": \"Gonçalo\",\r\n  \"email\": \"goncalo{{$randomInt}}@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"tecnico\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -369,39 +345,6 @@
               "cookie": [],
               "responseTime": "2026-05-29T22:50:49.957Z",
               "body": "{\n    \"success\": false,\n    \"message\": \"Email already in use.\"\n}"
-            },
-            {
-              "id": "93352ab3-eeb8-4461-837e-026dbb06e497",
-              "name": "500 - Server error",
-              "originalRequest": {
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n  \"nome\": \"Gonçalo\",\r\n  \"email\": \"goncalo{{$randomInt}}@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"cidadao\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/users",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "users"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [],
-              "cookie": [],
-              "responseTime": "2026-06-02T14:18:46.092Z",
-              "body": null
             }
           ]
         },
@@ -453,7 +396,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"email\": \"goncalo467@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+              "raw": "{\r\n  \"email\": \"goncalo41@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -696,40 +639,6 @@
               "cookie": [],
               "responseTime": "2026-05-29T22:52:36.876Z",
               "body": "{\n    \"success\": false,\n    \"message\": \"Invalid credentials.\"\n}"
-            },
-            {
-              "id": "60a2585d-e8be-4eab-9990-7f784bf59475",
-              "name": "500 - Server error",
-              "originalRequest": {
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n  \"email\": \"goncalo2@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/users/login",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "users",
-                    "login"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [],
-              "cookie": [],
-              "responseTime": "2026-05-29T22:56:02.511Z",
-              "body": "{\r\n  \"success\": false,\r\n  \"message\": \"Error fetching users.\",\r\n  \"error\": \"Internal server error\"\r\n}"
             }
           ]
         },
@@ -954,30 +863,6 @@
               "cookie": [],
               "responseTime": "2026-06-02T14:15:44.477Z",
               "body": "{\n    \"success\": false,\n    \"message\": \"Authentication token is required.\"\n}"
-            },
-            {
-              "id": "30cee16c-6308-40bb-930a-2fefa3490806",
-              "name": "500 - Server error",
-              "originalRequest": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrl}}/users",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "users"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [],
-              "cookie": [],
-              "responseTime": "2026-05-29T23:07:41.545Z",
-              "body": "{\r\n  \"success\": false,\r\n  \"message\": \"Error fetching users.\",\r\n  \"error\": \"Internal server error\"\r\n}"
             }
           ]
         },
@@ -1308,31 +1193,6 @@
               "cookie": [],
               "responseTime": "2026-05-29T23:08:54.825Z",
               "body": "{\n    \"success\": false,\n    \"message\": \"User not found.\"\n}"
-            },
-            {
-              "id": "7ef986fa-12bf-4d01-95c4-439503088b8d",
-              "name": "500 - Server error",
-              "originalRequest": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrl}}/users/3",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "users",
-                    "3"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [],
-              "cookie": [],
-              "responseTime": "2026-05-29T23:09:24.741Z",
-              "body": "{\r\n  \"success\": false,\r\n  \"message\": \"Error fetching users.\",\r\n  \"error\": \"Internal server error\"\r\n}"
             }
           ]
         },
@@ -1345,7 +1205,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJnb25jYWxvNDY3QGdtYWlsLmNvbSIsInRpcG9fdXRpbGl6YWRvciI6ImNpZGFkYW8iLCJpYXQiOjE3ODA0MTAwOTksImV4cCI6MTc4MTAxNDg5OX0.RcNZYdkV5FA5cPXcLGVG7hUyhol6q3N9usY2b7sQg",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDEwMDU1LCJleHAiOjE3ODEwMTQ4NTV9.xgNvVZDxHz6X_dVDrv796YCCeFr9LK-vB9i4raHoSXk",
                   "type": "string"
                 }
               ]
@@ -1822,40 +1682,6 @@
               "cookie": [],
               "responseTime": "2026-05-29T23:11:03.482Z",
               "body": "{\n    \"success\": false,\n    \"message\": \"Email already in use.\"\n}"
-            },
-            {
-              "id": "b1042fec-cee4-4aaa-86a5-e08c01a1cb59",
-              "name": "500 - Server error",
-              "originalRequest": {
-                "method": "PATCH",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n  \"nome\": \"Gonçalo\",\r\n  \"email\": \"goncalo41@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"tipo_utilizador\": \"moderador\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/users/3",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "users",
-                    "3"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [],
-              "cookie": [],
-              "responseTime": "2026-05-29T23:11:31.140Z",
-              "body": "{\r\n  \"success\": false,\r\n  \"message\": \"Error fetching users.\",\r\n  \"error\": \"Internal server error\"\r\n}"
             }
           ]
         },
@@ -2216,31 +2042,6 @@
               "cookie": [],
               "responseTime": "2026-05-29T23:12:52.415Z",
               "body": "{\n    \"success\": false,\n    \"message\": \"User not found.\"\n}"
-            },
-            {
-              "id": "f4833a12-c324-4040-8bb5-1114fe2e6a4b",
-              "name": "500 - Server error",
-              "originalRequest": {
-                "method": "DELETE",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrl}}/users/5",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "users",
-                    "5"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [],
-              "cookie": [],
-              "responseTime": "2026-05-29T23:13:09.351Z",
-              "body": "{\r\n  \"success\": false,\r\n  \"message\": \"Error fetching users.\",\r\n  \"error\": \"Internal server error\"\r\n}"
             }
           ]
         }
@@ -2341,30 +2142,6 @@
               "cookie": [],
               "responseTime": "2026-06-02T10:13:17.019Z",
               "body": "[\n    {\n        \"id_categoria\": 1,\n        \"nome_categoria\": \"Iluminação Pública\",\n        \"descricao_categoria\": \"Problemas relacionados com postes, lâmpadas e iluminação urbana.\"\n    }\n]"
-            },
-            {
-              "id": "d0481c44-9e89-4f2c-bd43-95d4c9ce60e2",
-              "name": "500 - Server error",
-              "originalRequest": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrl}}/categories",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "categories"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [],
-              "cookie": [],
-              "responseTime": "2026-06-02T14:29:09.110Z",
-              "body": null
             }
           ]
         },
@@ -2377,7 +2154,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDEwMDU1LCJleHAiOjE3ODEwMTQ4NTV9.xgNvVZDxHz6X_dVDrv796YCCeFr9LK-vB9i4raHoSXk",
                   "type": "string"
                 }
               ]
@@ -2851,39 +2628,6 @@
               "cookie": [],
               "responseTime": "2026-06-02T14:50:30.121Z",
               "body": "{\n    \"error\": \"Categoria já existe\"\n}"
-            },
-            {
-              "id": "7bdc8552-f263-4862-8a5b-823e00847740",
-              "name": "500 - Server error",
-              "originalRequest": {
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n  \"nome_categoria\": \"Iluminaçãoa Pública\",\r\n  \"descricao_categoria\": \"Problemas relacionados com iluminação urbana.\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/categories",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "categories"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [],
-              "cookie": [],
-              "responseTime": "2026-06-02T14:31:11.217Z",
-              "body": null
             }
           ]
         },
@@ -2891,11 +2635,21 @@
           "name": "Update category",
           "id": "31d3a8a6-7f30-4589-a96c-77ef975b657a",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDEwMDU1LCJleHAiOjE3ODEwMTQ4NTV9.xgNvVZDxHz6X_dVDrv796YCCeFr9LK-vB9i4raHoSXk",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "PATCH",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"nome_categoria\": \"Iluminação Urbana\",\r\n  \"descricao_categoria\": \"Problemas relacionados com postes, lâmpadas e iluminação pública.\"\r\n}",
+              "raw": "{\r\n  \"nome_categoria\": \"Iluminação Urbana\",\r\n  \"descricao_categoria\": \"Problemas relacionados com postes, lâmpadas e iluminação pública.\"\r\n  \r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -2903,13 +2657,13 @@
               }
             },
             "url": {
-              "raw": "{{baseUrl}}/categories/66",
+              "raw": "{{baseUrl}}/categories/1",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "categories",
-                "66"
+                "1"
               ]
             }
           },
@@ -3288,40 +3042,6 @@
               "cookie": [],
               "responseTime": "2026-06-02T14:39:35.391Z",
               "body": "{\n    \"error\": \"Categoria não encontrada\"\n}"
-            },
-            {
-              "id": "6e1caf51-2ef5-4d6b-8404-6a7efa1b7b4c",
-              "name": "500 - Server error",
-              "originalRequest": {
-                "method": "PATCH",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n  \"nome_categoria\": \"Iluminação Urbana\",\r\n  \"descricao_categoria\": \"Problemas relacionados com postes, lâmpadas e iluminação pública.\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/categories/66",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "categories",
-                    "66"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [],
-              "cookie": [],
-              "responseTime": "2026-06-02T14:48:44.759Z",
-              "body": null
             }
           ]
         },
@@ -3334,7 +3054,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwMzk4ODE2LCJleHAiOjE3ODEwMDM2MTZ9.HozjtyQ7kyUJmv86_INrhQqgfemdeWBytVbejeRWmr4",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDEwMDU1LCJleHAiOjE3ODEwMTQ4NTV9.xgNvVZDxHz6X_dVDrv796YCCeFr9LK-vB9i4raHoSXk",
                   "type": "string"
                 }
               ]
@@ -3343,16 +3063,16 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"email\": \"goncalo2@gmail.com\",\r\n  \"password\": \"123456\"\r\n}"
+              "raw": ""
             },
             "url": {
-              "raw": "{{baseUrl}}/categories/2",
+              "raw": "{{baseUrl}}/categories/4",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "categories",
-                "2"
+                "4"
               ]
             }
           },
@@ -3764,35 +3484,6 @@
               "cookie": [],
               "responseTime": "2026-06-02T14:49:19.415Z",
               "body": "{\n    \"error\": \"Categoria não encontrada\"\n}"
-            },
-            {
-              "id": "6c367de4-8856-4dbc-8abe-276839aa0bc7",
-              "name": "500 - Server error",
-              "originalRequest": {
-                "method": "DELETE",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n  \"email\": \"goncalo2@gmail.com\",\r\n  \"password\": \"123456\"\r\n}"
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/categories/2",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "categories",
-                    "2"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [],
-              "cookie": [],
-              "responseTime": "2026-06-02T14:48:27.365Z",
-              "body": null
             }
           ]
         }
@@ -3818,7 +3509,73 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "id": "b02a3a6a-9131-42bb-840b-8b85799494ab",
+              "name": "200 - Events list",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/events",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1695"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"69f-sn8YX72KBAsyda+bTjzx4FegqEE\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:32:33 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:32:37.822Z",
+              "body": "{\n    \"success\": true,\n    \"events\": [\n        {\n            \"id_evento\": 2,\n            \"data_registo\": \"2026-05-29T14:32:24.000Z\",\n            \"descricao\": \"Poste de iluminação avariado junto à entrada da escola.\",\n            \"estado\": \"resolvido\",\n            \"latitude\": \"41.36682123\",\n            \"longitude\": \"-8.73912345\",\n            \"descricao_local\": \"Entrada principal da ESMAD\",\n            \"id_utilizador\": 3,\n            \"id_categoria\": 1,\n            \"User\": {\n                \"id_utilizador\": 3,\n                \"nome\": \"Gonçalo\",\n                \"email\": \"goncalo41@gmail.com\",\n                \"tipo_utilizador\": \"moderador\"\n            },\n            \"Category\": {\n                \"id_categoria\": 1,\n                \"nome_categoria\": \"Iluminação Urbana\",\n                \"descricao_categoria\": \"Problemas relacionados com postes, lâmpadas e iluminação pública.\"\n            }\n        },\n        {\n            \"id_evento\": 3,\n            \"data_registo\": \"2026-06-02T11:30:14.000Z\",\n            \"descricao\": \"Poste de iluminação avariado junto à entrada da escola.\",\n            \"estado\": \"pendente\",\n            \"latitude\": \"41.36682123\",\n            \"longitude\": \"-8.73912345\",\n            \"descricao_local\": \"Entrada principal da ESMAD\",\n            \"id_utilizador\": 13,\n            \"id_categoria\": 1,\n            \"User\": {\n                \"id_utilizador\": 13,\n                \"nome\": \"Gonçalo\",\n                \"email\": \"goncalo795@gmail.com\",\n                \"tipo_utilizador\": \"gestor_municipal\"\n            },\n            \"Category\": {\n                \"id_categoria\": 1,\n                \"nome_categoria\": \"Iluminação Urbana\",\n                \"descricao_categoria\": \"Problemas relacionados com postes, lâmpadas e iluminação pública.\"\n            }\n        },\n        {\n            \"id_evento\": 4,\n            \"data_registo\": \"2026-06-02T11:31:28.000Z\",\n            \"descricao\": \"Poste de iluminação avariado junto à entrada da escola.\",\n            \"estado\": \"pendente\",\n            \"latitude\": \"41.36682123\",\n            \"longitude\": \"-8.73912345\",\n            \"descricao_local\": \"Entrada principal da ESMAD\",\n            \"id_utilizador\": 14,\n            \"id_categoria\": 1,\n            \"User\": {\n                \"id_utilizador\": 14,\n                \"nome\": \"Gonçalo\",\n                \"email\": \"goncalo580@gmail.com\",\n                \"tipo_utilizador\": \"cidadao\"\n            },\n            \"Category\": {\n                \"id_categoria\": 1,\n                \"nome_categoria\": \"Iluminação Urbana\",\n                \"descricao_categoria\": \"Problemas relacionados com postes, lâmpadas e iluminação pública.\"\n            }\n        }\n    ]\n}"
+            }
+          ]
         },
         {
           "name": "Get event by id",
@@ -3827,20 +3584,153 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/events/1",
+              "raw": "{{baseUrl}}/events/2",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "events",
-                "1"
+                "2"
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "id": "7aed790a-2342-43f8-a5c0-2908b2df77a3",
+              "name": "200 - Event found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/events/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "2"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "577"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"241-kM9CbpgaPNS2d/3LvjY2UA5YRZ4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:33:31 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:33:33.162Z",
+              "body": "{\n    \"success\": true,\n    \"event\": {\n        \"id_evento\": 2,\n        \"data_registo\": \"2026-05-29T14:32:24.000Z\",\n        \"descricao\": \"Poste de iluminação avariado junto à entrada da escola.\",\n        \"estado\": \"resolvido\",\n        \"latitude\": \"41.36682123\",\n        \"longitude\": \"-8.73912345\",\n        \"descricao_local\": \"Entrada principal da ESMAD\",\n        \"id_utilizador\": 3,\n        \"id_categoria\": 1,\n        \"User\": {\n            \"id_utilizador\": 3,\n            \"nome\": \"Gonçalo\",\n            \"email\": \"goncalo41@gmail.com\",\n            \"tipo_utilizador\": \"moderador\"\n        },\n        \"Category\": {\n            \"id_categoria\": 1,\n            \"nome_categoria\": \"Iluminação Urbana\",\n            \"descricao_categoria\": \"Problemas relacionados com postes, lâmpadas e iluminação pública.\"\n        }\n    }\n}"
+            },
+            {
+              "id": "7ca13064-9c2a-4227-851f-d43ac85710c4",
+              "name": "404 - Event not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/events/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "1"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "46"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2e-ElTkbNY9JLXsq7ZyvA0UrxqkEgo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:33:06 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:33:16.602Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Event not found.\"\n}"
+            }
+          ]
         },
         {
-          "name": "Create event",
+          "name": "Create Event",
           "id": "d183a5f6-d121-4e47-a5ae-524fe854b6ee",
           "request": {
             "auth": {
@@ -3848,7 +3738,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImVtYWlsIjoiZ29uY2FsbzU4MEBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJjaWRhZGFvIiwiaWF0IjoxNzgwMzk5ODc0LCJleHAiOjE3ODEwMDQ2NzR9.8vwf3mgFuHCy22RgXGfQ0B2rTopzg71DOF5pjur1VDk",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJnb25jYWxvNDY3QGdtYWlsLmNvbSIsInRpcG9fdXRpbGl6YWRvciI6ImNpZGFkYW8iLCJpYXQiOjE3ODA0MTA5MTQsImV4cCI6MTc4MTAxNTcxNH0.Q1tAWpSK3OgyUkyxOBcLVaS_NwUc8c_YwFaqa_vCMmU",
                   "type": "string"
                 }
               ]
@@ -3857,7 +3747,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada da escola.\",\r\n  \"latitude\": 41.36682123,\r\n  \"longitude\": -8.73912345,\r\n  \"descricao_local\": \"Entrada principal da ESMAD\",\r\n  \"id_categoria\": 1\r\n}",
+              "raw": "{\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada da escola.\",\r\n  \"latitude\": 41.36682123,\r\n  \"longitude\": -8.73912345,\r\n  \"descricao_local\": \"Entrada principal da ESMAD\",   \r\n  \"id_categoria\": 1\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -3874,17 +3764,472 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "id": "b9beb827-c557-412b-91cd-018e95beb473",
+              "name": "201 - Event created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada da escola.\",\r\n  \"latitude\": 41.36682123,\r\n  \"longitude\": -8.73912345,\r\n  \"descricao_local\": \"Entrada principal da ESMAD\",\r\n  \"id_categoria\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "345"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"159-nkzLdrkt5x0VbIT1dJEPAYKEP00\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:34:00 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:34:03.133Z",
+              "body": "{\n    \"success\": true,\n    \"message\": \"Event created successfully.\",\n    \"event\": {\n        \"data_registo\": \"2026-06-05T13:34:00.977Z\",\n        \"estado\": \"pendente\",\n        \"id_evento\": 5,\n        \"descricao\": \"Poste de iluminação avariado junto à entrada da escola.\",\n        \"latitude\": 41.36682123,\n        \"longitude\": -8.73912345,\n        \"descricao_local\": \"Entrada principal da ESMAD\",\n        \"id_utilizador\": 14,\n        \"id_categoria\": 1\n    }\n}"
+            },
+            {
+              "id": "0ca8aabb-7dfd-43ac-b4e9-657fda18f199",
+              "name": "400 - Missing required fields",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada da escola.\",\r\n  \"latitude\": 41.36682123,\r\n  \"longitude\": -8.73912345,\r\n  \"descricao_local\": \"Entrada principal da ESMAD\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "89"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"59-kcAkOLFlH6CwArg15LQQDrl4Sj8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:34:42 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:35:46.887Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Description, latitude, longitude and category are required.\"\n}"
+            },
+            {
+              "id": "c2b40196-8ede-4ac8-943c-46f657919a6b",
+              "name": "401 - Invalid or expired token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada da escola.\",\r\n  \"latitude\": 41.36682123,\r\n  \"longitude\": -8.73912345,\r\n  \"descricao_local\": \"Entrada principal da ESMAD\",   \r\n  \"id_categoria\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-J1JurpJaJ2iET3UTTfEcU3gjszc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:36:31 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:36:40.139Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid or expired token.\"\n}"
+            },
+            {
+              "id": "321d8eaf-3b6e-4d5f-aacc-b398b7cab7eb",
+              "name": "401 - No token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada da escola.\",\r\n  \"latitude\": 41.36682123,\r\n  \"longitude\": -8.73912345,\r\n  \"descricao_local\": \"Entrada principal da ESMAD\",   \r\n  \"id_categoria\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "63"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f-Kq5tk9lMkaqhY3Bdz58pDYzI+jc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:36:54 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:36:55.769Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Authentication token is required.\"\n}"
+            },
+            {
+              "id": "02c57c91-defc-4d0e-bf93-c0a05d5bd1c4",
+              "name": "403 - No permission",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada da escola.\",\r\n  \"latitude\": 41.36682123,\r\n  \"longitude\": -8.73912345,\r\n  \"descricao_local\": \"Entrada principal da ESMAD\",   \r\n  \"id_categoria\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "80"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"50-lH+/285jMfDvUm1u6rkLicRWRhc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:43:22 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:43:25.991Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"You do not have permission to perform this action.\"\n}"
+            },
+            {
+              "id": "a5ac866d-5957-47ff-9afd-10dfc8fdfc0c",
+              "name": "404 - Category not found",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada da escola.\",\r\n  \"latitude\": 41.36682123,\r\n  \"longitude\": -8.73912345,\r\n  \"descricao_local\": \"Entrada principal da ESMAD\",   \r\n  \"id_categoria\": 111\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "49"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"31-Dgi7tqOA3MzSCcKd7EtsGSwIXIs\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:44:29 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:44:31.689Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Category not found.\"\n}"
+            }
+          ]
         },
         {
           "name": "Update event",
           "id": "0023ca26-f5e1-4acf-aa7f-f4aeb7f200c4",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDEwMDU1LCJleHAiOjE3ODEwMTQ4NTV9.xgNvVZDxHz6X_dVDrv796YCCeFr9LK-vB9i4raHoSXk",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "PATCH",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"estado\": \"ativo\",\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada principal da escola.\"\r\n}",
+              "raw": "{\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada principal da ESMAD.\",\r\n  \"estado\": \"ativo\",\r\n  \"latitude\": 41.36682123,\r\n  \"longitude\": -8.73912345,\r\n  \"descricao_local\": \"Entrada principal da ESMAD\",\r\n  \"id_categoria\": 1\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -3892,36 +4237,753 @@
               }
             },
             "url": {
-              "raw": "{{baseUrl}}/events/1",
+              "raw": "{{baseUrl}}/events/2",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "events",
-                "1"
+                "2"
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "id": "35df7e32-155a-4acf-9bc4-5c22ea324139",
+              "name": "200 - Event updated successfully",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada principal da ESMAD.\",\r\n  \"estado\": \"ativo\",\r\n  \"latitude\": 41.36682123,\r\n  \"longitude\": -8.73912345,\r\n  \"descricao_local\": \"Entrada principal da ESMAD\",\r\n  \"id_categoria\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "2"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "350"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"15e-mviEB5T4RR5UG1REQL4eme9LJQc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:53:49 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:53:52.819Z",
+              "body": "{\n    \"success\": true,\n    \"message\": \"Event updated successfully.\",\n    \"event\": {\n        \"id_evento\": 2,\n        \"data_registo\": \"2026-05-29T14:32:24.000Z\",\n        \"descricao\": \"Poste de iluminação avariado junto à entrada principal da ESMAD.\",\n        \"estado\": \"ativo\",\n        \"latitude\": 41.36682123,\n        \"longitude\": -8.73912345,\n        \"descricao_local\": \"Entrada principal da ESMAD\",\n        \"id_utilizador\": 3,\n        \"id_categoria\": 1\n    }\n}"
+            },
+            {
+              "id": "5adbdb0e-9a21-4d96-97cd-7b20e2dd22c4",
+              "name": "401 - No token",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada principal da ESMAD.\",\r\n  \"estado\": \"ativo\",\r\n  \"latitude\": 41.36682123,\r\n  \"longitude\": -8.73912345,\r\n  \"descricao_local\": \"Entrada principal da ESMAD\",\r\n  \"id_categoria\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "2"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "63"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f-Kq5tk9lMkaqhY3Bdz58pDYzI+jc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:55:28 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:55:37.526Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Authentication token is required.\"\n}"
+            },
+            {
+              "id": "f46fc633-f6c9-4fc7-97d0-e69f768f47e3",
+              "name": "401 - Invalid or expired token",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada principal da ESMAD.\",\r\n  \"estado\": \"ativo\",\r\n  \"latitude\": 41.36682123,\r\n  \"longitude\": -8.73912345,\r\n  \"descricao_local\": \"Entrada principal da ESMAD\",\r\n  \"id_categoria\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "2"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-J1JurpJaJ2iET3UTTfEcU3gjszc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:54:27 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:54:28.572Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid or expired token.\"\n}"
+            },
+            {
+              "id": "c22395c9-1483-48e5-b291-af81df6a2d3a",
+              "name": "403 - Not event owner or staff",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"estado\": \"ativo\",\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada principal da escola.\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "3"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "78"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"4e-RZxXT3VRzE+vtiWGR6c+bdpNcKA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:48:42 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:48:52.934Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"You do not have permission to modify this event.\"\n}"
+            },
+            {
+              "id": "3632e1a1-b2a3-480a-8293-758bfe0ca076",
+              "name": "404 - Event not found",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"estado\": \"ativo\",\r\n  \"descricao\": \"Poste de iluminação avariado junto à entrada principal da escola.\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "1"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "46"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2e-ElTkbNY9JLXsq7ZyvA0UrxqkEgo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:46:40 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:46:54.436Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Event not found.\"\n}"
+            }
+          ]
         },
         {
           "name": "Delete event",
           "id": "8c0f4d35-0bf2-4a7f-acd9-5f0eeb3dd5b4",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDEwMDU1LCJleHAiOjE3ODEwMTQ4NTV9.xgNvVZDxHz6X_dVDrv796YCCeFr9LK-vB9i4raHoSXk",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/events/1",
+              "raw": "{{baseUrl}}/events/400",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "events",
-                "1"
+                "400"
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "id": "47f2986e-da23-4dd2-a678-7908be46bfb8",
+              "name": "200 - Event deleted successfully",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/events/4",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "4"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "56"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"38-ZoJ3N+EpyrAb52VCDrLS/7RbTb0\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:56:36 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:56:38.091Z",
+              "body": "{\n    \"success\": true,\n    \"message\": \"Event deleted successfully.\"\n}"
+            },
+            {
+              "id": "f0ae6c31-6ca7-4703-94f8-0851c9f52fb5",
+              "name": "401 - Invalid or expired token",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/events/4",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "4"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-J1JurpJaJ2iET3UTTfEcU3gjszc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:56:49 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:56:51.629Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid or expired token.\"\n}"
+            },
+            {
+              "id": "08ab5950-b36a-495c-a61e-938409e63824",
+              "name": "401 - No token",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/events/4",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "4"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "63"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f-Kq5tk9lMkaqhY3Bdz58pDYzI+jc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:57:00 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:57:01.905Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Authentication token is required.\"\n}"
+            },
+            {
+              "id": "ea70db36-02b6-4d47-9c25-619f64228884",
+              "name": "404 - Event not found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/events/400",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "400"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "46"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2e-ElTkbNY9JLXsq7ZyvA0UrxqkEgo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:57:50 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:57:55.045Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Event not found.\"\n}"
+            },
+            {
+              "id": "acb4f0d0-e8a0-47cb-98a3-383e58f3157d",
+              "name": "403 - Not event owner or staff",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/events/4",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "4"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "78"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"4e-RZxXT3VRzE+vtiWGR6c+bdpNcKA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 13:56:07 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T13:56:25.176Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"You do not have permission to modify this event.\"\n}"
+            }
+          ]
         }
       ],
       "id": "15facf97-27c2-4825-a86c-929f76e69b16"
@@ -3930,7 +4992,7 @@
       "name": "Confirmations",
       "item": [
         {
-          "name": "Confrim event",
+          "name": "Confirm/Reject event",
           "id": "76a2538a-62f6-4e30-9bd9-bc60bedd360c",
           "request": {
             "auth": {
@@ -3938,7 +5000,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImVtYWlsIjoiZ29uY2FsbzU4MEBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJjaWRhZGFvIiwiaWF0IjoxNzgwMzk5ODc0LCJleHAiOjE3ODEwMDQ2NzR9.8vwf3mgFuHCy22RgXGfQ0B2rTopzg71DOF5pjur1VDk",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJnb25jYWxvNDY3QGdtYWlsLmNvbSIsInRpcG9fdXRpbGl6YWRvciI6ImNpZGFkYW8iLCJpYXQiOjE3ODA0MTA5MTQsImV4cCI6MTc4MTAxNTcxNH0.Q1tAWpSK3OgyUkyxOBcLVaS_NwUc8c_YwFaqa_vCMmU",
                   "type": "string"
                 }
               ]
@@ -3966,46 +5028,616 @@
               ]
             }
           },
-          "response": []
-        },
-        {
-          "name": "Reject Event",
-          "id": "b0fd7add-1086-43e4-b246-396a256544c8",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
+          "response": [
+            {
+              "id": "112887b6-2c5e-4d7c-9629-b22882ad80d3",
+              "name": "201 - Confirmation registered successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"tipo_confirmacao\": \"confirmacao\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/2/confirmations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "2",
+                    "confirmations"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
                 {
-                  "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoiZ29uY2Fsbzg5M0BnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJjaWRhZGFvIiwiaWF0IjoxNzgwNDA2Nzg2LCJleHAiOjE3ODEwMTE1ODZ9.8faq575UkeQYWMbpxDCSB1cnwFqYNm_MuaQYHSAHcoI",
-                  "type": "string"
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "213"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"d5-et3rRXuQEQLMhzZ31Xy0hIwPvjo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:11:52 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
                 }
-              ]
-            },
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"tipo_confirmacao\": \"rejeicao\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/events/2/confirmations",
-              "host": [
-                "{{baseUrl}}"
               ],
-              "path": [
-                "events",
-                "2",
-                "confirmations"
-              ]
+              "cookie": [],
+              "responseTime": "2026-06-05T14:11:54.389Z",
+              "body": "{\n    \"success\": true,\n    \"message\": \"Confirmation registered successfully.\",\n    \"confirmation\": {\n        \"data_confirmacao\": \"2026-06-05T14:11:52.846Z\",\n        \"id_confirmacao\": 3,\n        \"tipo_confirmacao\": \"confirmacao\",\n        \"id_evento\": 2,\n        \"id_utilizador\": 6\n    }\n}"
+            },
+            {
+              "id": "c545b2ec-8813-4c79-92c9-75110fd0b72d",
+              "name": "400 - Missing confirmation type",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/2/confirmations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "2",
+                    "confirmations"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "60"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3c-b5NwQ1M9EwZPReb4owUu+HEZ7j0\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:12:29 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:12:36.351Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Confirmation type is required.\"\n}"
+            },
+            {
+              "id": "6a9e8059-1fca-4457-bad5-19fbd18f5b5e",
+              "name": "400 - Invalid confirmation type",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"tipo_confirmacao\": \"confirmaacao\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/2/confirmations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "2",
+                    "confirmations"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "84"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"54-3fvRIPKxugf29T9L37uBd1XLxjY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:12:53 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:13:00.662Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Confirmation type must be 'confirmacao' or 'rejeicao'.\"\n}"
+            },
+            {
+              "id": "e094c6ed-3c21-40a3-8e71-1438c681c255",
+              "name": "401 - No token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"tipo_confirmacao\": \"confirmacao\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/2/confirmations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "2",
+                    "confirmations"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "63"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f-Kq5tk9lMkaqhY3Bdz58pDYzI+jc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:10:45 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:10:46.877Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Authentication token is required.\"\n}"
+            },
+            {
+              "id": "0e34b2fe-df6d-457d-a60b-f3b462443ce9",
+              "name": "401 - Invalid or expired token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"tipo_confirmacao\": \"confirmacao\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/2/confirmations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "2",
+                    "confirmations"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-J1JurpJaJ2iET3UTTfEcU3gjszc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:10:24 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:10:25.830Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid or expired token.\"\n}"
+            },
+            {
+              "id": "ac50771d-39a9-4303-8b21-3468beab1148",
+              "name": "403 - No permission",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"tipo_confirmacao\": \"confirmacao\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/2/confirmations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "2",
+                    "confirmations"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "80"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"50-lH+/285jMfDvUm1u6rkLicRWRhc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:11:17 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:11:28.745Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"You do not have permission to perform this action.\"\n}"
+            },
+            {
+              "id": "f47152dc-2211-4244-b03f-641dd884b4d9",
+              "name": "404 - Event not found",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"tipo_confirmacao\": \"confirmacao\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/200/confirmations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "200",
+                    "confirmations"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "46"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2e-ElTkbNY9JLXsq7ZyvA0UrxqkEgo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:13:22 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:13:26.856Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Event not found.\"\n}"
+            },
+            {
+              "id": "a077d8b7-9c32-46fc-ae15-6c35b6af5c13",
+              "name": "409 - User already confirmed or rejected this event",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"tipo_confirmacao\": \"confirmacao\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/2/confirmations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "2",
+                    "confirmations"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "80"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"50-r4RNULhWLQG4ftsIOq2B2E8ESlw\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:09:58 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:10:08.607Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"You have already confirmed or rejected this event.\"\n}"
             }
-          },
-          "response": []
+          ]
         }
       ],
       "id": "f4a51032-721c-4fd8-9415-42c179880005"
@@ -4013,6 +5645,295 @@
     {
       "name": "Teams",
       "item": [
+        {
+          "name": "Get All Teams",
+          "id": "5c30cacd-e3d4-4ff3-b602-16d75b7ae1b8",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDA3OTY0LCJleHAiOjE3ODEwMTI3NjR9.TcPozDh_YYpGLQMJISx5VFQ-3xqQunoqnKKOW-DyFOw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/teams",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bb42e961-c6d3-44ff-986a-65720f6e5056",
+              "name": "200 - Teams list",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/teams",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "216"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"d8-U7iCx8eS1/2ULSARKShQtRiX/zw\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:15:38 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:15:41.293Z",
+              "body": "{\n    \"success\": true,\n    \"teams\": [\n        {\n            \"id_equipa\": 1,\n            \"nome_equipa\": \"Equipa de Iluminação\",\n            \"id_entidade\": 1,\n            \"ResponsibleEntity\": {\n                \"id_entidade\": 1,\n                \"nome_entidade\": \"Câmara Municipal\",\n                \"email\": \"geral@cm.pt\",\n                \"telefone\": \"220000000\"\n            }\n        }\n    ]\n}"
+            },
+            {
+              "id": "a29e20d6-57e1-41e9-8467-6a060ebba5dd",
+              "name": "401 - Invalid or expired token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/teams",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-J1JurpJaJ2iET3UTTfEcU3gjszc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:15:56 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:15:57.306Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid or expired token.\"\n}"
+            },
+            {
+              "id": "16768e7f-cfc4-4728-a815-abdf6caaedfa",
+              "name": "401 - No token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/teams",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "63"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f-Kq5tk9lMkaqhY3Bdz58pDYzI+jc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:16:08 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:16:10.909Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Authentication token is required.\"\n}"
+            },
+            {
+              "id": "131bf155-32aa-4928-87ce-8ac0af179bf5",
+              "name": "403 - No permission",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/teams",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "80"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"50-lH+/285jMfDvUm1u6rkLicRWRhc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:16:31 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:16:34.510Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"You do not have permission to perform this action.\"\n}"
+            }
+          ]
+        },
         {
           "name": "Create Team",
           "id": "aa5678f4-8ad6-40f5-af6f-ec4131585832",
@@ -4048,35 +5969,452 @@
               ]
             }
           },
-          "response": []
-        },
-        {
-          "name": "Get All Teams",
-          "id": "5c30cacd-e3d4-4ff3-b602-16d75b7ae1b8",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDA3OTY0LCJleHAiOjE3ODEwMTI3NjR9.TcPozDh_YYpGLQMJISx5VFQ-3xqQunoqnKKOW-DyFOw",
-                  "type": "string"
+          "response": [
+            {
+              "id": "eb112df0-3f0f-474e-b1b9-c83a93d30887",
+              "name": "201 - Team created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_equipa\": \"Equipa de Iluminação\",\r\n  \"id_entidade\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/teams",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams"
+                  ]
                 }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/teams",
-              "host": [
-                "{{baseUrl}}"
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "133"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"85-ZkF4TUMZgD60e6knWBweqT582AM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:17:15 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
               ],
-              "path": [
-                "teams"
-              ]
+              "cookie": [],
+              "responseTime": "2026-06-05T14:17:17.829Z",
+              "body": "{\n    \"success\": true,\n    \"message\": \"Team created successfully.\",\n    \"team\": {\n        \"id_equipa\": 3,\n        \"nome_equipa\": \"Equipa de Iluminação\",\n        \"id_entidade\": 1\n    }\n}"
+            },
+            {
+              "id": "e93c2e93-0a11-4dc6-8482-3044f59a1ccb",
+              "name": "400 - Missing required fields",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_equipa\": \"Equipa de Iluminação\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/teams",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "76"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"4c-R1RQI0MVYgtgO9wWFaYZT5rYKPY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:18:52 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:18:59.912Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Team name and responsible entity are required.\"\n}"
+            },
+            {
+              "id": "7702d232-7078-4751-985b-0747858cea4d",
+              "name": "401 - Invalid or expired token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_equipa\": \"Equipa de Iluminação\",\r\n  \"id_entidade\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/teams",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-J1JurpJaJ2iET3UTTfEcU3gjszc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:17:37 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:17:38.883Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid or expired token.\"\n}"
+            },
+            {
+              "id": "00f882b4-5e77-4991-88d1-2324f476ed56",
+              "name": "401 - No token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_equipa\": \"Equipa de Iluminação\",\r\n  \"id_entidade\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/teams",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "63"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f-Kq5tk9lMkaqhY3Bdz58pDYzI+jc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:17:45 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:17:51.671Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Authentication token is required.\"\n}"
+            },
+            {
+              "id": "1cb3766d-bbc6-402f-80a8-4497b472c39b",
+              "name": "403 - No permission",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_equipa\": \"Equipa de Iluminação\",\r\n  \"id_entidade\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/teams",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "80"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"50-lH+/285jMfDvUm1u6rkLicRWRhc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:18:11 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:18:18.015Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"You do not have permission to perform this action.\"\n}"
+            },
+            {
+              "id": "cc950a5f-6dda-47dd-a145-78b047a2e641",
+              "name": "404 - Responsible entity not found",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome_equipa\": \"Equipa de Iluminação\",\r\n  \"id_entidade\": 111\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/teams",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "59"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3b-wMRQKtqNYZxN79Hn92eco4PhGe4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:19:31 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:19:37.552Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Responsible entity not found.\"\n}"
             }
-          },
-          "response": []
+          ]
         },
         {
           "name": "Delete Team",
@@ -4087,7 +6425,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDA3OTY0LCJleHAiOjE3ODEwMTI3NjR9.TcPozDh_YYpGLQMJISx5VFQ-3xqQunoqnKKOW-DyFOw",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiZ29uY2Fsbzc5NUBnbWFpbC5jb20iLCJ0aXBvX3V0aWxpemFkb3IiOiJnZXN0b3JfbXVuaWNpcGFsIiwiaWF0IjoxNzgwNDEwMDU1LCJleHAiOjE3ODEwMTQ4NTV9.xgNvVZDxHz6X_dVDrv796YCCeFr9LK-vB9i4raHoSXk",
                   "type": "string"
                 }
               ]
@@ -4095,17 +6433,348 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/teams/2",
+              "raw": "{{baseUrl}}/teams/1",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "teams",
-                "2"
+                "1"
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "id": "880b9221-051a-4221-b6aa-4b89a48af8aa",
+              "name": "200 - Team deleted successfully",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/teams/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-OWrCS+RdR51mDBU0UwKfzssq/Z0\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:25:56 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:25:58.496Z",
+              "body": "{\n    \"success\": true,\n    \"message\": \"Team deleted successfully.\"\n}"
+            },
+            {
+              "id": "67e06fc9-99e2-4f32-b3e1-bc801b02f75b",
+              "name": "401 - Invalid or expired token",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/teams/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams",
+                    "2"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-J1JurpJaJ2iET3UTTfEcU3gjszc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:20:36 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:20:41.765Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid or expired token.\"\n}"
+            },
+            {
+              "id": "10387fc2-6d9e-4bdd-9e93-8050922fd50b",
+              "name": "401 - No token",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/teams/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams",
+                    "2"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "63"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f-Kq5tk9lMkaqhY3Bdz58pDYzI+jc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:21:15 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:21:19.295Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Authentication token is required.\"\n}"
+            },
+            {
+              "id": "8610c5ea-6335-4b3f-9ce1-661c8328874d",
+              "name": "403 - No permission",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/teams/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams",
+                    "2"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "80"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"50-lH+/285jMfDvUm1u6rkLicRWRhc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:21:37 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:21:42.725Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"You do not have permission to perform this action.\"\n}"
+            },
+            {
+              "id": "123adaf8-e1b7-4ca8-8573-79ad7a3171cd",
+              "name": "404 - Team not found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/teams/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams",
+                    "2"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "45"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2d-umfLHDWe0mk7wJZWiVExg0yhgUQ\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:20:04 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:20:12.518Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Team not found.\"\n}"
+            }
+          ]
         }
       ],
       "id": "5727e613-2b4c-4cde-b5a6-e86d962f15c8"
@@ -4140,7 +6809,616 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "id": "6199a8d7-3d74-4ccf-b319-10dacadacae2",
+              "name": "201 - Event forwarded successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"teamId\": 3,\r\n  \"status\": \"pendente\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/2/forwardings",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "2",
+                    "forwardings"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "207"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"cf-20BaJapFIzDuk7OnptQg+VPbO2k\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:29:35 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:29:44.576Z",
+              "body": "{\n    \"success\": true,\n    \"message\": \"Event forwarded successfully.\",\n    \"forwarding\": {\n        \"data_encaminhamento\": \"2026-06-05T14:29:35.758Z\",\n        \"id_encaminhamento\": 2,\n        \"id_evento\": 2,\n        \"id_equipa\": 3,\n        \"estado_encaminhamento\": \"pendente\"\n    }\n}"
+            },
+            {
+              "id": "8cd82f83-0618-492e-a44b-7982317c08d0",
+              "name": "400 - Missing team ID",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"status\": \"pendente\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/2/forwardings",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "2",
+                    "forwardings"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "50"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"32-+wPcX4kTF2+LSNU7bgjfytTFRAE\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:30:01 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:30:06.153Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Team ID is required.\"\n}"
+            },
+            {
+              "id": "0b7b0781-42ab-42ca-b286-d87377f470f8",
+              "name": "400 - Invalid forwarding status",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"teamId\": 3,\r\n  \"status\": \"pendentee\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/2/forwardings",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "2",
+                    "forwardings"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "56"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"38-XWjulPZbP3AsnaF6mLfdRGQE45k\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:30:40 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:30:47.324Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid forwarding status.\"\n}"
+            },
+            {
+              "id": "282f0967-28d4-4d2d-b698-b142898dbbd7",
+              "name": "401 - Invalid or expired token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"teamId\": 1,\r\n  \"status\": \"pendente\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/2/forwardings",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "2",
+                    "forwardings"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-J1JurpJaJ2iET3UTTfEcU3gjszc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:28:28 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:28:37.715Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid or expired token.\"\n}"
+            },
+            {
+              "id": "056475b3-196c-419d-8ea3-804462a4a002",
+              "name": "401 - No token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"teamId\": 1,\r\n  \"status\": \"pendente\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/2/forwardings",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "2",
+                    "forwardings"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "63"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f-Kq5tk9lMkaqhY3Bdz58pDYzI+jc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:28:49 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:28:50.218Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Authentication token is required.\"\n}"
+            },
+            {
+              "id": "0fc6f35a-31ef-4c6b-a72b-f79065d0e8a9",
+              "name": "403 - No permission",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"teamId\": 1,\r\n  \"status\": \"pendente\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/2/forwardings",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "2",
+                    "forwardings"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "80"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"50-lH+/285jMfDvUm1u6rkLicRWRhc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:27:27 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:27:33.107Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"You do not have permission to perform this action.\"\n}"
+            },
+            {
+              "id": "fc137021-b1de-4551-bf4b-f3f394615376",
+              "name": "404 - Team not found",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"teamId\": 1,\r\n  \"status\": \"pendente\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/2/forwardings",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "2",
+                    "forwardings"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "45"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2d-umfLHDWe0mk7wJZWiVExg0yhgUQ\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:27:48 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:27:53.166Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Team not found.\"\n}"
+            },
+            {
+              "id": "96309704-3c54-4565-a2e1-cf51f6432a3f",
+              "name": "404 - Event not found",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"teamId\": 3,\r\n  \"status\": \"pendente\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/events/200/forwardings",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "events",
+                    "200",
+                    "forwardings"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "46"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2e-ElTkbNY9JLXsq7ZyvA0UrxqkEgo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:31:10 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:31:17.351Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Event not found.\"\n}"
+            }
+          ]
         },
         {
           "name": "Update forwarding",
@@ -4168,7 +7446,533 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "id": "b09e636e-b619-4907-aa05-a74f04b178d5",
+              "name": "200 - Forwarding updated successfully",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"status\": \"resolvido\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/forwardings/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "forwardings",
+                    "2"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "211"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"d3-zsQsIeNLfvNcXS1PgvOgsaGdfrM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:32:22 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:32:27.247Z",
+              "body": "{\n    \"success\": true,\n    \"message\": \"Forwarding updated successfully.\",\n    \"forwarding\": {\n        \"id_encaminhamento\": 2,\n        \"data_encaminhamento\": \"2026-06-05T14:29:35.000Z\",\n        \"estado_encaminhamento\": \"resolvido\",\n        \"id_evento\": 2,\n        \"id_equipa\": 3\n    }\n}"
+            },
+            {
+              "id": "6ed8da0c-7d88-4c95-85cb-bd7bc96f53b2",
+              "name": "400 - Missing forwarding status",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/forwardings/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "forwardings",
+                    "2"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "60"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3c-o1tmg3l6sVniKBVHe7wqqh8RUVE\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:32:59 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:33:06.791Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Forwarding status is required.\"\n}"
+            },
+            {
+              "id": "ea32494e-2536-4137-8ae2-3bbb662f8aab",
+              "name": "400 - Invalid forwarding status",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"status\": \"resolvidoo\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/forwardings/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "forwardings",
+                    "2"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "56"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"38-XWjulPZbP3AsnaF6mLfdRGQE45k\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:33:28 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:33:31.846Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid forwarding status.\"\n}"
+            },
+            {
+              "id": "087edf40-b121-4213-bd10-128ecb8b7067",
+              "name": "401 - Invalid or expired token.",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"status\": \"resolvido\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/forwardings/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "forwardings",
+                    "2"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-J1JurpJaJ2iET3UTTfEcU3gjszc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:34:05 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:34:24.543Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid or expired token.\"\n}"
+            },
+            {
+              "id": "6c375b26-6c99-4207-9b5a-83cc8e61fec6",
+              "name": "401 - No token",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"status\": \"resolvido\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/forwardings/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "forwardings",
+                    "2"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "63"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f-Kq5tk9lMkaqhY3Bdz58pDYzI+jc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:35:25 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:35:29.227Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Authentication token is required.\"\n}"
+            },
+            {
+              "id": "155604ee-0315-41bf-9d98-f99c53e2854d",
+              "name": "403 - No permission",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"status\": \"resolvido\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/forwardings/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "forwardings",
+                    "2"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "80"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"50-lH+/285jMfDvUm1u6rkLicRWRhc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:35:58 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:36:05.714Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"You do not have permission to perform this action.\"\n}"
+            },
+            {
+              "id": "89a760fd-9217-486a-94f3-0c45cb15563f",
+              "name": "404 - Forwarding not found",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"status\": \"resolvido\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/forwardings/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "forwardings",
+                    "1"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "51"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"33-x2hOSgoMZf8DmBR2ffKGNuu3dQE\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:31:52 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:31:58.759Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Forwarding not found.\"\n}"
+            }
+          ]
         },
         {
           "name": "Delete forwarding",
@@ -4197,7 +8001,338 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "id": "a83097e3-f272-4c9d-8059-448fa98641b8",
+              "name": "200 - Forwarding deleted successfully",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/forwardings/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "forwardings",
+                    "2"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "61"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3d-cnJdkpPyLS2WxTFOUR2YKPjmByM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:45:17 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:45:19.465Z",
+              "body": "{\n    \"success\": true,\n    \"message\": \"Forwarding deleted successfully.\"\n}"
+            },
+            {
+              "id": "721cb1de-5a81-46bc-844b-649511c8d72b",
+              "name": "401 - No token",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/forwardings/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "forwardings",
+                    "2"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "63"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f-Kq5tk9lMkaqhY3Bdz58pDYzI+jc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:39:47 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:39:50.400Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Authentication token is required.\"\n}"
+            },
+            {
+              "id": "9f520ac6-812b-4891-8139-97173a60045a",
+              "name": "401 - Invalid or expired token",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/forwardings/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "forwardings",
+                    "2"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "55"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"37-J1JurpJaJ2iET3UTTfEcU3gjszc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:39:20 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:39:36.994Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid or expired token.\"\n}"
+            },
+            {
+              "id": "88370475-ae72-4184-becd-043b3cac9a1a",
+              "name": "403 - No permission",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/forwardings/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "forwardings",
+                    "2"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "80"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"50-lH+/285jMfDvUm1u6rkLicRWRhc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:44:52 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:44:54.010Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"You do not have permission to perform this action.\"\n}"
+            },
+            {
+              "id": "7edbad00-808b-4128-b08c-98e85bd3dac7",
+              "name": "404 - Forwarding not found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/forwardings/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "forwardings",
+                    "1"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "51"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"33-x2hOSgoMZf8DmBR2ffKGNuu3dQE\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 05 Jun 2026 14:38:44 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-06-05T14:38:51.107Z",
+              "body": "{\n    \"success\": false,\n    \"message\": \"Forwarding not found.\"\n}"
+            }
+          ]
         }
       ],
       "id": "8ddc15ed-ce78-492b-9d84-c5af8a0f6691"
@@ -4215,12 +8350,12 @@
   },
   "variable": [
     {
-      "id": "76e28721-98a8-4e1a-b397-01cc04a4cd9f",
+      "id": "744d1288-7215-4337-8a12-fc0b3d8854a9",
       "key": "baseUrl",
       "value": ""
     },
     {
-      "id": "c6457380-af1e-476b-bd37-0ca573e099e2",
+      "id": "d1cc6510-ec8c-4aae-8bf8-1966543df4d6",
       "key": "token",
       "value": ""
     }

@@ -140,8 +140,9 @@ export const updateEvent = async (req, res) => {
       });
     }
 
-   const {
+const {
   descricao,
+  estado,
   latitude,
   longitude,
   descricao_local,
