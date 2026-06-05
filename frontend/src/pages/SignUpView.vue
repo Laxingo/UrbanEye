@@ -61,7 +61,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { registerUser } from "@/auth/auth"
+import { register } from "@/auth/auth"
 import { useRouter } from "vue-router"
 import { useToast } from "@/composables/useToast"
 import { useLoading } from "@/composables/useLoading"
@@ -82,24 +82,27 @@ async function handleSignup() {
   }
 
   showLoading("Creating your account…")
-  await new Promise(resolve => setTimeout(resolve, 1200))
 
-  const result = await registerUser({
-    nome: name.value,
-    email: email.value,
-    password: password.value,
-    fotografia: ""
-  })
+  try {
+    const result = await register(name.value, email.value, password.value)
 
-  hideLoading()
+    hideLoading()
 
-  if (!result.success) {
-    show(result.message, "error")
-    return
+    if (!result.success) {
+      show(result.message, "error")
+      return
+    }
+
+    show("Account created successfully!", "success")
+    router.push("/")
+  } catch (error) {
+    hideLoading()
+
+    const message =
+      error.response?.data?.message || "Account creation failed. Please try again."
+
+    show(message, "error")
   }
-
-  show("Account created successfully!", "success")
-  router.push("/") // login
 }
 </script>
 

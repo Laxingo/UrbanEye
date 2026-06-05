@@ -34,7 +34,7 @@
 
     <!-- LOGOUT -->
     <nav class="menu bottom-menu">
-      <div class="menu-item" @click="logout">
+      <div class="menu-item" @click="handleLogout">
         <ArrowLeftOnRectangleIcon class="icon" />
         <span class="label">Logout</span>
       </div>
@@ -46,7 +46,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { logoutUser } from "@/auth/auth"
+import { logout as logoutAuth } from "@/auth/auth"
 
 import {
   HomeIcon,
@@ -73,9 +73,9 @@ const adminMenu = [
   { label: 'Categories', path: '/categories', icon: FolderIcon }
 ]
 
-function logout() {
-  logoutUser()
-  router.push('/')
+function handleLogout() {
+  logoutAuth()
+  router.push("/")
 }
 </script>
 

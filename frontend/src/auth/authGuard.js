@@ -1,4 +1,5 @@
+import { isAuthenticated as checkAuth } from "./auth"
+
 export function isAuthenticated() {
-  const session = JSON.parse(localStorage.getItem("session"))
-  return session !== null
+  return checkAuth()
 }

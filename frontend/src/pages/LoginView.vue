@@ -49,7 +49,7 @@ import { ref } from 'vue'
 import { useRouter } from "vue-router"
 import { useToast } from "@/composables/useToast"
 import { useLoading } from "@/composables/useLoading"
-import { loginUser } from "@/auth/auth"
+import { login } from "@/auth/auth"
 
 const email = ref('')
 const password = ref('')
@@ -61,32 +61,21 @@ const { show: showLoading, hide: hideLoading } = useLoading()
 async function handleLogin() {
   showLoading("Checking your credentials…")
 
-  await new Promise(resolve => setTimeout(resolve, 1200))
+  try {
+    const session = await login(email.value, password.value)
 
-  const result = await loginUser(email.value, password.value)
+    hideLoading()
 
-  hideLoading()
+    show("Welcome back!", "success")
+    router.push("/dashboard")
+  } catch (error) {
+    hideLoading()
 
-  if (!result.success) {
-    show(result.message, "error")
-    return
+    const message =
+      error.response?.data?.message || "Login failed. Please try again."
+
+    show(message, "error")
   }
-
-  // Construir sessão real
-  const session = {
-    id: result.user.id_utilizador,
-    nome: result.user.nome,
-    email: result.user.email,
-    role: result.user.tipo_utilizador,
-    photo: result.user.fotografia,
-    token: result.token
-  }
-
-  localStorage.setItem("session", JSON.stringify(session))
-
-  show("Welcome back!", "success")
-
-  router.push("/dashboard")
 }
 </script>
 

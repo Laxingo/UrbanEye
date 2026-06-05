@@ -9,12 +9,7 @@ import ProfilePageView from '@/pages/ProfilePageView.vue'
 import ForwardingView from '@/pages/ForwardingView.vue'
 import TeamsView from '@/pages/TeamsView.vue'
 import CategoriesView from '@/pages/CategoriesView.vue'
-
-// Função simples para verificar sessão
-function isAuthenticated() {
-  const session = JSON.parse(localStorage.getItem("session"))
-  return session !== null
-}
+import { isAuthenticated } from "@/auth/auth"
 
 const routes = [
   { path: '/', name: 'login', component: LoginView },
