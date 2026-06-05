@@ -4,98 +4,160 @@
 
     <div class="main">
       <Navbar
-        :avatar="session.photo"
+        :avatar="session.avatar"
         :isUser="true"
-        @open-create-team="showCreateModal = true"
+        @open-create-team="openCreateTeam"
       />
 
       <div class="content">
         <div class="container">
-
           <div class="header-row">
             <h2 class="title">Teams</h2>
           </div>
 
-          <div class="grid">
+          <div v-if="loading" class="empty-state">
+            Loading teams...
+          </div>
+
+          <div v-else-if="teams.length === 0" class="empty-state">
+            No teams found.
+          </div>
+
+          <div v-else class="grid">
             <div class="team-card" v-for="team in teams" :key="team.id">
               <div class="icon-box" :style="{ background: team.color + '22' }">
                 <UsersIcon class="icon" :style="{ color: team.color }" />
               </div>
 
               <h3 class="t-title">{{ team.name }}</h3>
-              <p class="t-category">{{ team.category }}</p>
+              <p class="t-category">{{ team.entityName }}</p>
 
               <div class="info">
-                <p class="line"><UsersIcon class="inline-icon" /> {{ team.members }} members</p>
-                <p class="line"><EnvelopeIcon class="inline-icon" /> {{ team.email }}</p>
-                <p class="line"><PhoneIcon class="inline-icon" /> {{ team.phone }}</p>
+                <p class="line">
+                  <EnvelopeIcon class="inline-icon" />
+                  {{ team.email || "No email" }}
+                </p>
+
+                <p class="line">
+                  <PhoneIcon class="inline-icon" />
+                  {{ team.phone || "No phone" }}
+                </p>
               </div>
 
-              <button class="view-btn" @click="openModal(team)">View</button>
+              <button class="view-btn" @click="openModal(team)">
+                View
+              </button>
             </div>
           </div>
 
+          <p v-if="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </p>
         </div>
       </div>
     </div>
 
-    <!-- CREATE TEAM -->
     <CreateTeamModal
       v-if="showCreateModal"
       @close="showCreateModal = false"
+      @team-created="handleTeamCreated"
     />
 
-    <!-- EDIT TEAM -->
-    <EditTeamModal
-      v-if="showEditModal"
-      :teamData="selectedTeam"
-      @close="showEditModal = false"
-    />
-
-    <!-- VIEW TEAM -->
     <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
       <div class="modal">
         <h2 class="modal-title">{{ selectedTeam.name }}</h2>
-        <p class="modal-desc">{{ selectedTeam.category }}</p>
+        <p class="modal-desc">{{ selectedTeam.entityName }}</p>
 
         <div class="modal-info">
-          <p><strong>Members:</strong> {{ selectedTeam.members }}</p>
-          <p><strong>Email:</strong> {{ selectedTeam.email }}</p>
-          <p><strong>Phone:</strong> {{ selectedTeam.phone }}</p>
-          <p><strong>Handles:</strong> {{ selectedTeam.handles.join(', ') }}</p>
+          <p><strong>Email:</strong> {{ selectedTeam.email || "No email" }}</p>
+          <p><strong>Phone:</strong> {{ selectedTeam.phone || "No phone" }}</p>
+          <p><strong>Entity ID:</strong> {{ selectedTeam.id_entidade }}</p>
         </div>
 
-        <div class="actions">
-          <button class="edit-btn" @click="openEditModal">Edit</button>
-          <button class="delete-btn" @click="deleteTeam">Delete</button>
+        <div v-if="isManager" class="actions">
+          <button class="delete-btn" @click="deleteTeam">
+            Delete
+          </button>
         </div>
 
-        <button class="close-btn" @click="closeModal">Close</button>
+        <button class="close-btn" @click="closeModal">
+          Close
+        </button>
       </div>
     </div>
-
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue"
 
+import api from "@/services/api.js"
+
 import Sidebar from "@/components/Sidebar.vue"
 import Navbar from "@/components/Navbar.vue"
 import CreateTeamModal from "@/components/CreateTeamModal.vue"
-import EditTeamModal from "@/components/EditTeamModal.vue"
 
-import { UsersIcon, EnvelopeIcon, PhoneIcon } from "@heroicons/vue/24/outline"
+import {
+  UsersIcon,
+  EnvelopeIcon,
+  PhoneIcon
+} from "@heroicons/vue/24/outline"
 
 const session = ref({})
 const teams = ref([])
-const categories = ref([])
+const loading = ref(false)
+const errorMessage = ref("")
 
 const showModal = ref(false)
 const showCreateModal = ref(false)
-const showEditModal = ref(false)
-
 const selectedTeam = ref(null)
+
+const isManager = ref(false)
+
+const colors = [
+  "#2D9CDB",
+  "#27AE60",
+  "#F2C94C",
+  "#EB5757",
+  "#9B51E0",
+  "#F2994A"
+]
+
+function mapTeamFromApi(team, index) {
+  const entity = team.ResponsibleEntity || team.responsibleEntity || {}
+
+  return {
+    id: team.id_equipa,
+    id_equipa: team.id_equipa,
+    name: team.nome_equipa,
+    id_entidade: team.id_entidade,
+    entityName: entity.nome_entidade || "Responsible entity",
+    email: entity.email || "",
+    phone: entity.telefone || "",
+    color: colors[index % colors.length]
+  }
+}
+
+async function loadTeams() {
+  loading.value = true
+  errorMessage.value = ""
+
+  try {
+    const response = await api.get("/teams")
+
+    const data = Array.isArray(response.data)
+      ? response.data
+      : response.data.teams || []
+
+    teams.value = data.map(mapTeamFromApi)
+  } catch (error) {
+    console.error("Error loading teams:", error)
+    errorMessage.value =
+      error.response?.data?.message || "Error loading teams."
+  } finally {
+    loading.value = false
+  }
+}
 
 function openModal(team) {
   selectedTeam.value = team
@@ -104,40 +166,47 @@ function openModal(team) {
 
 function closeModal() {
   showModal.value = false
+  selectedTeam.value = null
 }
 
-function openEditModal() {
-  showModal.value = false
-  showEditModal.value = true
+function openCreateTeam() {
+  if (!isManager.value) {
+    errorMessage.value = "You do not have permission to create teams."
+    return
+  }
+
+  showCreateModal.value = true
 }
 
-function deleteTeam() {
-  const stored = JSON.parse(localStorage.getItem("teams")) || []
-  const updated = stored.filter(t => t.id !== selectedTeam.value.id)
+async function deleteTeam() {
+  if (!selectedTeam.value) return
 
-  localStorage.setItem("teams", JSON.stringify(updated))
-  window.dispatchEvent(new Event("teams-updated"))
+  const confirmed = confirm("Are you sure you want to delete this team?")
 
-  showModal.value = false
+  if (!confirmed) return
+
+  try {
+    await api.delete(`/teams/${selectedTeam.value.id}`)
+    closeModal()
+    await loadTeams()
+  } catch (error) {
+    console.error("Error deleting team:", error)
+    errorMessage.value =
+      error.response?.data?.message || "Error deleting team."
+  }
 }
 
-function loadTeams() {
-  const storedTeams = JSON.parse(localStorage.getItem("teams")) || []
-  teams.value = [...storedTeams]
-}
-
-function loadCategories() {
-  categories.value = JSON.parse(localStorage.getItem("categories")) || []
+async function handleTeamCreated() {
+  showCreateModal.value = false
+  await loadTeams()
 }
 
 onMounted(() => {
-  const s = JSON.parse(localStorage.getItem("session"))
-  session.value = s || {}
+  const storedSession = JSON.parse(localStorage.getItem("session"))
+  session.value = storedSession || {}
+  isManager.value = session.value.role === "gestor_municipal"
 
-  loadCategories()
   loadTeams()
-
-  window.addEventListener("teams-updated", loadTeams)
 })
 </script>
 
@@ -168,7 +237,6 @@ onMounted(() => {
   padding: 0 20px;
 }
 
-/* HEADER */
 .header-row {
   display: flex;
   justify-content: space-between;
@@ -180,7 +248,6 @@ onMounted(() => {
   font-weight: 700;
 }
 
-/* GRID */
 .grid {
   margin-top: 30px;
   display: grid;
@@ -188,7 +255,6 @@ onMounted(() => {
   gap: 20px;
 }
 
-/* CARD */
 .team-card {
   background: #111;
   border-radius: 14px;
@@ -255,13 +321,20 @@ onMounted(() => {
   align-self: flex-start;
 }
 
-/* MODAL */
+.empty-state {
+  margin-top: 30px;
+  color: #aaa;
+  font-size: 15px;
+}
+
+.error-message {
+  margin-top: 20px;
+  color: #eb5757;
+}
+
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: rgba(0,0,0,0.75);
   display: flex;
   justify-content: center;
@@ -301,17 +374,6 @@ onMounted(() => {
   margin-top: 14px;
 }
 
-.edit-btn {
-  flex: 1;
-  background: #f2c94c;
-  border: none;
-  padding: 8px;
-  border-radius: 6px;
-  color: #000;
-  font-weight: 600;
-  cursor: pointer;
-}
-
 .delete-btn {
   flex: 1;
   background: #eb5757;
@@ -335,7 +397,6 @@ onMounted(() => {
   font-weight: 600;
 }
 
-/* ANIMATIONS */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }

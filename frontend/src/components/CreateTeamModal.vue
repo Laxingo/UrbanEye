@@ -4,78 +4,70 @@
       <h2 class="modal-title">Create Team</h2>
 
       <div class="form">
-
         <label>Name</label>
         <input v-model="team.name" type="text" />
 
-        <label>Category</label>
-        <select v-model="team.categoryId">
-          <option disabled value="">Select category</option>
-          <option
-            v-for="cat in categories"
-            :key="cat.id"
-            :value="cat.id"
-          >
-            {{ cat.name }}
-          </option>
-        </select>
+        <label>Responsible Entity ID</label>
+        <input v-model.number="team.id_entidade" type="number" />
 
-        <label>Members</label>
-        <input v-model.number="team.members" type="number" />
-
-        <label>Email</label>
-        <input v-model="team.email" type="email" />
-
-        <label>Phone</label>
-        <input v-model="team.phone" type="text" />
+        <p class="helper">
+          Use the ID from the responsible entity table.
+        </p>
       </div>
 
-      <button class="save-btn" @click="saveTeam">Save</button>
-      <button class="close-btn" @click="$emit('close')">Cancel</button>
+      <p v-if="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </p>
+
+      <button class="save-btn" @click="saveTeam" :disabled="loading">
+        {{ loading ? "Saving..." : "Save" }}
+      </button>
+
+      <button class="close-btn" @click="$emit('close')" :disabled="loading">
+        Cancel
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue"
+import { ref } from "vue"
+import api from "@/services/api.js"
 
-const emit = defineEmits(["close"])
-
-const categories = ref([])
+const emit = defineEmits(["close", "team-created"])
 
 const team = ref({
   name: "",
-  categoryId: "",
-  members: 0,
-  email: "",
-  phone: ""
+  id_entidade: null
 })
 
-onMounted(() => {
-  categories.value = JSON.parse(localStorage.getItem("categories")) || []
-})
+const loading = ref(false)
+const errorMessage = ref("")
 
-function saveTeam() {
-  const stored = JSON.parse(localStorage.getItem("teams")) || []
+async function saveTeam() {
+  errorMessage.value = ""
 
-  const category = categories.value.find(c => c.id === team.value.categoryId)
+  if (!team.value.name.trim() || !team.value.id_entidade) {
+    errorMessage.value = "Team name and responsible entity are required."
+    return
+  }
 
-  stored.push({
-    id: Date.now(),
-    name: team.value.name,
-    category: category.name,
-    color: category.color,
-    members: team.value.members,
-    email: team.value.email,
-    phone: team.value.phone,
-    handles: category.handles
-  })
+  loading.value = true
 
-  localStorage.setItem("teams", JSON.stringify(stored))
+  try {
+    await api.post("/teams", {
+      nome_equipa: team.value.name,
+      id_entidade: team.value.id_entidade
+    })
 
-  window.dispatchEvent(new Event("teams-updated"))
-
-  emit("close")
+    emit("team-created")
+  } catch (error) {
+    console.error("Error creating team:", error)
+    errorMessage.value =
+      error.response?.data?.message || "Error creating team."
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 
@@ -118,6 +110,12 @@ input {
   color: #fff;
 }
 
+.helper {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: -4px;
+}
+
 .save-btn {
   width: 100%;
   background: #2d9cdb;
@@ -126,6 +124,7 @@ input {
   border: none;
   color: #fff;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .close-btn {
@@ -135,48 +134,18 @@ input {
   border-radius: 6px;
   border: none;
   color: #fff;
-}
-
-select {
-  background: #222;
-  border: 1px solid #333;
-  padding: 8px;
-  border-radius: 6px;
-  color: #fff;
-  font-size: 14px;
-  appearance: none;
   cursor: pointer;
 }
 
-/* Wrapper para permitir ícone customizado no futuro */
-select:focus {
-  outline: none;
-  border-color: #2d9cdb;
-  background: #1a1a1a;
+.save-btn:disabled,
+.close-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-/* SCROLL DO DROPDOWN */
-select option {
-  background: #111;
-  color: #fff;
+.error-message {
+  color: #eb5757;
+  font-size: 14px;
+  margin-bottom: 12px;
 }
-
-/* SCROLLBAR DO DROPDOWN */
-select::-webkit-scrollbar {
-  width: 8px;
-}
-
-select::-webkit-scrollbar-track {
-  background: #0d0d0d;
-}
-
-select::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
-  border-radius: 10px;
-}
-
-select::-webkit-scrollbar-thumb:hover {
-  background: #3a3a3a;
-}
-
 </style>
