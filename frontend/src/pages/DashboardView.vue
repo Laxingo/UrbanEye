@@ -3,13 +3,14 @@
     <Sidebar />
 
     <div class="main">
-      <Navbar
-        @open-new-event="showNewEvent = true"
-        @search="searchEvents"
-      />
+      <Navbar @open-new-event="startLocationSelection" @search="searchEvents" />
 
       <div class="content">
         <div class="map-area">
+          <div v-if="isSelectingLocation" class="map-instruction">
+            Click on the map to choose the event location
+          </div>
+
           <div id="map" class="map-container"></div>
         </div>
 
@@ -25,28 +26,15 @@
           </div>
 
           <div v-else class="events-list">
-            <EventCard
-              v-for="event in filteredEvents"
-              :key="event.id"
-              v-bind="event"
-              @click="openEventDetails(event)"
-              class="event-clickable"
-            />
+            <EventCard v-for="event in filteredEvents" :key="event.id" v-bind="event" @click="openEventDetails(event)"
+              class="event-clickable" />
           </div>
 
-          <div
-            v-if="!showAllEvents && sortedByDistance.length > 5"
-            @click="showAllEvents = true"
-            class="occ-divider"
-          >
+          <div v-if="!showAllEvents && sortedByDistance.length > 5" @click="showAllEvents = true" class="occ-divider">
             <span>+ occurrences</span>
           </div>
 
-          <div
-            v-if="showAllEvents && sortedByDistance.length > 5"
-            @click="showAllEvents = false"
-            class="occ-divider"
-          >
+          <div v-if="showAllEvents && sortedByDistance.length > 5" @click="showAllEvents = false" class="occ-divider">
             <span>- occurrences</span>
           </div>
 
@@ -58,38 +46,21 @@
     </div>
 
     <NewEventForm
-      v-if="showNewEvent"
-      @close="showNewEvent = false"
-      @submit="handleEventCreated"
-    />
-
-    <EventDetailsModal
-      v-if="showEventDetails && session && selectedEvent"
-      :event="selectedEvent"
-      :isAdmin="isStaff"
-      :currentUserEmail="session.email"
-      @close="showEventDetails = false"
-      @edit="openEditEvent"
-      @delete="deleteEvent"
-      @confirm="confirmEvent"
-      @reject="rejectEvent"
-      @forward="openForwardingModal"
-    />
-
-    <EditEventModal
-      v-if="showEditEvent && selectedEvent"
-      :event="selectedEvent"
-      @close="showEditEvent = false"
-      @save="saveEditedEvent"
-      @forward="openForwardingModal"
-    />
-
-   <CreateForwardingModal
-  v-if="showForwardModal"
-  :event="forwardEventData"
-  @close="showForwardModal = false"
-  @forwarding-created="handleForwardingCreated"
+  v-if="showNewEvent"
+  :initialCoords="selectedMapCoords"
+  @close="closeNewEventForm"
+  @submit="handleEventCreated"
 />
+
+    <EventDetailsModal v-if="showEventDetails && session && selectedEvent" :event="selectedEvent" :isAdmin="isStaff"
+      :currentUserEmail="session.email" @close="showEventDetails = false" @edit="openEditEvent" @delete="deleteEvent"
+      @confirm="confirmEvent" @reject="rejectEvent" @forward="openForwardingModal" />
+
+    <EditEventModal v-if="showEditEvent && selectedEvent" :event="selectedEvent" @close="showEditEvent = false"
+      @save="saveEditedEvent" @forward="openForwardingModal" />
+
+    <CreateForwardingModal v-if="showForwardModal" :event="forwardEventData" @close="showForwardModal = false"
+      @forwarding-created="handleForwardingCreated" />
   </div>
 </template>
 
@@ -130,6 +101,10 @@ const forwardEventData = ref(null)
 
 const searchTerm = ref("")
 const userLocation = ref(null)
+
+const isSelectingLocation = ref(false)
+const selectedMapCoords = ref(null)
+let tempLocationMarker = null
 
 let map = null
 let markerCluster = null
@@ -340,6 +315,8 @@ function initMap() {
     maxZoom: 18
   }).setView([41.3533, -8.7452], 14)
 
+  map.on("click", handleMapLocationClick)
+
   const bounds = L.latLngBounds(
     [41.3300, -8.7900],
     [41.3900, -8.7000]
@@ -531,6 +508,14 @@ async function saveEditedEvent(updated) {
 
 async function handleEventCreated() {
   showNewEvent.value = false
+  selectedMapCoords.value = null
+  isSelectingLocation.value = false
+
+  if (tempLocationMarker && map) {
+    map.removeLayer(tempLocationMarker)
+    tempLocationMarker = null
+  }
+
   await loadEvents()
 }
 
@@ -588,6 +573,56 @@ function distanceInKm(coord1, coord2) {
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 }
 
+
+function startLocationSelection() {
+  isSelectingLocation.value = true
+  showNewEvent.value = false
+  selectedMapCoords.value = null
+
+  if (map) {
+    map.getContainer().style.cursor = "crosshair"
+  }
+}
+
+function closeNewEventForm() {
+  showNewEvent.value = false
+  selectedMapCoords.value = null
+  isSelectingLocation.value = false
+
+  if (tempLocationMarker && map) {
+    map.removeLayer(tempLocationMarker)
+    tempLocationMarker = null
+  }
+
+  if (map) {
+    map.getContainer().style.cursor = ""
+  }
+}
+
+function handleMapLocationClick(event) {
+  if (!isSelectingLocation.value) return
+
+  const { lat, lng } = event.latlng
+
+  selectedMapCoords.value = {
+    latitude: lat,
+    longitude: lng
+  }
+
+  if (tempLocationMarker) {
+    map.removeLayer(tempLocationMarker)
+  }
+
+  tempLocationMarker = L.marker([lat, lng], {
+    icon: createColoredIcon("#2D9CDB")
+  }).addTo(map)
+
+  isSelectingLocation.value = false
+  showNewEvent.value = true
+
+  map.getContainer().style.cursor = ""
+}
+
 onMounted(async () => {
   const storedSession = localStorage.getItem("session")
 
@@ -604,6 +639,7 @@ onMounted(async () => {
   getUserLocation()
   await loadEvents()
 })
+
 </script>
 
 <style scoped>
@@ -642,6 +678,22 @@ onMounted(async () => {
   flex: 2;
   background: #0d0d0d;
   border-right: 1px solid #2a2a2a;
+  position: relative;
+}
+
+.map-instruction {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: #111;
+  border: 1px solid #2d9cdb;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
 }
 
 .map-container {
@@ -760,8 +812,8 @@ onMounted(async () => {
   color: #f2f2f2;
   font-family: 'Inter', sans-serif;
   width: 240px;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
 }
 
 :global(.ue-popup-title) {

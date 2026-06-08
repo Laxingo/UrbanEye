@@ -4,47 +4,22 @@
       <h2 class="title">Create New Event</h2>
 
       <div class="form">
-        <input
-          v-model="form.title"
-          type="text"
-          placeholder="Event Title"
-        />
+        <input v-model="form.title" type="text" placeholder="Event Title" />
 
-        <textarea
-          v-model="form.description"
-          placeholder="Description"
-        ></textarea>
+        <textarea v-model="form.description" placeholder="Description"></textarea>
 
         <select v-model="form.categoryId">
           <option disabled value="">Category</option>
-          <option
-            v-for="category in categories"
-            :key="category.id_categoria"
-            :value="category.id_categoria"
-          >
+          <option v-for="category in categories" :key="category.id_categoria" :value="category.id_categoria">
             {{ category.nome_categoria }}
           </option>
         </select>
 
-        <input
-          v-model="form.location"
-          type="text"
-          placeholder="Location description"
-        />
+        <input v-model="form.location" type="text" placeholder="Location description" />
 
-        <input
-          v-model.number="form.latitude"
-          type="number"
-          step="any"
-          placeholder="Latitude"
-        />
+        <input v-model.number="form.latitude" type="number" step="any" placeholder="Latitude" readonly />
 
-        <input
-          v-model.number="form.longitude"
-          type="number"
-          step="any"
-          placeholder="Longitude"
-        />
+        <input v-model.number="form.longitude" type="number" step="any" placeholder="Longitude" readonly />
 
         <select v-model="form.priority">
           <option disabled value="">Priority</option>
@@ -81,13 +56,20 @@ const categories = ref([])
 const loading = ref(false)
 const errorMessage = ref("")
 
+const props = defineProps({
+  initialCoords: {
+    type: Object,
+    default: null
+  }
+})
+
 const form = ref({
   title: "",
   description: "",
   categoryId: "",
   location: "",
-  latitude: "",
-  longitude: "",
+  latitude: props.initialCoords?.latitude || "",
+  longitude: props.initialCoords?.longitude || "",
   priority: ""
 })
 
@@ -174,7 +156,7 @@ onMounted(() => {
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.65);
+  background: rgba(0, 0, 0, 0.65);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -257,12 +239,24 @@ textarea {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0 }
-  to { opacity: 1 }
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
 }
 
 @keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0 }
-  to { transform: translateY(0); opacity: 1 }
+  from {
+    transform: translateY(20px);
+    opacity: 0
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1
+  }
 }
 </style>
