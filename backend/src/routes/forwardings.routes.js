@@ -1,10 +1,11 @@
 import express from "express";
 
 import {
+  getForwardings,
   createForwarding,
   updateForwarding,
   deleteForwarding,
-} from "../controllers/forwardings.controller.js";
+} from "../controllers/forwardings.controller.js"
 
 import {
   authenticate,
@@ -12,6 +13,13 @@ import {
 } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
+
+router.get(
+  "/forwardings",
+  authenticate,
+  authorizeRoles("moderador", "gestor_municipal", "tecnico"),
+  getForwardings
+)
 
 router.post(
   "/events/:id/forwardings",

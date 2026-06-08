@@ -8353,6 +8353,18 @@
               "body": "{\n    \"success\": false,\n    \"message\": \"Forwarding not found.\"\n}"
             }
           ]
+        },
+        {
+          "name": "New Request",
+          "id": "1cb81f90-9fb5-48c5-bece-1476d5592088",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
         }
       ],
       "id": "8ddc15ed-ce78-492b-9d84-c5af8a0f6691"

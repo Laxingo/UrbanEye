@@ -84,11 +84,12 @@
       @forward="openForwardingModal"
     />
 
-    <CreateForwardingModal
-      v-if="showForwardModal"
-      :event="forwardEventData"
-      @close="showForwardModal = false"
-    />
+   <CreateForwardingModal
+  v-if="showForwardModal"
+  :event="forwardEventData"
+  @close="showForwardModal = false"
+  @forwarding-created="handleForwardingCreated"
+/>
   </div>
 </template>
 
@@ -147,6 +148,11 @@ const categoryColors = {
   Security: "#EB5757",
   Health: "#BB6BD9",
   Default: "#BB6BD9"
+}
+
+async function handleForwardingCreated() {
+  showForwardModal.value = false
+  await loadEvents()
 }
 
 function splitDescription(rawDescription) {

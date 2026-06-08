@@ -1,6 +1,6 @@
-import Event from "../models/event.model.js";
-import Team from "../models/team.model.js";
-import Forwarding from "../models/forwarding.model.js";
+import Event from "../models/event.model.js"
+import Team from "../models/team.model.js"
+import Forwarding from "../models/forwarding.model.js"
 
 export const createForwarding = async (req, res) => {
   try {
@@ -145,3 +145,45 @@ export const deleteForwarding = async (req, res) => {
     });
   }
 };
+
+export const getForwardings = async (req, res) => {
+  try {
+    const forwardings = await Forwarding.findAll({
+      include: [
+        {
+          model: Event,
+          attributes: [
+            "id_evento",
+            "descricao",
+            "estado",
+            "latitude",
+            "longitude",
+            "descricao_local",
+            "id_categoria",
+            "id_utilizador"
+          ]
+        },
+        {
+          model: Team,
+          attributes: [
+            "id_equipa",
+            "nome_equipa",
+            "id_entidade"
+          ]
+        }
+      ],
+      order: [["id_encaminhamento", "DESC"]]
+    })
+
+    return res.status(200).json({
+      success: true,
+      forwardings
+    })
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error fetching forwardings.",
+      error: error.message
+    })
+  }
+}
