@@ -1,5 +1,6 @@
 <template>
-  <div class="event-card" :class="statusClass">
+  <!-- RECEBE O @click DO DASHBOARD -->
+  <div class="event-card" v-bind="$attrs">
     <div class="header">
       <h3 class="title">{{ title }}</h3>
 
@@ -36,9 +37,14 @@
 <script setup>
 import { computed } from 'vue'
 
+/* PERMITE QUE O EVENTCARD RECEBA @click E OUTROS ATRIBUTOS */
+defineOptions({
+  inheritAttrs: false
+})
+
 const props = defineProps({
   title: String,
-  status: String,          // pending | confirmed | rejected
+  status: String,
   description: String,
   location: String,
   date: String,
