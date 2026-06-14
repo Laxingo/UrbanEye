@@ -5,6 +5,7 @@ import {
   notFoundError,
 } from "../utils/error.utils.js";
 
+// Lista equipas juntamente com a entidade responsável.
 export const getTeams = async (req, res, next) => {
   try {
     const teams = await Team.findAll({
@@ -26,6 +27,7 @@ export const getTeams = async (req, res, next) => {
   }
 };
 
+// Cria uma equipa depois de validar a entidade escolhida.
 export const createTeam = async (req, res, next) => {
   try {
     const { nome_equipa, id_entidade } = req.body;
@@ -55,6 +57,7 @@ export const createTeam = async (req, res, next) => {
   }
 };
 
+// Elimina uma equipa existente.
 export const deleteTeam = async (req, res, next) => {
   try {
     const { id } = req.params;

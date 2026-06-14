@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 import Event from "../models/event.model.js";
 
+// Valida o token e coloca o utilizador autenticado no pedido.
 export const authenticate = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
@@ -20,6 +21,7 @@ export const authenticate = async (req, res, next) => {
       process.env.JWT_SECRET || "urbaneye_secret"
     );
 
+    // Vai buscar o utilizador atual para não confiar apenas nos dados do token.
     const user = await User.findByPk(decoded.id_utilizador, {
       attributes: [
         "id_utilizador",
@@ -48,6 +50,7 @@ export const authenticate = async (req, res, next) => {
   }
 };
 
+// Deixa avançar apenas os tipos de utilizador indicados na rota.
 export const authorizeRoles = (...allowedRoles) => {
   return (req, res, next) => {
     if (!req.user) {
@@ -68,6 +71,7 @@ export const authorizeRoles = (...allowedRoles) => {
   };
 };
 
+// Permite acesso ao dono da conta ou ao gestor municipal.
 export const authorizeOwnerOrAdmin = (req, res, next) => {
   const requestedUserId = Number(req.params.id);
   const authenticatedUserId = Number(req.user.id_utilizador);
@@ -87,6 +91,7 @@ export const authorizeOwnerOrAdmin = (req, res, next) => {
   next();
 };
 
+// Permite alterar um evento ao autor, moderador ou gestor municipal.
 export const authorizeEventOwnerOrStaff = async (req, res, next) => {
   try {
     const eventId = Number(req.params.id);
@@ -114,6 +119,7 @@ export const authorizeEventOwnerOrStaff = async (req, res, next) => {
       });
     }
 
+    // Evita voltar a procurar o evento nos passos seguintes.
     req.event = event;
 
     next();

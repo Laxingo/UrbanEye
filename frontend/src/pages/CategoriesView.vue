@@ -123,6 +123,7 @@ const categoryVisuals = [
   { color: "#F2994A", icon: "FireIcon" }
 ]
 
+// Junta os dados da categoria a uma cor e ícone da interface.
 function mapCategoryFromApi(category, index) {
   const visual = categoryVisuals[index % categoryVisuals.length]
 
@@ -136,6 +137,7 @@ function mapCategoryFromApi(category, index) {
   }
 }
 
+// Carrega a lista atual de categorias.
 async function loadCategories() {
   loading.value = true
   errorMessage.value = ""
@@ -157,11 +159,13 @@ async function loadCategories() {
   }
 }
 
+// Abre o formulário com a categoria escolhida.
 function openEditModal(category) {
   selectedCategory.value = category
   showEditModal.value = true
 }
 
+// Remove uma categoria depois da confirmação.
 async function deleteCategory(id) {
   const confirmed = confirm("Are you sure you want to delete this category?")
 

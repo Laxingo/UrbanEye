@@ -43,6 +43,7 @@ const icons = {
   loading: ArrowPathIcon
 }
 
+// Executa a ação opcional e fecha mensagens temporárias.
 function handleClick(toast) {
   if (toast.action) toast.action()
   if (!toast.duration) return // persistente → não fecha ao clicar

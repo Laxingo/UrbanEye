@@ -2,11 +2,12 @@ import { ref } from "vue"
 
 const toasts = ref([])
 
+// Gere as notificações rápidas mostradas no ecrã.
 export function useToast() {
   function show(message, type = "info", options = {}) {
     const id = Date.now()
 
-    // Stack inteligente: máximo 3
+    // Mantém no máximo três mensagens visíveis.
     if (toasts.value.length >= 3) {
       toasts.value.shift()
     }
@@ -21,7 +22,7 @@ export function useToast() {
 
     toasts.value.push(toast)
 
-    // Auto-remove se não for persistente
+    // Remove automaticamente mensagens que não são persistentes.
     if (toast.duration) {
       setTimeout(() => remove(id), toast.duration)
     }

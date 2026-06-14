@@ -50,10 +50,12 @@ const emit = defineEmits(['close', 'save'])
 
 const local = reactive({ ...props.profile })
 
+// Envia os dados editados para a página de perfil.
 function saveChanges() {
   emit('save', { ...local })
 }
 
+// Converte a imagem escolhida para poder ser mostrada e guardada.
 function onPhotoChange(e) {
   const file = e.target.files[0]
   if (!file) return

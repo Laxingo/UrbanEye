@@ -1,4 +1,4 @@
-// controllers/categories.controller.js
+// Gere a criação, edição, listagem e remoção de categorias.
 import { Sequelize } from "sequelize";
 import Category from "../models/category.model.js";
 import Event from "../models/event.model.js";
@@ -9,10 +9,7 @@ import {
   notFoundError,
 } from "../utils/error.utils.js";
 
-/**
- * GET /categories
- * Returns all categories ordered by name
- */
+// Lista todas as categorias por ordem alfabética.
 export async function getCategories(req, res, next) {
   try {
     const categories = await Category.findAll({
@@ -25,10 +22,7 @@ export async function getCategories(req, res, next) {
   }
 }
 
-/**
- * POST /categories
- * Body: { nome_categoria, descricao_categoria? }
- */
+// Cria uma categoria, evitando nomes repetidos.
 export async function createCategory(req, res, next) {
   try {
     const { nome_categoria, descricao_categoria = null } = req.body;
@@ -62,10 +56,7 @@ export async function createCategory(req, res, next) {
   }
 }
 
-/**
- * PATCH /categories/:id
- * Body: { nome_categoria?, descricao_categoria? }
- */
+// Atualiza apenas os campos recebidos para a categoria.
 export async function updateCategory(req, res, next) {
   try {
     const { id } = req.params;
@@ -106,10 +97,7 @@ export async function updateCategory(req, res, next) {
   }
 }
 
-/**
- * DELETE /categories/:id
- * Prevent deletion if category is referenced by events or category-team relations
- */
+// Só elimina categorias que não estejam a ser usadas.
 export async function deleteCategory(req, res, next) {
   try {
     const { id } = req.params;

@@ -13,6 +13,7 @@ import {
 
 const router = express.Router();
 
+// A equipa municipal pode consultar as equipas disponíveis.
 router.get(
   "/",
   authenticate,
@@ -20,6 +21,7 @@ router.get(
   getTeams
 );
 
+// Só gestores municipais podem criar ou remover equipas.
 router.post(
   "/",
   authenticate,

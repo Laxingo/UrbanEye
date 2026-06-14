@@ -123,6 +123,7 @@ const colors = [
   "#F2994A"
 ]
 
+// Adapta cada equipa da API ao cartão mostrado na página.
 function mapTeamFromApi(team, index) {
   const entity = team.ResponsibleEntity || team.responsibleEntity || {}
 
@@ -138,6 +139,7 @@ function mapTeamFromApi(team, index) {
   }
 }
 
+// Carrega a lista atual de equipas.
 async function loadTeams() {
   loading.value = true
   errorMessage.value = ""
@@ -159,6 +161,7 @@ async function loadTeams() {
   }
 }
 
+// Controla o modal com os detalhes da equipa.
 function openModal(team) {
   selectedTeam.value = team
   showModal.value = true
@@ -169,6 +172,7 @@ function closeModal() {
   selectedTeam.value = null
 }
 
+// Abre a criação apenas para gestores municipais.
 function openCreateTeam() {
   if (!isManager.value) {
     errorMessage.value = "You do not have permission to create teams."
@@ -178,6 +182,7 @@ function openCreateTeam() {
   showCreateModal.value = true
 }
 
+// Elimina a equipa selecionada depois da confirmação.
 async function deleteTeam() {
   if (!selectedTeam.value) return
 

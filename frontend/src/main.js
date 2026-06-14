@@ -6,5 +6,5 @@ import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 
 
-
+// Cria a aplicação Vue e liga o sistema de rotas.
 createApp(App).use(router).mount('#app')

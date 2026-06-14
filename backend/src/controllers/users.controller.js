@@ -12,6 +12,7 @@ import {
   generateToken,
 } from "../utils/auth.utils.js";
 
+// Regista um cidadão e protege a password antes de guardar.
 export const createUser = async (req, res, next) => {
   try {
     const { nome, email, password, fotografia } = req.body;
@@ -54,6 +55,7 @@ export const createUser = async (req, res, next) => {
   }
 };
 
+// Valida as credenciais e devolve a sessão ao frontend.
 export const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -95,6 +97,7 @@ export const loginUser = async (req, res, next) => {
   }
 };
 
+// Lista utilizadores sem expor as passwords.
 export const getUsers = async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -117,6 +120,7 @@ export const getUsers = async (req, res, next) => {
   }
 };
 
+// Procura um utilizador específico pelo identificador.
 export const getUserById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -144,6 +148,7 @@ export const getUserById = async (req, res, next) => {
   }
 };
 
+// Atualiza apenas os campos recebidos no pedido.
 export const updateUser = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -165,6 +170,7 @@ export const updateUser = async (req, res, next) => {
       }
     }
 
+    // Apenas gestores municipais podem alterar funções.
     if (tipo_utilizador !== undefined) {
       const currentUserRole = req.user?.role || req.user?.tipo_utilizador;
 
@@ -183,6 +189,7 @@ export const updateUser = async (req, res, next) => {
     if (email !== undefined) user.email = email;
     if (fotografia !== undefined) user.fotografia = fotografia;
 
+    // Uma nova password também tem de ser guardada com hash.
     if (password !== undefined && password !== "") {
       user.password = await hashPassword(password);
     }
@@ -205,6 +212,7 @@ export const updateUser = async (req, res, next) => {
   }
 };
 
+// Remove a conta depois de confirmar que existe.
 export const deleteUser = async (req, res, next) => {
   try {
     const { id } = req.params;

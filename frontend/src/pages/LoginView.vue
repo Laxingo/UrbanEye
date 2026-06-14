@@ -58,6 +58,7 @@ const router = useRouter()
 const { show } = useToast()
 const { show: showLoading, hide: hideLoading } = useLoading()
 
+// Valida o formulário e inicia a sessão.
 async function handleLogin() {
   showLoading("Checking your credentials…")
 

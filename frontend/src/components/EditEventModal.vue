@@ -90,6 +90,7 @@ const errors = reactive({
   date: null
 })
 
+// Confirma os campos obrigatórios antes de guardar.
 function validate() {
   errors.title = local.title?.trim() ? null : "Title is required"
   errors.description = local.description?.trim() ? null : "Description is required"
@@ -105,6 +106,7 @@ watch(local, validate, { deep: true })
 const isValid = computed(() => Object.values(errors).every(e => e === null))
 
 /* FIX: ALWAYS SEND VALID COORDS */
+// Envia os dados editados para o componente pai.
 function save() {
   emit('save', {
     ...local,

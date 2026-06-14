@@ -9,6 +9,7 @@ import CategoryTeam from "./categoryTeam.model.js";
 import Confirmation from "./confirmation.model.js";
 import Forwarding from "./forwarding.model.js";
 
+// Define as relações usadas ao carregar dados associados.
 // Utilizador -> Evento
 User.hasMany(Event, {
   foreignKey: "id_utilizador",
@@ -85,6 +86,7 @@ Forwarding.belongsTo(Team, {
   foreignKey: "id_equipa",
 });
 
+// Exporta a ligação e todos os modelos a partir de um único módulo.
 const db = {
   sequelize,
   User,

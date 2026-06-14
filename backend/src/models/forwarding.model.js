@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
+// Guarda o encaminhamento de um evento para uma equipa.
 const Forwarding = sequelize.define(
   "Forwarding",
   {

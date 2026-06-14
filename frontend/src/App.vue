@@ -4,6 +4,7 @@ import LoadingOverlay from "@/components/LoadingOverlay.vue"
 </script>
 
 <template>
+  <!-- Estrutura base partilhada por todas as páginas. -->
   <router-view />
   <ToastContainer />
   <LoadingOverlay />

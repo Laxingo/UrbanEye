@@ -6,6 +6,7 @@ import {
   notFoundError,
 } from "../utils/error.utils.js";
 
+// Lista eventos com os dados necessários do autor e da categoria.
 export const getEvents = async (req, res, next) => {
   try {
     const events = await Event.findAll({
@@ -30,6 +31,7 @@ export const getEvents = async (req, res, next) => {
   }
 };
 
+// Devolve os detalhes completos de um evento.
 export const getEventById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -60,6 +62,7 @@ export const getEventById = async (req, res, next) => {
   }
 };
 
+// Cria um evento associado ao utilizador autenticado.
 export const createEvent = async (req, res, next) => {
   try {
     const {
@@ -107,6 +110,7 @@ export const createEvent = async (req, res, next) => {
   }
 };
 
+// Atualiza apenas os dados enviados e valida uma nova categoria.
 export const updateEvent = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -154,6 +158,7 @@ export const updateEvent = async (req, res, next) => {
   }
 };
 
+// Apaga um evento existente.
 export const deleteEvent = async (req, res, next) => {
   try {
     const { id } = req.params;

@@ -93,6 +93,7 @@ const profile = ref({
   photo: ""
 })
 
+// Carrega os dados do utilizador da sessão atual.
 onMounted(async () => {
   const session = JSON.parse(localStorage.getItem("session"))
 
@@ -114,6 +115,7 @@ onMounted(async () => {
   }
 })
 
+// Guarda as alterações na API e atualiza também a sessão local.
 async function updateProfile(updated) {
   const response = await api.patch(`/users/${profile.value.id}`, {
     nome: updated.name,

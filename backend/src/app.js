@@ -11,6 +11,7 @@ import { errorHandler } from "./middlewares/error.middleware.js";
 
 const app = express();
 
+// Permite pedidos do frontend e o envio de credenciais.
 app.use(
   cors({
     origin: process.env.FRONTEND_URL || "http://localhost:5173",
@@ -20,6 +21,7 @@ app.use(
 
 app.use(express.json());
 
+// Rota simples para confirmar que a API está online.
 app.get("/api/health", (req, res) => {
   res.status(200).json({
     success: true,
@@ -27,12 +29,15 @@ app.get("/api/health", (req, res) => {
   });
 });
 
+// Liga cada grupo de endpoints às respetivas rotas.
 app.use("/api/users", usersRoutes);
 app.use("/api/categories", categoriesRoutes);
 app.use("/api/events", eventsRoutes);
 app.use("/api", forwardingsRoutes);
 app.use("/api", confirmationsRoutes);
 app.use("/api/teams", teamsRoutes);
+
+// Trata os erros que chegam das rotas num único sítio.
 app.use(errorHandler)
 
 export default app;

@@ -40,6 +40,7 @@ const category = ref({
 const loading = ref(false)
 const errorMessage = ref("")
 
+// Valida e cria uma nova categoria.
 async function saveCategory() {
   errorMessage.value = ""
 

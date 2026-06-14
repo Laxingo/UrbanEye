@@ -40,6 +40,7 @@ const router = useRouter()
 const { show } = useToast()
 const { show: showLoading, hide: hideLoading } = useLoading()
 
+// Simula o pedido de recuperação e avança para a confirmação.
 async function handleRecover() {
   if (!email.value) {
     show("Please enter your email", "warning")

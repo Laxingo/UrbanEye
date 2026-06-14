@@ -6,6 +6,7 @@ import {
   conflictError,
 } from "../utils/error.utils.js";
 
+// Regista a confirmação ou rejeição de um evento por um utilizador.
 export const createConfirmation = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -28,6 +29,7 @@ export const createConfirmation = async (req, res, next) => {
       throw notFoundError("Event");
     }
 
+    // Cada utilizador só pode votar uma vez no mesmo evento.
     const existingConfirmation = await Confirmation.findOne({
       where: {
         id_evento,

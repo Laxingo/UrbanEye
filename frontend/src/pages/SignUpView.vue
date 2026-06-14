@@ -75,6 +75,7 @@ const router = useRouter()
 const { show } = useToast()
 const { show: showLoading, hide: hideLoading } = useLoading()
 
+// Valida os dados e cria uma nova conta.
 async function handleSignup() {
   if (password.value !== confirmPassword.value) {
     show("Passwords do not match", "error")

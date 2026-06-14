@@ -23,6 +23,7 @@
 </template>
 
 <script setup>
+// Simula o reenvio da mensagem de recuperação.
 function resendEmail() {
   console.log("Resend email clicked")
 }

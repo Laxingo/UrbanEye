@@ -16,7 +16,7 @@ const routes = [
   { path: '/recover', name: 'recover', component: RecoverPasswordView },
   { path: '/email-sent', name: 'email-sent', component: EmailSentView },
 
-  // ROTAS PROTEGIDAS
+  // Páginas que só podem ser abertas com sessão iniciada.
   {
     path: '/dashboard',
     name: 'dashboard',
@@ -54,21 +54,21 @@ const router = createRouter({
   routes
 })
 
-// --- PROTEÇÃO DE ROTAS ---
+// Decide os redirecionamentos antes de abrir cada página.
 router.beforeEach((to, from) => {
   const loggedIn = isAuthenticated()
 
-  // Bloqueia rotas protegidas
+  // Bloqueia páginas privadas sem sessão.
   if (to.meta.requiresAuth && !loggedIn) {
     return '/'
   }
 
-  // Evita que utilizadores autenticados voltem ao login/signup
+  // Evita voltar ao login ou registo quando já existe sessão.
   if ((to.path === '/' || to.path === '/signup') && loggedIn) {
     return '/dashboard'
   }
 
-  // Caso contrário, deixa seguir
+  // Nos restantes casos deixa a navegação continuar.
   return true
 })
 

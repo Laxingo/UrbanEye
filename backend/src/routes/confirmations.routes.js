@@ -9,6 +9,7 @@ import {
 
 const router = express.Router();
 
+// Regista a confirmação ou rejeição de um evento autenticado.
 router.post(
   "/events/:id/confirmations",
   authenticate,

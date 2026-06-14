@@ -14,6 +14,7 @@ import {
 
 const router = express.Router();
 
+// Equipa municipal e técnicos podem consultar encaminhamentos.
 router.get(
   "/forwardings",
   authenticate,
@@ -21,6 +22,7 @@ router.get(
   getForwardings
 )
 
+// Moderadores e gestores podem encaminhar eventos.
 router.post(
   "/events/:id/forwardings",
   authenticate,
@@ -28,6 +30,7 @@ router.post(
   createForwarding
 );
 
+// Gestores e técnicos acompanham o estado do trabalho.
 router.patch(
   "/forwardings/:id",
   authenticate,
@@ -35,6 +38,7 @@ router.patch(
   updateForwarding
 );
 
+// Apenas gestores podem remover encaminhamentos.
 router.delete(
   "/forwardings/:id",
   authenticate,

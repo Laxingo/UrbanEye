@@ -131,10 +131,12 @@ const notifications = ref([
   { text: "System check completed", time: "1 hour ago", unread: false }
 ])
 
+// Conta apenas as notificações que ainda não foram lidas.
 const unreadCount = computed(() =>
   notifications.value.filter(n => n.unread).length
 )
 
+// Ações simples do painel de notificações.
 function toggleNotifications() {
   showNotifications.value = !showNotifications.value
 }

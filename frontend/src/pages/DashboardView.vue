@@ -215,6 +215,7 @@ function mapEventFromApi(event) {
   }
 }
 
+// Carrega as categorias usadas nos cartões e formulários.
 async function loadCategories() {
   const response = await api.get("/categories")
 
@@ -223,6 +224,7 @@ async function loadCategories() {
     : response.data.categories || []
 }
 
+// Carrega os eventos e volta a desenhar os pins no mapa.
 async function loadEvents() {
   loading.value = true
   errorMessage.value = ""
@@ -252,6 +254,7 @@ function searchEvents(query) {
   searchTerm.value = query
 }
 
+// Aplica a pesquisa e limita a lista quando não há pesquisa ativa.
 const filteredEvents = computed(() => {
   let list = sortedByDistance.value
 
@@ -270,6 +273,7 @@ const filteredEvents = computed(() => {
   )
 })
 
+// Ordena os eventos pela distância quando há localização disponível.
 const sortedByDistance = computed(() => {
   if (!userLocation.value) return events.value
 
@@ -297,6 +301,7 @@ function createColoredIcon(color) {
   })
 }
 
+// Prepara o mapa Leaflet, limites e agrupamento dos pins.
 function initMap() {
   map = L.map("map", {
     zoomControl: false,
@@ -375,6 +380,7 @@ function addMarker(event) {
   markerRefs.value[event.id] = marker
 }
 
+// Limpa e recria os pins sempre que a lista muda.
 function rebuildMarkers() {
   if (!markerCluster) return
 
@@ -395,6 +401,7 @@ function openEditEvent(event) {
   showEditEvent.value = true
 }
 
+// Remove um evento da API, da lista e do mapa.
 async function deleteEvent(id) {
   const confirmed = confirm("Are you sure you want to delete this event?")
 
@@ -420,6 +427,7 @@ async function deleteEvent(id) {
   }
 }
 
+// Regista a confirmação de um evento.
 async function confirmEvent(event) {
   try {
     await api.post(`/events/${event.id}/confirmations`, {
@@ -444,6 +452,7 @@ async function confirmEvent(event) {
   }
 }
 
+// Regista a rejeição de um evento.
 async function rejectEvent(event) {
   try {
     await api.post(`/events/${event.id}/confirmations`, {
@@ -468,6 +477,7 @@ async function rejectEvent(event) {
   }
 }
 
+// Guarda a edição e atualiza o evento apresentado.
 async function saveEditedEvent(updated) {
   const category = categories.value.find(
     item => item.nome_categoria === updated.category
@@ -524,6 +534,7 @@ function openForwardingModal(event) {
   showForwardModal.value = true
 }
 
+// Pede a localização para mostrar primeiro os eventos mais próximos.
 function getUserLocation() {
   if (!navigator.geolocation) return
 
@@ -558,6 +569,7 @@ function getUserLocation() {
   )
 }
 
+// Calcula a distância aproximada entre dois pontos do mapa.
 function distanceInKm(coord1, coord2) {
   const R = 6371
   const dLat = (coord2[0] - coord1[0]) * Math.PI / 180
@@ -574,6 +586,7 @@ function distanceInKm(coord1, coord2) {
 }
 
 
+// Ativa o modo de escolha de localização para um novo evento.
 function startLocationSelection() {
   isSelectingLocation.value = true
   showNewEvent.value = false

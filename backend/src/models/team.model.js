@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
+// Representa uma equipa ligada a uma entidade responsável.
 const Team = sequelize.define(
   "Team",
   {

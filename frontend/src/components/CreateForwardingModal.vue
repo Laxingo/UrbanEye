@@ -78,11 +78,13 @@ const errors = ref({
   team: null
 })
 
+// Confirma que foi escolhida uma equipa.
 const isValid = computed(() => {
   errors.value.team = selectedTeamId.value ? null : "Team is required"
   return Object.values(errors.value).every(error => error === null)
 })
 
+// Carrega as equipas disponíveis para receber o evento.
 async function loadTeams() {
   try {
     const response = await api.get("/teams")
@@ -97,6 +99,7 @@ async function loadTeams() {
   }
 }
 
+// Cria o encaminhamento escolhido no formulário.
 async function save() {
   if (!isValid.value) return
 

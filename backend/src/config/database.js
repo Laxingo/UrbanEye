@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { Sequelize } from "sequelize";
 
+// Cria a ligação à base de dados com os valores definidos no .env.
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,

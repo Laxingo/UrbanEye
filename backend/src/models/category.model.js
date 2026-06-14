@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
+// Agrupa eventos pelo tipo de problema reportado.
 const Category = sequelize.define(
   "Category",
   {

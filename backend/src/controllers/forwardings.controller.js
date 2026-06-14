@@ -6,6 +6,7 @@ import {
   notFoundError,
 } from "../utils/error.utils.js";
 
+// Encaminha um evento para uma equipa e atualiza o estado do evento.
 export const createForwarding = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -39,6 +40,7 @@ export const createForwarding = async (req, res, next) => {
       estado_encaminhamento: status,
     });
 
+    // Mantém o estado do evento alinhado com o novo encaminhamento.
     event.estado = "encaminhado";
     await event.save();
 
@@ -52,6 +54,7 @@ export const createForwarding = async (req, res, next) => {
   }
 };
 
+// Altera o estado de um encaminhamento já criado.
 export const updateForwarding = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -74,6 +77,7 @@ export const updateForwarding = async (req, res, next) => {
     forwarding.estado_encaminhamento = status;
     await forwarding.save();
 
+    // Ao resolver o encaminhamento, o evento também fica resolvido.
     if (status === "resolvido") {
       const event = await Event.findByPk(forwarding.id_evento);
 
@@ -93,6 +97,7 @@ export const updateForwarding = async (req, res, next) => {
   }
 };
 
+// Remove um encaminhamento específico.
 export const deleteForwarding = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -114,6 +119,7 @@ export const deleteForwarding = async (req, res, next) => {
   }
 };
 
+// Lista os encaminhamentos com os respetivos eventos e equipas.
 export const getForwardings = async (req, res, next) => {
   try {
     const forwardings = await Forwarding.findAll({

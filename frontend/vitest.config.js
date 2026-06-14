@@ -2,6 +2,7 @@ import { fileURLToPath } from 'node:url'
 import { mergeConfig, defineConfig, configDefaults } from 'vitest/config'
 import viteConfig from '../vite.config'
 
+// Reutiliza a configuração do Vite e executa testes num DOM simulado.
 export default mergeConfig(
   viteConfig,
   defineConfig({

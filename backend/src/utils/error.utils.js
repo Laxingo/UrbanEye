@@ -1,3 +1,4 @@
+// Erro controlado da aplicação, com código HTTP e detalhes opcionais.
 export class AppError extends Error {
   constructor(message, statusCode = 500, details = null) {
     super(message)
@@ -9,6 +10,7 @@ export class AppError extends Error {
   }
 }
 
+// Atalhos para criar respostas de erro consistentes.
 export function validationError(message = "Invalid request.", details = null) {
   return new AppError(message, 400, details)
 }

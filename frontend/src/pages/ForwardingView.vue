@@ -147,6 +147,7 @@ function splitDescription(rawDescription) {
     : rawDescription
 }
 
+// Adapta a resposta da API ao formato apresentado na tabela.
 function mapForwardingFromApi(item) {
   const event = item.Event || item.event || {}
   const team = item.Team || item.team || {}
@@ -164,6 +165,7 @@ function mapForwardingFromApi(item) {
   }
 }
 
+// Carrega a lista atual de encaminhamentos.
 async function loadForwardings() {
   loading.value = true
   errorMessage.value = ""
@@ -185,6 +187,7 @@ async function loadForwardings() {
   }
 }
 
+// Controla o modal do encaminhamento selecionado.
 function openModal(item) {
   selectedForwarding.value = item
   showModal.value = true
@@ -195,6 +198,7 @@ function closeModal() {
   showModal.value = false
 }
 
+// Atualiza o estado do encaminhamento na API.
 async function updateStatus(status) {
   if (!selectedForwarding.value) return
 
@@ -212,6 +216,7 @@ async function updateStatus(status) {
   }
 }
 
+// Remove um encaminhamento depois da confirmação.
 async function deleteForwarding(id) {
   const confirmed = confirm("Are you sure you want to delete this forwarding?")
 

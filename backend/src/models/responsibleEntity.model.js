@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
+// Guarda os contactos da entidade responsável por uma equipa.
 const ResponsibleEntity = sequelize.define(
   "ResponsibleEntity",
   {

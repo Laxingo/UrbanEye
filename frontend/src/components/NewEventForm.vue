@@ -73,10 +73,12 @@ const form = ref({
   priority: ""
 })
 
+// Fecha o formulário sem criar um evento.
 function close() {
   emit("close")
 }
 
+// Carrega as categorias disponíveis no formulário.
 async function loadCategories() {
   try {
     const response = await api.get("/categories")
@@ -90,6 +92,7 @@ async function loadCategories() {
   }
 }
 
+// Valida os campos antes de enviar o formulário.
 function validateForm() {
   if (!form.value.title.trim()) return "Event title is required."
   if (!form.value.description.trim()) return "Description is required."
@@ -102,6 +105,7 @@ function validateForm() {
   return null
 }
 
+// Cria o evento e devolve os dados atualizados ao dashboard.
 async function submit() {
   errorMessage.value = ""
 

@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
+// Representa uma ocorrência registada no mapa.
 const Event = sequelize.define(
   "Event",
   {

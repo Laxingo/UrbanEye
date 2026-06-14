@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
+// Tabela intermédia que liga categorias às equipas responsáveis.
 const CategoryTeam = sequelize.define(
   "CategoryTeam",
   {

@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
+// Representa os utilizadores e respetivos níveis de acesso.
 const User = sequelize.define(
   "User",
   {

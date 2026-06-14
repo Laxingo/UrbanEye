@@ -85,10 +85,12 @@ const menuItems = [
   }
 ]
 
+// Mostra cada opção apenas aos tipos de utilizador permitidos.
 function canSee(item) {
   return item.roles.includes(role.value)
 }
 
+// Termina a sessão e volta ao login.
 function handleLogout() {
   logoutAuth()
   router.push("/")

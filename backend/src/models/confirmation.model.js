@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
+// Guarda a confirmação ou rejeição feita por um utilizador.
 const Confirmation = sequelize.define(
   "Confirmation",
   {
@@ -34,6 +35,7 @@ const Confirmation = sequelize.define(
   {
     tableName: "confirmacao",
     timestamps: false,
+    // Impede dois votos do mesmo utilizador no mesmo evento.
     indexes: [
       {
         unique: true,

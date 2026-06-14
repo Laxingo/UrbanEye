@@ -44,6 +44,7 @@ const team = ref({
 const loading = ref(false)
 const errorMessage = ref("")
 
+// Valida e cria uma nova equipa.
 async function saveTeam() {
   errorMessage.value = ""
 

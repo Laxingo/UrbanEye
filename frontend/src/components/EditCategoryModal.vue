@@ -52,6 +52,7 @@ onMounted(() => {
   category.value = { ...props.categoryData }
 })
 
+// Guarda as alterações feitas à categoria.
 async function updateCategory() {
   errorMessage.value = ""
 
