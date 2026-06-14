@@ -1,7 +1,12 @@
 import Event from "../models/event.model.js";
 import Confirmation from "../models/confirmation.model.js";
+import {
+  validationError,
+  notFoundError,
+  conflictError,
+} from "../utils/error.utils.js";
 
-export const createConfirmation = async (req, res) => {
+export const createConfirmation = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { tipo_confirmacao } = req.body;
@@ -10,26 +15,17 @@ export const createConfirmation = async (req, res) => {
     const id_utilizador = req.user.id_utilizador;
 
     if (!tipo_confirmacao) {
-      return res.status(400).json({
-        success: false,
-        message: "Confirmation type is required.",
-      });
+      throw validationError("Confirmation type is required.");
     }
 
     if (!["confirmacao", "rejeicao"].includes(tipo_confirmacao)) {
-      return res.status(400).json({
-        success: false,
-        message: "Confirmation type must be 'confirmacao' or 'rejeicao'.",
-      });
+      throw validationError("Confirmation type must be 'confirmacao' or 'rejeicao'.");
     }
 
     const event = await Event.findByPk(id_evento);
 
     if (!event) {
-      return res.status(404).json({
-        success: false,
-        message: "Event not found.",
-      });
+      throw notFoundError("Event");
     }
 
     const existingConfirmation = await Confirmation.findOne({
@@ -40,10 +36,7 @@ export const createConfirmation = async (req, res) => {
     });
 
     if (existingConfirmation) {
-      return res.status(409).json({
-        success: false,
-        message: "You have already confirmed or rejected this event.",
-      });
+      throw conflictError("You have already confirmed or rejected this event.");
     }
 
     const confirmation = await Confirmation.create({
@@ -58,10 +51,6 @@ export const createConfirmation = async (req, res) => {
       confirmation,
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error creating confirmation.",
-      error: error.message,
-    });
+    next(error);
   }
 };

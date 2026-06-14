@@ -1,8 +1,12 @@
 import Event from "../models/event.model.js";
 import User from "../models/user.model.js";
 import Category from "../models/category.model.js";
+import {
+  validationError,
+  notFoundError,
+} from "../utils/error.utils.js";
 
-export const getEvents = async (req, res) => {
+export const getEvents = async (req, res, next) => {
   try {
     const events = await Event.findAll({
       include: [
@@ -22,15 +26,11 @@ export const getEvents = async (req, res) => {
       events,
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error fetching events.",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-export const getEventById = async (req, res) => {
+export const getEventById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -48,10 +48,7 @@ export const getEventById = async (req, res) => {
     });
 
     if (!event) {
-      return res.status(404).json({
-        success: false,
-        message: "Event not found.",
-      });
+      throw notFoundError("Event");
     }
 
     return res.status(200).json({
@@ -59,15 +56,11 @@ export const getEventById = async (req, res) => {
       event,
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error fetching event.",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-export const createEvent = async (req, res) => {
+export const createEvent = async (req, res, next) => {
   try {
     const {
       descricao,
@@ -79,29 +72,20 @@ export const createEvent = async (req, res) => {
 
     const id_utilizador = req.user.id_utilizador;
 
-    if (!descricao || !latitude || !longitude || !id_categoria) {
-      return res.status(400).json({
-        success: false, 
-        message: "Description, latitude, longitude and category are required.",
-      });
+    if (!descricao || latitude === undefined || longitude === undefined || !id_categoria) {
+      throw validationError("Description, latitude, longitude and category are required.");
     }
 
     const user = await User.findByPk(id_utilizador);
 
     if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found.",
-      });
+      throw notFoundError("User");
     }
 
     const category = await Category.findByPk(id_categoria);
 
     if (!category) {
-      return res.status(404).json({
-        success: false,
-        message: "Category not found.",
-      });
+      throw notFoundError("Category");
     }
 
     const event = await Event.create({
@@ -119,44 +103,44 @@ export const createEvent = async (req, res) => {
       event,
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error creating event.",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-export const updateEvent = async (req, res) => {
+export const updateEvent = async (req, res, next) => {
   try {
     const { id } = req.params;
 
     const event = await Event.findByPk(id);
 
     if (!event) {
-      return res.status(404).json({
-        success: false,
-        message: "Event not found.",
-      });
+      throw notFoundError("Event");
     }
 
-const {
-  descricao,
-  estado,
-  latitude,
-  longitude,
-  descricao_local,
-  id_categoria,
-} = req.body;
+    const {
+      descricao,
+      estado,
+      latitude,
+      longitude,
+      descricao_local,
+      id_categoria,
+    } = req.body;
 
-const id_utilizador = req.user.id_utilizador;
+    if (id_categoria !== undefined) {
+      const category = await Category.findByPk(id_categoria);
+
+      if (!category) {
+        throw notFoundError("Category");
+      }
+
+      event.id_categoria = id_categoria;
+    }
 
     if (descricao !== undefined) event.descricao = descricao;
     if (estado !== undefined) event.estado = estado;
     if (latitude !== undefined) event.latitude = latitude;
     if (longitude !== undefined) event.longitude = longitude;
     if (descricao_local !== undefined) event.descricao_local = descricao_local;
-    if (id_categoria !== undefined) event.id_categoria = id_categoria;
 
     await event.save();
 
@@ -166,25 +150,18 @@ const id_utilizador = req.user.id_utilizador;
       event,
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error updating event.",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-export const deleteEvent = async (req, res) => {
+export const deleteEvent = async (req, res, next) => {
   try {
     const { id } = req.params;
 
     const event = await Event.findByPk(id);
 
     if (!event) {
-      return res.status(404).json({
-        success: false,
-        message: "Event not found.",
-      });
+      throw notFoundError("Event");
     }
 
     await event.destroy();
@@ -194,10 +171,6 @@ export const deleteEvent = async (req, res) => {
       message: "Event deleted successfully.",
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error deleting event.",
-      error: error.message,
-    });
+    next(error);
   }
 };

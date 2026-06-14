@@ -1,8 +1,12 @@
-import Event from "../models/event.model.js"
-import Team from "../models/team.model.js"
-import Forwarding from "../models/forwarding.model.js"
+import Event from "../models/event.model.js";
+import Team from "../models/team.model.js";
+import Forwarding from "../models/forwarding.model.js";
+import {
+  validationError,
+  notFoundError,
+} from "../utils/error.utils.js";
 
-export const createForwarding = async (req, res) => {
+export const createForwarding = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { teamId, status = "pendente" } = req.body;
@@ -10,35 +14,23 @@ export const createForwarding = async (req, res) => {
     const id_evento = Number(id);
 
     if (!teamId) {
-      return res.status(400).json({
-        success: false,
-        message: "Team ID is required.",
-      });
+      throw validationError("Team ID is required.");
     }
 
     if (!["pendente", "em_analise", "resolvido"].includes(status)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid forwarding status.",
-      });
+      throw validationError("Invalid forwarding status.");
     }
 
     const event = await Event.findByPk(id_evento);
 
     if (!event) {
-      return res.status(404).json({
-        success: false,
-        message: "Event not found.",
-      });
+      throw notFoundError("Event");
     }
 
     const team = await Team.findByPk(teamId);
 
     if (!team) {
-      return res.status(404).json({
-        success: false,
-        message: "Team not found.",
-      });
+      throw notFoundError("Team");
     }
 
     const forwarding = await Forwarding.create({
@@ -56,40 +48,27 @@ export const createForwarding = async (req, res) => {
       forwarding,
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error creating forwarding.",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-export const updateForwarding = async (req, res) => {
+export const updateForwarding = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
 
     if (!status) {
-      return res.status(400).json({
-        success: false,
-        message: "Forwarding status is required.",
-      });
+      throw validationError("Forwarding status is required.");
     }
 
     if (!["pendente", "em_analise", "resolvido"].includes(status)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid forwarding status.",
-      });
+      throw validationError("Invalid forwarding status.");
     }
 
     const forwarding = await Forwarding.findByPk(id);
 
     if (!forwarding) {
-      return res.status(404).json({
-        success: false,
-        message: "Forwarding not found.",
-      });
+      throw notFoundError("Forwarding");
     }
 
     forwarding.estado_encaminhamento = status;
@@ -110,25 +89,18 @@ export const updateForwarding = async (req, res) => {
       forwarding,
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error updating forwarding.",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-export const deleteForwarding = async (req, res) => {
+export const deleteForwarding = async (req, res, next) => {
   try {
     const { id } = req.params;
 
     const forwarding = await Forwarding.findByPk(id);
 
     if (!forwarding) {
-      return res.status(404).json({
-        success: false,
-        message: "Forwarding not found.",
-      });
+      throw notFoundError("Forwarding");
     }
 
     await forwarding.destroy();
@@ -138,15 +110,11 @@ export const deleteForwarding = async (req, res) => {
       message: "Forwarding deleted successfully.",
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error deleting forwarding.",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-export const getForwardings = async (req, res) => {
+export const getForwardings = async (req, res, next) => {
   try {
     const forwardings = await Forwarding.findAll({
       include: [
@@ -160,30 +128,26 @@ export const getForwardings = async (req, res) => {
             "longitude",
             "descricao_local",
             "id_categoria",
-            "id_utilizador"
-          ]
+            "id_utilizador",
+          ],
         },
         {
           model: Team,
           attributes: [
             "id_equipa",
             "nome_equipa",
-            "id_entidade"
-          ]
-        }
+            "id_entidade",
+          ],
+        },
       ],
-      order: [["id_encaminhamento", "DESC"]]
-    })
+      order: [["id_encaminhamento", "DESC"]],
+    });
 
     return res.status(200).json({
       success: true,
-      forwardings
-    })
+      forwardings,
+    });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error fetching forwardings.",
-      error: error.message
-    })
+    next(error);
   }
-}
+};

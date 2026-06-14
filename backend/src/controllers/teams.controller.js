@@ -1,7 +1,11 @@
 import Team from "../models/team.model.js";
 import ResponsibleEntity from "../models/responsibleEntity.model.js";
+import {
+  validationError,
+  notFoundError,
+} from "../utils/error.utils.js";
 
-export const getTeams = async (req, res) => {
+export const getTeams = async (req, res, next) => {
   try {
     const teams = await Team.findAll({
       include: [
@@ -18,32 +22,22 @@ export const getTeams = async (req, res) => {
       teams,
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error fetching teams.",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-export const createTeam = async (req, res) => {
+export const createTeam = async (req, res, next) => {
   try {
     const { nome_equipa, id_entidade } = req.body;
 
     if (!nome_equipa || !id_entidade) {
-      return res.status(400).json({
-        success: false,
-        message: "Team name and responsible entity are required.",
-      });
+      throw validationError("Team name and responsible entity are required.");
     }
 
     const responsibleEntity = await ResponsibleEntity.findByPk(id_entidade);
 
     if (!responsibleEntity) {
-      return res.status(404).json({
-        success: false,
-        message: "Responsible entity not found.",
-      });
+      throw notFoundError("Responsible entity");
     }
 
     const team = await Team.create({
@@ -57,25 +51,18 @@ export const createTeam = async (req, res) => {
       team,
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error creating team.",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-export const deleteTeam = async (req, res) => {
+export const deleteTeam = async (req, res, next) => {
   try {
     const { id } = req.params;
 
     const team = await Team.findByPk(id);
 
     if (!team) {
-      return res.status(404).json({
-        success: false,
-        message: "Team not found.",
-      });
+      throw notFoundError("Team");
     }
 
     await team.destroy();
@@ -85,10 +72,6 @@ export const deleteTeam = async (req, res) => {
       message: "Team deleted successfully.",
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error deleting team.",
-      error: error.message,
-    });
+    next(error);
   }
 };

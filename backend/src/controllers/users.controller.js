@@ -1,16 +1,23 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
+import {
+  validationError,
+  unauthorizedError,
+  forbiddenError,
+  notFoundError,
+  conflictError,
+} from "../utils/error.utils.js";
+import {
+  hashPassword,
+  comparePassword,
+  generateToken,
+} from "../utils/auth.utils.js";
 
-export const createUser = async (req, res) => {
+export const createUser = async (req, res, next) => {
   try {
     const { nome, email, password, fotografia } = req.body;
 
     if (!nome || !email || !password) {
-      return res.status(400).json({
-        success: false,
-        message: "Name, email and password are required.",
-      });
+      throw validationError("Name, email and password are required.");
     }
 
     const existingUser = await User.findOne({
@@ -18,13 +25,10 @@ export const createUser = async (req, res) => {
     });
 
     if (existingUser) {
-      return res.status(409).json({
-        success: false,
-        message: "Email already in use.",
-      });
+      throw conflictError("Email already in use.");
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await hashPassword(password);
 
     const user = await User.create({
       nome,
@@ -46,23 +50,16 @@ export const createUser = async (req, res) => {
       },
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error creating user.",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-export const loginUser = async (req, res) => {
+export const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({
-        success: false,
-        message: "Email and password are required.",
-      });
+      throw validationError("Email and password are required.");
     }
 
     const user = await User.findOne({
@@ -70,32 +67,16 @@ export const loginUser = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(401).json({
-        success: false,
-        message: "Invalid credentials.",
-      });
+      throw unauthorizedError("Invalid credentials.");
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await comparePassword(password, user.password);
 
     if (!isPasswordValid) {
-      return res.status(401).json({
-        success: false,
-        message: "Invalid credentials.",
-      });
+      throw unauthorizedError("Invalid credentials.");
     }
 
-    const token = jwt.sign(
-      {
-        id: user.id_utilizador,
-        email: user.email,
-        tipo_utilizador: user.tipo_utilizador,
-      },
-      process.env.JWT_SECRET || "urbaneye_secret",
-      {
-        expiresIn: "7d",
-      }
-    );
+    const token = generateToken(user);
 
     return res.status(200).json({
       success: true,
@@ -110,15 +91,11 @@ export const loginUser = async (req, res) => {
       },
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error logging in.",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-export const getUsers = async (req, res) => {
+export const getUsers = async (req, res, next) => {
   try {
     const users = await User.findAll({
       attributes: [
@@ -136,15 +113,11 @@ export const getUsers = async (req, res) => {
       users,
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error fetching users.",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-export const getUserById = async (req, res) => {
+export const getUserById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -159,10 +132,7 @@ export const getUserById = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found.",
-      });
+      throw notFoundError("User");
     }
 
     return res.status(200).json({
@@ -170,26 +140,19 @@ export const getUserById = async (req, res) => {
       user,
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error fetching user.",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-export const updateUser = async (req, res) => {
+export const updateUser = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { nome, email, password, fotografia } = req.body;
+    const { nome, email, password, fotografia, tipo_utilizador } = req.body;
 
     const user = await User.findByPk(id);
 
     if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found.",
-      });
+      throw notFoundError("User");
     }
 
     if (email && email !== user.email) {
@@ -198,20 +161,30 @@ export const updateUser = async (req, res) => {
       });
 
       if (existingUser) {
-        return res.status(409).json({
-          success: false,
-          message: "Email already in use.",
-        });
+        throw conflictError("Email already in use.");
       }
+    }
+
+    if (tipo_utilizador !== undefined) {
+      const currentUserRole = req.user?.role || req.user?.tipo_utilizador;
+
+      if (currentUserRole !== "gestor_municipal") {
+        throw forbiddenError("Only municipal managers can update user roles.");
+      }
+
+      if (!["cidadao", "moderador", "gestor_municipal", "tecnico"].includes(tipo_utilizador)) {
+        throw validationError("Invalid user role.");
+      }
+
+      user.tipo_utilizador = tipo_utilizador;
     }
 
     if (nome !== undefined) user.nome = nome;
     if (email !== undefined) user.email = email;
-    if (tipo_utilizador !== undefined) user.tipo_utilizador = tipo_utilizador;
     if (fotografia !== undefined) user.fotografia = fotografia;
 
     if (password !== undefined && password !== "") {
-      user.password = await bcrypt.hash(password, 10);
+      user.password = await hashPassword(password);
     }
 
     await user.save();
@@ -228,25 +201,18 @@ export const updateUser = async (req, res) => {
       },
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error updating user.",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-export const deleteUser = async (req, res) => {
+export const deleteUser = async (req, res, next) => {
   try {
     const { id } = req.params;
 
     const user = await User.findByPk(id);
 
     if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found.",
-      });
+      throw notFoundError("User");
     }
 
     await user.destroy();
@@ -256,10 +222,6 @@ export const deleteUser = async (req, res) => {
       message: "User deleted successfully.",
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error deleting user.",
-      error: error.message,
-    });
+    next(error);
   }
 };
