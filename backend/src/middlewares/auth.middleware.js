@@ -20,7 +20,7 @@ export const authenticate = async (req, res, next) => {
       process.env.JWT_SECRET || "urbaneye_secret"
     );
 
-    const user = await User.findByPk(decoded.id, {
+    const user = await User.findByPk(decoded.id_utilizador, {
       attributes: [
         "id_utilizador",
         "nome",

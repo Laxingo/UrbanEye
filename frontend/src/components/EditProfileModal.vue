@@ -27,15 +27,6 @@
           <input v-model="local.email" type="email" placeholder="Enter email address" />
         </label>
 
-        <label>
-          Phone
-          <input v-model="local.phone" type="text" placeholder="Enter phone number" />
-        </label>
-
-        <label>
-          Location
-          <input v-model="local.location" type="text" placeholder="Enter location" />
-        </label>
       </div>
 
       <!-- ACTIONS -->

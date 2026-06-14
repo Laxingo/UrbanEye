@@ -37,13 +37,7 @@
               </div>
             </div>
 
-            <div class="detail-item">
-              <PhoneIcon class="detail-icon" />
-              <div>
-                <strong>Phone</strong>
-                <p>{{ profile.phone }}</p>
-              </div>
-            </div>
+
 
             <div class="detail-item">
               <BuildingOfficeIcon class="detail-icon" />
@@ -53,21 +47,6 @@
               </div>
             </div>
 
-            <div class="detail-item">
-              <MapPinIcon class="detail-icon" />
-              <div>
-                <strong>Location</strong>
-                <p>{{ profile.location }}</p>
-              </div>
-            </div>
-
-            <div class="detail-item">
-              <CalendarIcon class="detail-icon" />
-              <div>
-                <strong>Member since</strong>
-                <p>{{ profile.memberSince }}</p>
-              </div>
-            </div>
           </div>
 
         </div>
@@ -85,68 +64,84 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue"
+import { useRouter } from "vue-router"
 
-import Sidebar from '@/components/Sidebar.vue'
-import Navbar from '@/components/Navbar.vue'
-import EditProfileModal from '@/components/EditProfileModal.vue'
+import Sidebar from "@/components/Sidebar.vue"
+import Navbar from "@/components/Navbar.vue"
+import EditProfileModal from "@/components/EditProfileModal.vue"
+
+import api from "@/services/api"
 
 import {
   EnvelopeIcon,
-  PhoneIcon,
   BuildingOfficeIcon,
   MapPinIcon,
   CalendarIcon
-} from '@heroicons/vue/24/outline'
+} from "@heroicons/vue/24/outline"
+
+const router = useRouter()
 
 const showEditModal = ref(false)
+
 const profile = ref({
+  id: null,
   name: "",
   role: "",
   email: "",
-  phone: "",
   department: "",
-  location: "",
-  memberSince: "",
   photo: ""
 })
 
-// 🔥 Carregar sessão real do localStorage
-onMounted(() => {
+onMounted(async () => {
   const session = JSON.parse(localStorage.getItem("session"))
 
-  if (session) {
-    profile.value = {
-      name: session.name || "User",
-      role: session.role || "User",
-      email: session.email,
-      phone: session.phone || "Not provided",
-      department: session.department || "Not assigned",
-      location: session.location || "Not assigned",
-      memberSince: session.memberSince || "Unknown",
-      photo: session.photo || null
-    }
+  if (!session?.id) {
+    router.push("/")
+    return
+  }
+
+  const response = await api.get(`/users/${session.id}`)
+  const user = response.data.user
+
+  profile.value = {
+    id: user.id_utilizador,
+    name: user.nome || "User",
+    role: user.tipo_utilizador || "User",
+    email: user.email,
+    department: user.tipo_utilizador || "Not assigned",
+    photo: user.fotografia || null
   }
 })
 
-// 🔥 Atualizar perfil + localStorage
-function updateProfile(updated) {
-  profile.value = { ...profile.value, ...updated }
+async function updateProfile(updated) {
+  const response = await api.patch(`/users/${profile.value.id}`, {
+    nome: updated.name,
+    email: updated.email,
+    fotografia: updated.photo
+  })
 
-  // Atualizar sessão no localStorage
-  const session = JSON.parse(localStorage.getItem("session")) || {}
-  const newSession = { ...session, ...updated }
+  const user = response.data.user
 
-  localStorage.setItem("session", JSON.stringify(newSession))
-
-  // Atualizar lista de utilizadores (se existir)
-  const users = JSON.parse(localStorage.getItem("users")) || []
-  const index = users.findIndex(u => u.email === newSession.email)
-
-  if (index !== -1) {
-    users[index] = { ...users[index], ...updated }
-    localStorage.setItem("users", JSON.stringify(users))
+  profile.value = {
+    ...profile.value,
+    name: user.nome,
+    email: user.email,
+    role: user.tipo_utilizador,
+    photo: user.fotografia
   }
+
+  const session = JSON.parse(localStorage.getItem("session")) || {}
+
+  const updatedSession = {
+    ...session,
+    name: user.nome,
+    email: user.email,
+    role: user.tipo_utilizador,
+    avatar: user.fotografia
+  }
+
+  localStorage.setItem("session", JSON.stringify(updatedSession))
 
   showEditModal.value = false
 }
