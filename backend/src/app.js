@@ -31,10 +31,10 @@ app.get("/api/health", (req, res) => {
 
 // Liga cada grupo de endpoints às respetivas rotas.
 app.use("/api/users", usersRoutes);
-app.use("/api/categories", categoriesRoutes);
+app.use("/api/categories", categoriesRoutes); 
 app.use("/api/events", eventsRoutes);
 app.use("/api", forwardingsRoutes);
-app.use("/api", confirmationsRoutes);
+app.use("/api", confirmationsRoutes);  po
 app.use("/api/teams", teamsRoutes);
 
 // Trata os erros que chegam das rotas num único sítio.
